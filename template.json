@@ -1,0 +1,79 @@
+{
+  "Actor": {
+    "types": ["character", "npc"],
+    "templates": {
+      "base": {
+        "health": {
+          "value": 8,
+          "min": 0,
+          "max": 8
+        },
+        "mind": {
+          "value": 8,
+          "min": 0,
+          "max": 8
+        },
+        "biography": ""
+      }
+    },
+    "character": {
+      "templates": ["base"],
+      "attributes": {
+        "level": {
+          "value": 1
+        }
+      },
+      "abilities": {
+        "str": {
+          "value": 4
+        },
+        "dex": {
+          "value": 4
+        },
+        "int": {
+          "value": 4
+        },
+        "spi": {
+          "value": 4
+        }
+      }
+    },
+    "npc": {
+      "templates": ["base"],
+      "cr": 0
+    }
+  },
+  "Item": {
+    "types": ["item", "feature", "spell", "weapon"],
+    "templates": {
+      "base": {
+        "description": ""
+      },
+      "sellable": {
+        "price": 0,
+        "origin": ""
+      }
+    },
+    "item": {
+      "templates": ["base", "sellable"],
+      "quantity": 1,
+      "weight": 0
+    },
+    "feature": {
+      "templates": ["base"]
+    },
+    "spell": {
+      "templates": ["base"],
+      "spellLevel": 1,
+      "cost": 0,
+      "duration": 0
+    },
+    "weapon": {
+      "templates": ["base", "sellable"],
+      "weight": 1,
+      "hands": 1,
+      "damage_formula": "",
+      "price": 0
+    }
+  }
+}
