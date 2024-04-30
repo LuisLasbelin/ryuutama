@@ -17,7 +17,9 @@
       },
       "Weapon": {
         "AttackRoll": "Attack roll",
-        "DamageRoll": "Damage roll"
+        "DamageRoll": "Damage roll",
+        "AttacksWith": "attacks with",
+        "DamageDealt": " damage"
       }
     },
     "Effect": {

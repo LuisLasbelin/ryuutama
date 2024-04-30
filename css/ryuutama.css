@@ -10,6 +10,10 @@
   cursor: pointer;
 }
 
+img {
+  border: 0;
+}
+
 .grid,
 .grid-2col {
   display: grid;
