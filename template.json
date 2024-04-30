@@ -72,7 +72,15 @@
       "templates": ["base", "sellable"],
       "weight": 1,
       "hands": 1,
-      "damage_formula": "",
+      "attack_formula": {
+        "roll1": "Str",
+        "roll2": "Dex",
+        "diceBonus": "0"
+      },
+      "damage_formula": {
+        "roll1": "Str",
+        "diceBonus": 0
+      },
       "price": 0
     }
   }

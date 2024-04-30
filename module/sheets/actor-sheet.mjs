@@ -100,6 +100,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
+    const weapons = [];
     const spells = {
       1: [],
       2: [],
@@ -123,12 +124,16 @@ export class RyuutamaActorSheet extends ActorSheet {
           spells[i.system.spellLevel].push(i);
         }
       }
+      else if (i.type === "weapon") {
+        weapons.push(i)
+      }
     }
 
     // Assign and return
     context.gear = gear;
     context.features = features;
     context.spells = spells;
+    context.weapons = weapons;
   }
 
   /* -------------------------------------------- */

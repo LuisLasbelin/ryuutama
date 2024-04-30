@@ -55,7 +55,16 @@ export class RyuutamaItemSheet extends ItemSheet {
     // Prepare active effects for easier access
     context.effects = prepareActiveEffectCategories(this.item.effects);
 
+    // Prepare character data and items.
+    if (itemData.type == 'weapon') {
+      this._prepareWeaponData(context);
+    }
+
     return context;
+  }
+
+  _prepareWeaponData(context) {
+    // Unused
   }
 
   /* -------------------------------------------- */
