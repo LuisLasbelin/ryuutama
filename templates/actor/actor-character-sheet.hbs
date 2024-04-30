@@ -63,19 +63,19 @@
           {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
-          <button class="edit_abilities">Edit abilities</button>
           <div class="abilities flexcol">
             {{#each system.abilities as |ability key|}}
             <div class="ability flexcol flex-group-center">
-              <label for="system.abilities.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d{{ability.value}}" data-label="{{ability.label}}">{{ability.label}} ({{ability.short}})</label>
+              <label for="system.abilities.{{key}}.value" class="ability-roll resource-label flexlarge align-left" data-roll="d{{ability.value}}" data-label="{{ability.label}}">{{ability.label}} ({{ability.short}})</label>
               <div class="flexrow">
                 <label class="ability-dice" for="system.abilities.{{key}}.value">d{{ability.value}}
-                <img src={{ability.icon}} width="32" height="32"/>
+                <img class="ability-roll" src={{ability.icon}} width="32" height="32"/>
                 </label>
               </div>
             </div>
             {{/each}}
           </div>
+          <button on class="edit_abilities">Edit abilities</button>
         </aside>
 
         {{!-- For the main features list, span the right two columns --}}

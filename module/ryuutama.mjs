@@ -29,7 +29,7 @@ Hooks.once('init', function () {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: '1d20 + @abilities.dex.mod',
+    formula: '1d20 + @abilities.Dex.mod',
     decimals: 2,
   };
 
@@ -63,8 +63,8 @@ Hooks.once('init', function () {
 /* -------------------------------------------- */
 
 // If you need to add Handlebars helpers, here is a useful example:
-Handlebars.registerHelper('toLowerCase', function (str) {
-  return str.toLowerCase();
+Handlebars.registerHelper('toLowerCase', function (Str) {
+  return Str.toLowerCase();
 });
 
 /* -------------------------------------------- */

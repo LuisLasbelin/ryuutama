@@ -24,21 +24,21 @@ class EditAbilitiesApp extends FormApplication {
   async _updateObject(event, formData) {
     console.log(formData)
     const values = {
-      str : {
-        value : parseInt(formData.str)
+      Str: {
+        value: parseInt(formData.Str)
       },
-      dex : {
-        value : parseInt(formData.dex)
+      Dex: {
+        value: parseInt(formData.Dex)
       },
-      int : {
-        value : parseInt(formData.int)
+      Int: {
+        value: parseInt(formData.Int)
       },
-      spi : {
-        value : parseInt(formData.spi)
+      Spi: {
+        value: parseInt(formData.Spi)
       }
     }
     return this.object._updateAbilities(values)
   }
 }
 
-export {EditAbilitiesApp}
+export { EditAbilitiesApp }

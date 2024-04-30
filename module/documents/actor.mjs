@@ -54,8 +54,8 @@ export class RyuutamaActor extends Actor {
     }
 
     // Values for max hp and max mp
-    systemData.health.max = systemData.abilities.str.value * 2
-    systemData.mind.max = systemData.abilities.spi.value * 2
+    systemData.health.max = systemData.abilities.Str.value * 2
+    systemData.mind.max = systemData.abilities.Spi.value * 2
   }
 
   /**
@@ -90,7 +90,7 @@ export class RyuutamaActor extends Actor {
     if (this.type !== 'character') return;
 
     // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
+    // formulas like `@Str.mod + 4`.
     if (data.abilities) {
       for (let [k, v] of Object.entries(data.abilities)) {
         data[k] = foundry.utils.deepClone(v);
@@ -117,8 +117,7 @@ export class RyuutamaActor extends Actor {
       system: {
         abilities: abilities
       }
-    }
-    )
+    })
     this.render(true)
   }
 }

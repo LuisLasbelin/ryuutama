@@ -24,16 +24,16 @@
         }
       },
       "abilities": {
-        "str": {
+        "Str": {
           "value": 4
         },
-        "dex": {
+        "Dex": {
           "value": 4
         },
-        "int": {
+        "Int": {
           "value": 4
         },
-        "spi": {
+        "Spi": {
           "value": 4
         }
       }
