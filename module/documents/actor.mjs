@@ -52,6 +52,10 @@ export class RyuutamaActor extends Actor {
       // Calculate the modifier using d20 rules.
       // ability.mod = Math.floor((ability.value - 10) / 2);
     }
+
+    // Values for max hp and max mp
+    systemData.health.max = systemData.abilities.str.value * 2
+    systemData.mind.max = systemData.abilities.spi.value * 2
   }
 
   /**
@@ -106,5 +110,10 @@ export class RyuutamaActor extends Actor {
     if (this.type !== 'npc') return;
 
     // Process additional NPC data here.
+  }
+
+  _updateAbilities(abilities) {
+    this.system.abilities = abilities
+    this.render(true)
   }
 }

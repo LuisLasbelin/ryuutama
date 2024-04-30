@@ -3,6 +3,8 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
+import {EditAbilitiesApp} from '../documents/edit_stats_app.mjs'
+
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -166,6 +168,7 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.on('click', '.rollable', this._onRoll.bind(this));
+    html.on('click', '.edit_abilities', this._openEditAbilitiesApp.bind(this));
 
     // Drag events for macros.
     if (this.actor.isOwner) {
@@ -235,5 +238,18 @@ export class RyuutamaActorSheet extends ActorSheet {
       });
       return roll;
     }
+  }
+
+  /**
+   * Open the edit stats app
+   * @param {Event} event   The originating click event
+   * @private
+   */
+  _openEditAbilitiesApp(event) {
+    return new EditAbilitiesApp(this.actor).render(true);
+  }
+
+  _updateAbilities(abilities) {
+    this.actor.abilities = abilities
   }
 }
