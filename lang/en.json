@@ -1,10 +1,10 @@
 {
   "RYUUTAMA": {
     "Ability": {
-      "Str": { "long": "Strength", "abbr": "str" },
-      "Dex": { "long": "Dexterity", "abbr": "dex" },
-      "Int": { "long": "Intelligence", "abbr": "int" },
-      "Spi": { "long": "Spirit", "abbr": "spi" }
+      "Str": { "long": "Strength", "abbr": "STR" },
+      "Dex": { "long": "Dexterity", "abbr": "DEX" },
+      "Int": { "long": "Intelligence", "abbr": "INT" },
+      "Spi": { "long": "Spirit", "abbr": "SPI" }
     },
     "SheetLabels": {
       "Actor": "Ryuutama Actor Sheet",

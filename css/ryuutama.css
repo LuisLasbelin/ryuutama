@@ -249,6 +249,20 @@
 .ryuutama .tox .tox-edit-area {
   padding: 0 8px;
 }
+.ryuutama .ability {
+  margin: 8px;
+  font-size: larger;
+}
+.ryuutama .ability-dice {
+  display: flex;
+  font-size: x-large;
+  justify-content: space-between;
+  align-items: center;
+}
+.ryuutama .ability-dice img {
+  border: 0;
+  margin-left: 12px;
+}
 .ryuutama .resource-label {
   font-weight: bold;
 }
@@ -364,3 +378,5 @@
 .ryuutama .effects .item .effect-controls {
   border: none;
 }
+
+/*# sourceMappingURL=ryuutama.css.map */

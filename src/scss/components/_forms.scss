@@ -53,3 +53,20 @@
     padding: 0 8px;
   }
 }
+
+.ability {
+  margin: 8px;
+  font-size: larger;
+}
+
+.ability-dice {
+  display: flex;
+  font-size: x-large;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    border: 0;
+    margin-left: 12px;
+  }
+}

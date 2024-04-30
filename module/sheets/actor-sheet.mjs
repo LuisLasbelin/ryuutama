@@ -83,6 +83,8 @@ export class RyuutamaActorSheet extends ActorSheet {
     // Handle ability scores.
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.RYUUTAMA.abilities[k]) ?? k;
+      v.short = game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[k]) ?? k;
+      v.icon = 'systems/ryuutama/assets/' + k + '_icon.png'
     }
   }
 
@@ -247,9 +249,5 @@ export class RyuutamaActorSheet extends ActorSheet {
    */
   _openEditAbilitiesApp(event) {
     return new EditAbilitiesApp(this.actor).render(true);
-  }
-
-  _updateAbilities(abilities) {
-    this.actor.abilities = abilities
   }
 }
