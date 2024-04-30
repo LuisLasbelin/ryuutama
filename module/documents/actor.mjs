@@ -113,7 +113,12 @@ export class RyuutamaActor extends Actor {
   }
 
   _updateAbilities(abilities) {
-    this.system.abilities = abilities
+    this.update({
+      system: {
+        abilities: abilities
+      }
+    }
+    )
     this.render(true)
   }
 }
