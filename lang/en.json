@@ -12,8 +12,32 @@
     },
     "Item": {
       "Spell": {
+        "Level": "Level",
         "SpellLVL": "Level {level} Spells",
-        "AddLVL": "Add LVL {level}"
+        "EnchantmentLVL": "Level {level} Enchantments",
+        "AddLVL": "Add LVL {level}",
+        "LowLevel": "Low level",
+        "MidLevel": "Medium level",
+        "HighLevel": "High level",
+        "Type": "Magic Type",
+        "Enchantment": "Enchantment",
+        "Spring": "Spring",
+        "Summer": "Summer",
+        "Autumn": "Autumn",
+        "Winter": "Winter",
+        "Cost": "MP cost",
+        "Duration": "Duration",
+        "Distance": "Distance",
+        "Caster": "Caster",
+        "Touch": "Touch",
+        "AnyArea": "Any area",
+        "CloseArea": "Close area",
+        "AllAreas": "All areas",
+        "Watch": "On watch",
+        "Undefined": "??",
+        "Ritual": "Ritual",
+        "Target": "Target",
+        "IsRoll": "Has a roll"
       },
       "Weapon": {
         "AttackRoll": "Attack roll",

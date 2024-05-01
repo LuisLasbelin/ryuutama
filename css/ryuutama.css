@@ -269,6 +269,11 @@ img {
 }
 .ryuutama .resource-label {
   font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.ryuutama .resource {
+  margin: 8px;
 }
 .ryuutama .items-header {
   height: 28px;

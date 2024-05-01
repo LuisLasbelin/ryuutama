@@ -1,3 +1,9 @@
 .resource-label {
   font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.resource {
+  margin: 8px;
 }

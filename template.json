@@ -73,9 +73,19 @@
     },
     "spell": {
       "templates": ["base"],
-      "spellLevel": 1,
+      "spellLevel": "1",
       "cost": 0,
-      "duration": 0
+      "duration": "",
+      "target": "",
+      "distance": "",
+      "ritual": false,
+      "spellType": "enchantment",
+      "isRoll": false,
+      "formula": {
+        "roll1": "Str",
+        "roll2": "Dex",
+        "diceBonus": "0"
+      }
     },
     "weapon": {
       "templates": ["base", "sellable"],

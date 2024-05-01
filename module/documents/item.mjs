@@ -42,14 +42,14 @@ export class RyuutamaItem extends Item {
     const rollMode = game.settings.get('core', 'rollMode');
 
     // If there's no attack formula, send a chat message.
-    if (this.system.attack_formula) {
+    if (item.type === "weapon") {
       // Retrieve roll data.
       const rollData = this.getRollData();
-      const attack_label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>` + item.system.description;
-      let attack_roll_string = `d${this.actor.system.abilities[rollData.attack_formula.roll1].value}+d${this.actor.system.abilities[rollData.attack_formula.roll2].value}+${rollData.attack_formula.diceBonus}`
+      const attack_label = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>` + item.system.description;
+      let attack_roll_string = `d${item.actor.system.abilities[rollData.attack_formula.roll1].value}+d${item.actor.system.abilities[rollData.attack_formula.roll2].value}+${rollData.attack_formula.diceBonus}`
       const attack_roll = new Roll(attack_roll_string, rollData);
       const damage_label = `<h2>${item.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.DamageDealt')}</h2>`;
-      let damage_roll_string = `d${this.actor.system.abilities[rollData.damage_formula.roll1].value}+${rollData.damage_formula.diceBonus}`
+      let damage_roll_string = `d${item.actor.system.abilities[rollData.damage_formula.roll1].value}+${rollData.damage_formula.diceBonus}`
       const damage_roll = new Roll(damage_roll_string, rollData);
       // Invoke the roll and submit it to chat.
       await damage_roll.evaluate()
@@ -65,11 +65,11 @@ export class RyuutamaItem extends Item {
         flavor: damage_label,
       })
       return;
-    }
-    if (this.system.formula) {
+    } // if has attack
+    if (item.type === "feature") {
       const rollData = this.getRollData();
-      const label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Feature.Uses')} ${item.name}</h2>` + item.system.description;
-      let roll_string = `d${this.actor.system.abilities[rollData.formula.roll1].value}+d${this.actor.system.abilities[rollData.formula.roll2].value}+${rollData.formula.diceBonus}`
+      const label = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Feature.Uses')} ${item.name}</h2>` + item.system.description;
+      let roll_string = `d${item.actor.system.abilities[rollData.formula.roll1].value}+d${item.actor.system.abilities[rollData.formula.roll2].value}+${rollData.formula.diceBonus}`
       const roll = new Roll(roll_string, rollData);
       await roll.evaluate()
       roll.toMessage({
@@ -78,13 +78,39 @@ export class RyuutamaItem extends Item {
         flavor: label,
       })
       return;
-    }
-    const label = `<h2>${item.name}</h2>`;
+    } // if has a formula from features
+    if (item.type === "spell") {
+      // Add descriptors to the content
+      const label = `<h2>${item.name}</h2>` + item.system.description + `
+      <div><img style="filter: invert(100%);" src="icons/svg/aura.svg" width="12px" height="12px"/> <b>${game.i18n.localize('RYUUTAMA.Item.Spell.Cost')}</b> : ${item.system.cost}</div>
+      <div><img style="filter: invert(100%);" src="icons/svg/clockwork.svg" width="12px" height="12px"/> <b>${game.i18n.localize('RYUUTAMA.Item.Spell.Duration')}</b> : ${item.system.duration}</div>
+      <div><img style="filter: invert(100%);" src="icons/svg/target.svg" width="12px" height="12px"/> <b>${game.i18n.localize('RYUUTAMA.Item.Spell.Target')}</b> : ${item.system.target}</div>
+      <div><img style="filter: invert(100%);" src="icons/svg/stone-path.svg" width="12px" height="12px"/> <b>${game.i18n.localize('RYUUTAMA.Item.Spell.Distance')}</b> : ${item.system.distance}</div>
+      `
+      if (item.system.isRoll) {
+        const rollData = this.getRollData();
+        let roll_string = `d${item.actor.system.abilities[rollData.formula.roll1].value}+d${item.actor.system.abilities[rollData.formula.roll2].value}+${rollData.formula.diceBonus}`
+        const roll = new Roll(roll_string, rollData);
+        await roll.evaluate()
+        roll.toMessage({
+          speaker: speaker,
+          rollMode: rollMode,
+          flavor: label,
+        })
+        return
+      }
+      ChatMessage.create({
+        speaker: speaker,
+        rollMode: rollMode,
+        content: label
+      });
+      return;
+    } // if spell
     ChatMessage.create({
       speaker: speaker,
       rollMode: rollMode,
-      flavor: label,
-      content: item.system.description ?? '',
+      flavor: `<h2>${item.name}</h2>`,
+      content: item.system.description ?? ''
     });
     return;
   }

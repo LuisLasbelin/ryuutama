@@ -106,6 +106,11 @@ export class RyuutamaActorSheet extends ActorSheet {
       2: [],
       3: []
     };
+    const enchantments = {
+      1: [],
+      2: [],
+      3: []
+    };
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -121,7 +126,12 @@ export class RyuutamaActorSheet extends ActorSheet {
       // Append to spells.
       else if (i.type === 'spell') {
         if (i.system.spellLevel != undefined) {
-          spells[i.system.spellLevel].push(i);
+          if (i.system.spellType === "enchantment") {
+            enchantments[i.system.spellLevel].push(i);
+          }
+          else {
+            spells[i.system.spellLevel].push(i);
+          }
         }
       }
       else if (i.type === "weapon") {
@@ -129,10 +139,13 @@ export class RyuutamaActorSheet extends ActorSheet {
       }
     }
 
+    console.log(enchantments)
+
     // Assign and return
     context.gear = gear;
     context.features = features;
     context.spells = spells;
+    context.enchantments = enchantments;
     context.weapons = weapons;
   }
 

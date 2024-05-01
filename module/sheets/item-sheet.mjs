@@ -60,6 +60,7 @@ export class RyuutamaItemSheet extends ItemSheet {
       this._prepareWeaponData(context);
     }
 
+    console.log(context)
     return context;
   }
 

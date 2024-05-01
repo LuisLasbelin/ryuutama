@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
     </div>
   </header>
 
@@ -17,16 +17,104 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner
+      editable=editable}}
     </div>
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
-        <label class="resource-label">Spell Level</label>
-        <input type="text" name="system.spellLevel" value="{{system.spellLevel}}" data-dtype="Number"/>
+      <div class="flexrow">
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Level'}}</label>
+          <select name="system.spellLevel" data-type="String">
+            {{#select system.spellLevel}}
+            <option value="1">{{localize 'RYUUTAMA.Item.Spell.LowLevel'}}</option>
+            <option value="2">{{localize 'RYUUTAMA.Item.Spell.MidLevel'}}</option>
+            <option value="3">{{localize 'RYUUTAMA.Item.Spell.HighLevel'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Type'}}</label>
+          <select name="system.spellType" data-type="String">
+            {{#select system.spellType}}
+            <option value="enchantment">{{localize 'RYUUTAMA.Item.Spell.Enchantment'}}</option>
+            <option value="spring">{{localize 'RYUUTAMA.Item.Spell.Spring'}}</option>
+            <option value="summer">{{localize 'RYUUTAMA.Item.Spell.Summer'}}</option>
+            <option value="autumn">{{localize 'RYUUTAMA.Item.Spell.Autumn'}}</option>
+            <option value="winter">{{localize 'RYUUTAMA.Item.Spell.Winter'}}</option>
+            {{/select}}
+          </select>
+        </div>
+      </div>
+      <div class="flexrow">
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Cost'}}</label>
+          <input type="text" name="system.cost" data-type="Number" value="{{system.cost}}" />
+        </div>
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Duration'}}</label>
+          <input type="text" name="system.duration" value="{{system.duration}}" />
+        </div>
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Ritual'}}</label>
+          <input type="checkbox" name="system.ritual" {{checked system.ritual}} />
+        </div>
+      </div>
+      <div class="flexrow">
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Distance'}}</label>
+          <select name="system.distance" data-type="String">
+            {{#select system.distance}}
+            <option value="caster">{{localize 'RYUUTAMA.Item.Spell.Caster'}}</option>
+            <option value="touch">{{localize 'RYUUTAMA.Item.Spell.Touch'}}</option>
+            <option value="anyarea">{{localize 'RYUUTAMA.Item.Spell.AnyArea'}}</option>
+            <option value="closearea">{{localize 'RYUUTAMA.Item.Spell.CloseArea'}}</option>
+            <option value="allareas">{{localize 'RYUUTAMA.Item.Spell.AllAreas'}}</option>
+            <option value="watch">{{localize 'RYUUTAMA.Item.Spell.Watch'}}</option>
+            <option value="undefined">{{localize 'RYUUTAMA.Item.Spell.Undefined'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="flexrow resource">
+          <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.Target'}}</label>
+          <input type="text" name="system.target" value="{{system.target}}" />
+        </div>
+      </div>
+      <div class="flexrow resource">
+        <label class="resource-label">{{localize 'RYUUTAMA.Item.Spell.IsRoll'}}</label>
+        <input type="checkbox" name="system.isRoll" {{checked system.isRoll}} />
+      </div>
+      <div class="grid grid-4col">
+        <div class="grid-span-1">
+          <label class="resource-label">Roll 1</label>
+          <select name="system.formula.roll1" data-type="String">
+            {{#select system.formula.roll1}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">Roll 2</label>
+          <select name="system.formula.roll2" data-type="String">
+            {{#select system.formula.roll2}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">Mod</label>
+          <input type="text" name="system.formula.diceBonus" value="{{system.formula.diceBonus}}" data-dtype="String" />
+        </div>
       </div>
     </div>
+
   </section>
 </form>
