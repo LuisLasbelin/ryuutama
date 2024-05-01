@@ -89,7 +89,10 @@ export class RyuutamaItem extends Item {
       `
       if (item.system.isRoll) {
         const rollData = this.getRollData();
-        let roll_string = `d${item.actor.system.abilities[rollData.formula.roll1].value}+d${item.actor.system.abilities[rollData.formula.roll2].value}+${rollData.formula.diceBonus}`
+        let roll_string = ""
+        if (rollData.formula.roll1 != "0") roll_string += `d${item.actor.system.abilities[rollData.formula.roll1].value}`
+        if (rollData.formula.roll2 != "0") roll_string += `+d${item.actor.system.abilities[rollData.formula.roll2].value}`
+        if (rollData.formula.bonusDice != 0) roll_string += `+${rollData.formula.diceBonus}`
         const roll = new Roll(roll_string, rollData);
         await roll.evaluate()
         roll.toMessage({
