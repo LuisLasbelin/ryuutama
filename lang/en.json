@@ -48,7 +48,8 @@
       "Feature": {
         "UseRoll": "Use roll",
         "Uses": "uses"
-      }
+      },
+      "Size": "Size"
     },
     "Effect": {
       "Source": "Source",
@@ -69,7 +70,9 @@
       "feature": "Feature",
       "spell": "Spell",
       "weapon": "Weapon",
-      "class": "Class"
+      "class": "Class",
+      "shield": "Shield",
+      "armor": "Armor"
     }
   }
 }

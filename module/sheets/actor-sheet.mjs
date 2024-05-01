@@ -101,6 +101,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const gear = [];
     const features = [];
     const weapons = [];
+    const total_weight = 0;
     const spells = {
       1: [],
       2: [],

@@ -8,19 +8,39 @@
           "min": 0,
           "max": 8
         },
-        "mind": {
+        "hitpoints": {
           "value": 8,
           "min": 0,
           "max": 8
         },
-        "biography": ""
+        "mindpoints": {
+          "value": 8,
+          "min": 0,
+          "max": 8
+        },
+        "load": {
+          "value": 0,
+          "min": 0,
+          "max": 0
+        },
+        "biography": "",
+        "defense": 0,
+        "status": {
+          "wounded": 0,
+          "poisoned": 0,
+          "ill": 0,
+          "fatigued": 0,
+          "dizzy": 0,
+          "shocked": 0
+        }
       }
     },
     "character": {
       "templates": ["base"],
       "attributes": {
         "level": {
-          "value": 1
+          "value": 1,
+          "exp": 0
         }
       },
       "abilities": {
@@ -37,7 +57,12 @@
           "value": 4
         }
       },
-      "class": ""
+      "class": "",
+      "archetype": "",
+      "proficientWeapons": [],
+      "coins": 0,
+      "speciality": "",
+      "blunderPoints": 0
     },
     "npc": {
       "templates": ["base"],
@@ -45,7 +70,7 @@
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell", "weapon", "class"],
+    "types": ["item", "feature", "spell", "weapon", "shield", "armor", "class"],
     "templates": {
       "base": {
         "description": ""
@@ -53,12 +78,15 @@
       "sellable": {
         "price": 0,
         "origin": ""
+      },
+      "equipable": {
+        "equiped": false
       }
     },
     "item": {
       "templates": ["base", "sellable"],
       "quantity": 1,
-      "weight": 0
+      "size": 0
     },
     "feature": {
       "templates": ["base"],
@@ -88,8 +116,8 @@
       }
     },
     "weapon": {
-      "templates": ["base", "sellable"],
-      "weight": 1,
+      "templates": ["base", "sellable", "equipable"],
+      "size": 1,
       "hands": 1,
       "attack_formula": {
         "roll1": "Str",
@@ -101,6 +129,21 @@
         "diceBonus": 0
       },
       "price": 0
+    },
+    "shield": {
+      "templates": ["base", "sellable", "equipable"],
+      "size": 1,
+      "hands": 1,
+      "defense": 0,
+      "handicap": 0,
+      "dodge": 0
+    },
+    "armor": {
+      "templates": ["base", "sellable", "equipable"],
+      "size": 1,
+      "hands": 1,
+      "defense": 0,
+      "handicap": 0
     },
     "class": {
       "templates": ["base"],
