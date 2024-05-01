@@ -1,0 +1,52 @@
+{
+    "RYUUTAMA": {
+      "Ability": {
+        "Str": { "long": "Fuerza", "abbr": "FUE" },
+        "Dex": { "long": "Destreza", "abbr": "DES" },
+        "Int": { "long": "Inteligencia", "abbr": "INT" },
+        "Spi": { "long": "Espíritu", "abbr": "ESP" }
+      },
+      "SheetLabels": {
+        "Actor": "Ryuutama Actor Sheet",
+        "Item": "Ryuutama Item Sheet"
+      },
+      "Item": {
+        "Spell": {
+          "SpellLVL": "Conjuros de nivel {level}",
+          "AddLVL": "Añadir nivel {level}"
+        },
+        "Weapon": {
+          "AttackRoll": "Tirada de ataque",
+          "DamageRoll": "Tirada de daño",
+          "AttacksWith": "ataca con",
+          "DamageDealt": " inflige daño"
+        },
+        "Feature": {
+          "UseRoll": "Tirada",
+          "Uses": "usa"
+        }
+      },
+      "Effect": {
+        "Source": "Source",
+        "Toggle": "Toggle Effect",
+        "Temporary": "Temporary Effects",
+        "Passive": "Passive Effects",
+        "Inactive": "Inactive Effects"
+      }
+    },
+  
+    "TYPES": {
+      "Actor": {
+        "character": "Personaje",
+        "npc": "PNJ"
+      },
+      "Item": {
+        "item": "Objeto",
+        "feature": "Habilidad",
+        "spell": "Conjuro",
+        "weapon": "Arma",
+        "class": "Clase"
+      }
+    }
+  }
+  

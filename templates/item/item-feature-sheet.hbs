@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
   <header class="sheet-header">
-    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
     </div>
   </header>
 
@@ -18,12 +18,43 @@
 
     {{!-- Description Tab --}}
     <div class="tab" data-group="primary" data-tab="description">
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+      {{editor system.description target="system.description" rollData=rollData button=true owner=owner
+      editable=editable}}
     </div>
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
+      <h2>{{localize 'RYUUTAMA.Item.Feature.UseRoll'}}</h2>
+      <div class="grid grid-4col">
+        <div class="grid-span-1">
+          <label class="resource-label">Roll 1</label>
+          <select name="system.formula.roll1" data-type="String">
+            {{#select system.formula.roll1}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">Roll 2</label>
+          <select name="system.formula.roll2" data-type="String">
+            {{#select system.formula.roll2}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+          </select>
+        </div>
+        <div class="grid-span-1">
+          <label class="resource-label">Mod</label>
+          <input type="text" name="system.formula.diceBonus" value="{{system.formula.diceBonus}}"
+            data-dtype="String" />
+        </div>
+      </div>
     </div>
 
     {{!-- Effects Tab --}}

@@ -36,7 +36,8 @@
         "Spi": {
           "value": 4
         }
-      }
+      },
+      "class": ""
     },
     "npc": {
       "templates": ["base"],
@@ -44,7 +45,7 @@
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell", "weapon"],
+    "types": ["item", "feature", "spell", "weapon", "class"],
     "templates": {
       "base": {
         "description": ""
@@ -60,7 +61,15 @@
       "weight": 0
     },
     "feature": {
-      "templates": ["base"]
+      "templates": ["base"],
+      "prerequisite": "",
+      "target_number": "",
+      "formula": {
+        "roll1": "Str",
+        "roll2": "Dex",
+        "diceBonus": "0"
+      },
+      "effect": ""
     },
     "spell": {
       "templates": ["base"],
@@ -82,6 +91,10 @@
         "diceBonus": 0
       },
       "price": 0
+    },
+    "class": {
+      "templates": ["base"],
+      "features": []
     }
   }
 }

@@ -20,6 +20,10 @@
         "DamageRoll": "Damage roll",
         "AttacksWith": "attacks with",
         "DamageDealt": " damage"
+      },
+      "Feature": {
+        "UseRoll": "Use roll",
+        "Uses": "uses"
       }
     },
     "Effect": {
@@ -40,7 +44,8 @@
       "item": "Item",
       "feature": "Feature",
       "spell": "Spell",
-      "weapon": "Weapon"
+      "weapon": "Weapon",
+      "class": "Class"
     }
   }
 }

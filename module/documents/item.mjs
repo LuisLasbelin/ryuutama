@@ -42,20 +42,10 @@ export class RyuutamaItem extends Item {
     const rollMode = game.settings.get('core', 'rollMode');
 
     // If there's no attack formula, send a chat message.
-    if (!this.system.attack_formula) {
-      const label = `<h2>${item.name}</h2>`;
-      ChatMessage.create({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-        content: item.system.description ?? '',
-      });
-    }
-    // Otherwise, create a roll and send a chat message from it.
-    else {
+    if (this.system.attack_formula) {
       // Retrieve roll data.
       const rollData = this.getRollData();
-      const attack_label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>`;
+      const attack_label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>` + item.system.description;
       let attack_roll_string = `d${this.actor.system.abilities[rollData.attack_formula.roll1].value}+d${this.actor.system.abilities[rollData.attack_formula.roll2].value}+${rollData.attack_formula.diceBonus}`
       const attack_roll = new Roll(attack_roll_string, rollData);
       const damage_label = `<h2>${item.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.DamageDealt')}</h2>`;
@@ -76,5 +66,26 @@ export class RyuutamaItem extends Item {
       })
       return;
     }
+    if (this.system.formula) {
+      const rollData = this.getRollData();
+      const label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Feature.Uses')} ${item.name}</h2>` + item.system.description;
+      let roll_string = `d${this.actor.system.abilities[rollData.formula.roll1].value}+d${this.actor.system.abilities[rollData.formula.roll2].value}+${rollData.formula.diceBonus}`
+      const roll = new Roll(roll_string, rollData);
+      await roll.evaluate()
+      roll.toMessage({
+        speaker: speaker,
+        rollMode: rollMode,
+        flavor: label,
+      })
+      return;
+    }
+    const label = `<h2>${item.name}</h2>`;
+    ChatMessage.create({
+      speaker: speaker,
+      rollMode: rollMode,
+      flavor: label,
+      content: item.system.description ?? '',
+    });
+    return;
   }
 }
