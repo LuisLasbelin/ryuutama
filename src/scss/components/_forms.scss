@@ -66,3 +66,14 @@
     margin-left: 12px;
   }
 }
+
+.sidebar {
+  height: 100%;
+  overflow: hidden;
+}
+
+.sheet-body,
+.sheet-body .tab,
+.sheet-body .tab .editor {
+  height: 100%;
+}

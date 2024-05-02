@@ -262,6 +262,15 @@ img {
   border: 0;
   margin-left: 12px;
 }
+.ryuutama .sidebar {
+  height: 100%;
+  overflow: hidden;
+}
+.ryuutama .sheet-body,
+.ryuutama .sheet-body .tab,
+.ryuutama .sheet-body .tab .editor {
+  height: 100%;
+}
 .ryuutama .resource-label {
   font-weight: bold;
   display: flex;

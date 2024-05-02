@@ -1,7 +1,7 @@
 <form class="{{cssClass}} {{actor.type}} flexrow" autocomplete="off">
 
-  <div style="flex: 1;">
-    <div style="height: 70%;" class="abilities flexcol">
+  <div class="sidebar" style="flex: 1;">
+    <div class="abilities flexcol">
       {{#each system.abilities as |ability key|}}
       <div class="ability flexcol flex-group-center">
         <label for="system.abilities.{{key}}.value" class="ability-roll resource-label flexlarge align-left"
@@ -30,20 +30,20 @@
           and it will add a small amount of padding, a border, and will
           center all of its child elements content and text. --}}
           <div class="resource flex-group-center">
-            <label for="system.health.value" class="resource-label">{{localize "RYUUTAMA.Hitpoints"}}</label>
+            <label for="system.hitpoints.value" class="resource-label">{{localize "RYUUTAMA.Hitpoints"}}</label>
             <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.health.value" value="{{system.hitpoints.value}}" data-dtype="Number" />
+              <input type="text" name="system.hitpoints.value" value="{{system.hitpoints.value}}" data-dtype="Number" />
               <span> / </span>
-              <label for="system.health.max">{{system.hitpoints.max}}</label>
+              <label for="system.hitpoints.max">{{system.hitpoints.max}}</label>
             </div>
           </div>
 
           <div class="resource flex-group-center">
-            <label for="system.mind.value" class="resource-label">{{localize "RYUUTAMA.Mindpoints"}}</label>
+            <label for="system.mindpoints.value" class="resource-label">{{localize "RYUUTAMA.Mindpoints"}}</label>
             <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.mind.value" value="{{system.mindpoints.value}}" data-dtype="Number" />
+              <input type="text" name="system.mindpoints.value" value="{{system.mindpoints.value}}" data-dtype="Number" />
               <span> / </span>
-              <label for="system.mind.max">{{system.mindpoints.max}}</label>
+              <label for="system.mindpoints.max">{{system.mindpoints.max}}</label>
             </div>
           </div>
 

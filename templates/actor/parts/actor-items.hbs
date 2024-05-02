@@ -30,9 +30,15 @@
     <div style="flex:1;" class='item-formula item-prop'>{{item.system.price}}</div>
 
     <div class='item-controls'>
+      {{#if item.system.equiped}}
       <a class='item-control item-equip' title='{{localize "DOCUMENT.Equip" type=' Item'}}'>
-        <i class='fas fa-shirt'></i>
+        <i class='fas fa-hand'></i>
       </a>
+      {{else}}
+      <a class='item-control item-equip' title='{{localize "DOCUMENT.Equip" type=' Item'}}'>
+        <i class='far fa-hand'></i>
+      </a>
+      {{/if}}
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Update" type=' Item'}}'>
         <i class='fas fa-edit'></i>
       </a>
