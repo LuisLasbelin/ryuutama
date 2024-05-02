@@ -103,6 +103,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const weapons = [];
     const shields = [];
     const armor = [];
+    let wealth = 0;
     let total_load = 0;
     let total_enchantments = 0;
     const spells = {
@@ -149,11 +150,14 @@ export class RyuutamaActorSheet extends ActorSheet {
         shields.push(i)
       }
 
+      wealth += i.system.price ?? 0;
+
       // Optional size to add up, if it equiped it doesn't count on the load
       if (i.system.equiped != true) total_load += i.system.size ?? 0;
     }
 
     // Assign and return
+    context.wealth = wealth + context.system.coins;
     context.gear = gear;
     context.armor = armor;
     context.shields = shields;

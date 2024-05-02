@@ -6,6 +6,8 @@
     "Level": "Level",
     "Defense": "Defense",
     "Load": "Load",
+    "Coins": "Coins",
+    "Wealth": "Wealth",
     "Ability": {
       "Str": { "long": "Strength", "abbr": "STR" },
       "Dex": { "long": "Dexterity", "abbr": "DEX" },
