@@ -1,38 +1,66 @@
-<ol class="items-list effects-list">
-  {{#each effects as |section sid|}}
-    <li class="items-header flexrow" data-effect-type="{{section.type}}" data-parent-id="{{@root.actor.id}}" >
-      <h3 class="item-name effect-name flexrow">{{localize section.label}}</h3>
-      <div class="effect-source">{{localize "RYUUTAMA.Effect.Source"}}</div>
-      <div class="effect-source">{{localize "EFFECT.TabDuration"}}</div>
-      <div class="item-controls effect-controls flexrow">
-        <a class="effect-control" data-action="create" title="{{localize 'DOCUMENT.Create' type="Effect"}}">
-          <i class="fas fa-plus"></i> {{localize "DOCUMENT.New" type="Effect"}}
-        </a>
+<div class="grid grid-2col">
+  <div class="flexcol">
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/wounded.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Wounded"}}</h3>
+          <input type="text" name="system.status.wounded" value={{system.status.wounded}} data-dtype="Number" />
+        </div>
       </div>
-    </li>
-
-    <ol class="item-list">
-    {{#each section.effects as |effect|}}
-      <li class="item effect flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
-        <div class="item-name effect-name flexrow">
-          <img class="item-image" src="{{effect.icon}}"/>
-          <h4>{{effect.name}}</h4>
+      <p>{{localize "RYUUTAMA.Status.WoundedEffect"}}</p>
+    </div>
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/poisoned.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Poisoned"}}</h3>
+          <input type="text" name="system.status.poisoned" value={{system.status.poisoned}} data-dtype="Number" />
         </div>
-        <div class="effect-source">{{effect.sourceName}}</div>
-        <div class="effect-duration">{{effect.duration.label}}</div>
-        <div class="item-controls effect-controls flexrow">
-          <a class="effect-control" data-action="toggle" title="{{localize 'RYUUTAMA.Effect.Toggle'}}">
-            <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
-          </a>
-          <a class="effect-control" data-action="edit" title="{{localize 'DOCUMENT.Update' type="Effect"}}">
-            <i class="fas fa-edit"></i>
-          </a>
-          <a class="effect-control" data-action="delete" title="{{localize 'DOCUMENT.Delete' type="Effect"}}">
-            <i class="fas fa-trash"></i>
-          </a>
+      </div>
+      <p>{{localize "RYUUTAMA.Status.PoisonedEffect"}}</p>
+    </div>
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/ill.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Ill"}}</h3>
+          <input type="text" name="system.status.ill" value={{system.status.ill}} data-dtype="Number" />
         </div>
-      </li>
-    {{/each}}
-    </ol>
-  {{/each}}
-</ol>
+      </div>
+      <p>{{localize "RYUUTAMA.Status.IllEffect"}}</p>
+    </div>
+  </div>
+  <div class="flexcol">
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/fatigued.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Fatigued"}}</h3>
+          <input type="text" name="system.status.fatigued" value={{system.status.fatigued}} data-dtype="Number" />
+        </div>
+      </div>
+      <p>{{localize "RYUUTAMA.Status.FatiguedEffect"}}</p>
+    </div>
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/dizzy.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Dizzy"}}</h3>
+          <input type="text" name="system.status.dizzy" value={{system.status.dizzy}} data-dtype="Number" />
+        </div>
+      </div>
+      <p>{{localize "RYUUTAMA.Status.DizzyEffect"}}</p>
+    </div>
+    <div style="flex:0; border:solid grey 1px">
+      <div style="display:flex;flex-direction:row;">
+        <img style="margin:6px;" width="56" height="56" src="systems/ryuutama/assets/shocked.png" />
+        <div>
+          <h3>{{localize "RYUUTAMA.Status.Shocked"}}</h3>
+          <input type="text" name="system.status.shocked" value={{system.status.shocked}} data-dtype="Number" />
+        </div>
+      </div>
+      <p>{{localize "RYUUTAMA.Status.ShockedEffect"}}</p>
+    </div>
+  </div>
+</div>

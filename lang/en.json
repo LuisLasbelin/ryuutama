@@ -65,6 +65,20 @@
       "Armours": "Armor",
       "Items": "Items"
     },
+    "Status": {
+      "Wounded": "Wounded",
+      "WoundedEffect": "Lose 1 degree of STR",
+      "Poisoned": "Poisoned",
+      "PoisonedEffect": "Lose 1 degree of DEX",
+      "Ill": "Sick",
+      "IllEffect": "All abilities lose 1 degree",
+      "Fatigued": "Fatigued",
+      "FatiguedEffect": "Lose 1 degree of SPI",
+      "Dizzy": "Dizzy",
+      "DizzyEffect": "Lose 1 degree of INT",
+      "Shocked": "Shocked",
+      "ShockedEffect": "All abilities lose 1 degree"
+    },
     "Effect": {
       "Source": "Source",
       "Toggle": "Toggle Effect",
