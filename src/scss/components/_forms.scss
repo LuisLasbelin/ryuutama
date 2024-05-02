@@ -39,11 +39,6 @@
   flex: 0;
 }
 
-.sheet-body,
-.sheet-body .tab,
-.sheet-body .tab .editor {
-  height: 100%;
-}
 
 .tox {
   .tox-editor-container {
@@ -57,7 +52,7 @@
 
 .ability {
   margin: 8px;
-  font-size: larger;
+  font-size: large;
 }
 
 .ability-dice {

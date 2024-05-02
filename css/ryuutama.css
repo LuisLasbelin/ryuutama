@@ -242,11 +242,6 @@ img {
 .ryuutama .sheet-tabs {
   flex: 0;
 }
-.ryuutama .sheet-body,
-.ryuutama .sheet-body .tab,
-.ryuutama .sheet-body .tab .editor {
-  height: 100%;
-}
 .ryuutama .tox .tox-editor-container {
   background: #fff;
 }
@@ -255,7 +250,7 @@ img {
 }
 .ryuutama .ability {
   margin: 8px;
-  font-size: larger;
+  font-size: large;
 }
 .ryuutama .ability-dice {
   display: flex;

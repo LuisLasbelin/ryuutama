@@ -16,8 +16,8 @@
           "AddLVL": "Añadir nivel {level}"
         },
         "Weapon": {
-          "AttackRoll": "Tirada de ataque",
-          "DamageRoll": "Tirada de daño",
+          "AttackRoll": "Ataque",
+          "DamageRoll": "Daño",
           "AttacksWith": "ataca con",
           "DamageDealt": " inflige daño"
         },
