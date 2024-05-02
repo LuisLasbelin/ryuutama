@@ -252,6 +252,7 @@ export class RyuutamaActorSheet extends ActorSheet {
       html.on('click', '.ability-roll-Dex', this._prepareAbilityRoll.bind(this, "Dex", "Dex"));
       html.on('click', '.ability-roll-Int', this._prepareAbilityRoll.bind(this, "Int", "Int"));
       html.on('click', '.ability-roll-Spi', this._prepareAbilityRoll.bind(this, "Spi", "Spi"));
+      html.on('click', '.btn-health', this._prepareAbilityRoll.bind(this, "Str", "Spi"));
       html.on('click', '.btn-marching', this._prepareAbilityRoll.bind(this, "Str", "Spi"));
       html.on('click', '.btn-orientating', this._prepareAbilityRoll.bind(this, "Int", "Int"));
       html.on('click', '.btn-camping', this._prepareAbilityRoll.bind(this, "Dex", "Int"));
