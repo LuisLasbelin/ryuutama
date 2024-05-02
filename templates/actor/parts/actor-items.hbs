@@ -2,8 +2,8 @@
 <div class="flexrow" style="align-items: center;">
   <span>{{localize "RYUUTAMA.Coins"}}</span>
   <input type="text" name="system.coins" value={{system.coins}} data-dtype="Number" />
-    <span>{{localize "RYUUTAMA.Wealth"}}</span>
-    <span>{{wealth}}</span>
+  <span>{{localize "RYUUTAMA.Wealth"}}</span>
+  <span>{{wealth}}</span>
 </div>
 <ol class='items-list'>
   <!-- WEAPONS -->
@@ -136,7 +136,10 @@
   {{/each}}
 </ol>
 <footer style="width: 50%; bottom: 12px; position: absolute;">
-  <h4>{{localize "RYUUTAMA.Load"}} ({{total_load}} / {{max_load}})</h4>
+  <div style="display: flex; flex-direction:row:">
+    <h4 style="flex: 1;">{{localize "RYUUTAMA.Load"}} ({{total_load}} / {{max_load}}) + </h4>
+    <input style="flex: 1;" type="text" data-dtype="Number" name="system.load.mod" value={{system.load.mod}} />
+  </div>
   <div style="border: solid black 2px;">
     <div style="height:12px;width:{{percentile_load}}%; background-color: blue;"></div>
   </div>

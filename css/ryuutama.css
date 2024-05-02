@@ -269,7 +269,7 @@ img {
 .ryuutama .sheet-body,
 .ryuutama .sheet-body .tab,
 .ryuutama .sheet-body .tab .editor {
-  height: 100%;
+  height: 350px;
 }
 .ryuutama .resource-label {
   font-weight: bold;

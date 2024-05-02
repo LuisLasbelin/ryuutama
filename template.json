@@ -1,8 +1,26 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": [
+      "character",
+      "npc",
+      "animal"
+    ],
     "templates": {
       "base": {
+        "abilities": {
+          "Str": {
+            "value": 4
+          },
+          "Dex": {
+            "value": 4
+          },
+          "Int": {
+            "value": 4
+          },
+          "Spi": {
+            "value": 4
+          }
+        },
         "health": {
           "value": 8,
           "min": 0,
@@ -21,7 +39,8 @@
         "load": {
           "value": 0,
           "min": 0,
-          "max": 0
+          "max": 0,
+          "mod": 0
         },
         "biography": "",
         "defense": 0,
@@ -36,25 +55,13 @@
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "attributes": {
         "level": {
           "value": 1,
           "exp": 0
-        }
-      },
-      "abilities": {
-        "Str": {
-          "value": 4
-        },
-        "Dex": {
-          "value": 4
-        },
-        "Int": {
-          "value": 4
-        },
-        "Spi": {
-          "value": 4
         }
       },
       "class": "",
@@ -65,12 +72,28 @@
       "blunderPoints": 0
     },
     "npc": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "cr": 0
+    },
+    "animal": {
+      "templates": [
+        "base"
+      ],
+      "coins": 0
     }
   },
   "Item": {
-    "types": ["item", "feature", "spell", "weapon", "shield", "armor", "class"],
+    "types": [
+      "item",
+      "feature",
+      "spell",
+      "weapon",
+      "shield",
+      "armor",
+      "class"
+    ],
     "templates": {
       "base": {
         "description": ""
@@ -84,12 +107,17 @@
       }
     },
     "item": {
-      "templates": ["base", "sellable"],
+      "templates": [
+        "base",
+        "sellable"
+      ],
       "quantity": 1,
       "size": 0
     },
     "feature": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "prerequisite": "",
       "target_number": "",
       "formula": {
@@ -100,7 +128,9 @@
       "effect": ""
     },
     "spell": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "spellLevel": "1",
       "cost": 0,
       "duration": "",
@@ -116,7 +146,11 @@
       }
     },
     "weapon": {
-      "templates": ["base", "sellable", "equipable"],
+      "templates": [
+        "base",
+        "sellable",
+        "equipable"
+      ],
       "size": 1,
       "hands": 1,
       "attack_formula": {
@@ -131,7 +165,11 @@
       "price": 0
     },
     "shield": {
-      "templates": ["base", "sellable", "equipable"],
+      "templates": [
+        "base",
+        "sellable",
+        "equipable"
+      ],
       "size": 1,
       "hands": 1,
       "defense": 0,
@@ -139,14 +177,20 @@
       "dodge": 0
     },
     "armor": {
-      "templates": ["base", "sellable", "equipable"],
+      "templates": [
+        "base",
+        "sellable",
+        "equipable"
+      ],
       "size": 1,
       "hands": 1,
       "defense": 0,
       "handicap": 0
     },
     "class": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "features": []
     }
   }

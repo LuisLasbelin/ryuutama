@@ -1,5 +1,10 @@
 {
   "RYUUTAMA": {
+    "Description": "Description",
+    "Items": "Items",
+    "Effects": "Effects",
+    "Features": "Features",
+    "Spells": "Spells",
     "Hitpoints": "Hit points",
     "Mindpoints": "Mind points",
     "Health": "Health",
@@ -93,7 +98,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC"
+      "npc": "NPC",
+      "animal": "Animal"
     },
     "Item": {
       "item": "Item",

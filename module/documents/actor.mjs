@@ -36,6 +36,7 @@ export class RyuutamaActor extends Actor {
     // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
+    this._prepareAnimalData(actorData);
   }
 
   /**
@@ -56,7 +57,7 @@ export class RyuutamaActor extends Actor {
     // Values for max hp and max mp
     systemData.hitpoints.max = systemData.abilities.Str.value * 2
     systemData.mindpoints.max = systemData.abilities.Spi.value * 2
-    systemData.load.max = systemData.abilities.Str.value + 3
+    systemData.load.max = systemData.abilities.Str.value + 3 + systemData.load.mod
   }
 
   /**
@@ -69,6 +70,28 @@ export class RyuutamaActor extends Actor {
     const systemData = actorData.system;
     systemData.xp = systemData.cr * systemData.cr * 100;
   }
+
+  /**
+   * Prepare Animal type specific data
+   */
+  _prepareAnimalData(actorData) {
+    if (actorData.type !== 'animal') return;
+
+    // Make modifications to data here. For example:
+    const systemData = actorData.system;
+
+    // Loop through ability scores, and add their modifiers to our sheet output.
+    for (let [key, ability] of Object.entries(systemData.abilities)) {
+      // Calculate the modifier using d20 rules.
+      // ability.mod = Math.floor((ability.value - 10) / 2);
+    }
+
+    // Values for max hp and max mp
+    systemData.hitpoints.max = systemData.abilities.Str.value * 2
+    systemData.mindpoints.max = systemData.abilities.Spi.value * 2
+    systemData.load.max = systemData.abilities.Str.value + 3 + systemData.load.mod
+  }
+
 
   /**
    * Override getRollData() that's supplied to rolls.
