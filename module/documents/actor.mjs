@@ -54,8 +54,8 @@ export class RyuutamaActor extends Actor {
     }
 
     // Values for max hp and max mp
-    systemData.health.max = systemData.abilities.Str.value * 2
-    systemData.mind.max = systemData.abilities.Spi.value * 2
+    systemData.hitpoints.max = systemData.abilities.Str.value * 2
+    systemData.mindpoints.max = systemData.abilities.Spi.value * 2
     systemData.load.max = systemData.abilities.Str.value + 3
   }
 
