@@ -248,7 +248,13 @@ export class RyuutamaActorSheet extends ActorSheet {
       // Rollable abilities.
       html.on('click', '.rollable', this._onRoll.bind(this));
       html.on('click', '.edit_abilities', this._openEditAbilitiesApp.bind(this));
-      html.on('click', '.ability-roll', this._prepareAbilityRoll.bind(this));
+      html.on('click', '.ability-roll-Str', this._prepareAbilityRoll.bind(this, "Str", "Str"));
+      html.on('click', '.ability-roll-Dex', this._prepareAbilityRoll.bind(this, "Dex", "Dex"));
+      html.on('click', '.ability-roll-Int', this._prepareAbilityRoll.bind(this, "Int", "Int"));
+      html.on('click', '.ability-roll-Spi', this._prepareAbilityRoll.bind(this, "Spi", "Spi"));
+      html.on('click', '.btn-marching', this._prepareAbilityRoll.bind(this, "Str", "Spi"));
+      html.on('click', '.btn-orientating', this._prepareAbilityRoll.bind(this, "Int", "Int"));
+      html.on('click', '.btn-camping', this._prepareAbilityRoll.bind(this, "Dex", "Int"));
 
       // Drag events for macros.
       if (this.actor.isOwner) {
@@ -322,11 +328,13 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     /**
      * Handle clickable ability form form rolling.
-     * @param {Event} event   The originating click event
+     * @param {String} ability1   Ability to use first
+     * @param {String} ability2   Ability to use second
+     * @param {Event} event   Always last param
      * @private
      */
-    _prepareAbilityRoll(event) {
-      return new AbilityRollApp(this.actor).render(true);
+    _prepareAbilityRoll(ability1 = "Str", ability2 = "Str", event) {
+      return new AbilityRollApp(this.actor, ability1, ability2).render(true);
     }
 
     /**

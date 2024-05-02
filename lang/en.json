@@ -13,6 +13,9 @@
     "Load": "Load",
     "Coins": "Coins",
     "Wealth": "Wealth",
+    "Marching": "Marching",
+    "Orientation": "Orientation",
+    "Camping": "Camping",
     "Ability": {
       "Str": { "long": "Strength", "abbr": "STR" },
       "Dex": { "long": "Dexterity", "abbr": "DEX" },

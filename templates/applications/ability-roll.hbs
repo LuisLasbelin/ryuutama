@@ -1,17 +1,21 @@
 <form class="flexrow" autocomplete="off">
 
     <select name="roll1" id="roll1">
+        {{#select ability1}}
         <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
         <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
         <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
         <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+        {{/select}}
     </select>
 
     <select name="roll2" id="roll2">
+        {{#select ability2}}
         <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
         <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
         <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
         <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+        {{/select}}
     </select>
 
     <fieldset>

@@ -1,4 +1,10 @@
 class AbilityRollApp extends FormApplication {
+    constructor(object, ability1, ability2) {
+        super();
+        this.object = object;
+        this.ability1 = ability1;
+        this.ability2 = ability2;
+      }
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -13,7 +19,8 @@ class AbilityRollApp extends FormApplication {
     getData() {
         // Send data to the template
         return {
-            color: 'red',
+            ability1: this.ability1,
+            ability2: this.ability2
         };
     }
 
