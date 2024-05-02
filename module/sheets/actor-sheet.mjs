@@ -104,6 +104,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const shields = [];
     const armor = [];
     let total_load = 0;
+    let total_enchantments = 0;
     const spells = {
       1: [],
       2: [],
@@ -131,6 +132,7 @@ export class RyuutamaActorSheet extends ActorSheet {
         if (i.system.spellLevel != undefined) {
           if (i.system.spellType === "enchantment") {
             enchantments[i.system.spellLevel].push(i);
+            total_enchantments += 1;
           }
           else {
             spells[i.system.spellLevel].push(i);
@@ -160,10 +162,10 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.enchantments = enchantments;
     context.weapons = weapons;
     context.total_load = total_load;
-    context.max_load = this.actor.system.load.max;
+    context.max_load = context.system.load.max;
     context.percentile_load = parseInt(total_load) * 100 / parseInt(context.max_load);
-
-    console.log(total_load)
+    context.max_enchantments = context.system.attributes.level.value * 2;
+    context.total_enchantments = total_enchantments;
 
     this.actor.update({
       system: {
