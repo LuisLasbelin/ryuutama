@@ -169,8 +169,8 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     this.actor.update({
       system: {
-        load : {
-          value : total_load
+        load: {
+          value: total_load
         }
       }
     });
@@ -195,6 +195,7 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
+    html.on('click', '.item-equip', this._onEquipItem.bind(this));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
@@ -305,5 +306,20 @@ export class RyuutamaActorSheet extends ActorSheet {
    */
   _openEditAbilitiesApp(event) {
     return new EditAbilitiesApp(this.actor).render(true);
+  }
+
+  /**
+ * Equip or take off an item
+ * @param {Event} event   The originating click event
+ * @private
+ */
+  _onEquipItem(event) {
+    const li = $(event.currentTarget).parents('.item');
+    const item = this.actor.items.get(li.data('itemId'));
+    item.update({
+      system: {
+        equiped: !item.system.equiped
+      }
+    })
   }
 }
