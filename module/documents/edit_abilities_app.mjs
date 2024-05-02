@@ -1,6 +1,7 @@
 class EditAbilitiesApp extends FormApplication {
 
   static get defaultOptions() {
+    console.log(super.defaultOptions)
     return mergeObject(super.defaultOptions, {
       classes: ['form'],
       popOut: true,
@@ -13,7 +14,18 @@ class EditAbilitiesApp extends FormApplication {
   getData() {
     // Send data to the template
     return {
-      color: 'red',
+      Str: {
+        base: this.object.system.abilities.Str.base
+      },
+      Dex: {
+        base: this.object.system.abilities.Dex.base
+      },
+      Int: {
+        base: this.object.system.abilities.Int.base
+      },
+      Spi: {
+        base: this.object.system.abilities.Spi.base
+      }
     };
   }
 
@@ -25,16 +37,16 @@ class EditAbilitiesApp extends FormApplication {
     console.log(formData)
     const values = {
       Str: {
-        value: parseInt(formData.Str)
+        base: parseInt(formData.Str)
       },
       Dex: {
-        value: parseInt(formData.Dex)
+        base: parseInt(formData.Dex)
       },
       Int: {
-        value: parseInt(formData.Int)
+        base: parseInt(formData.Int)
       },
       Spi: {
-        value: parseInt(formData.Spi)
+        base: parseInt(formData.Spi)
       }
     }
     return this.object._updateAbilities(values)

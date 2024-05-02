@@ -58,6 +58,37 @@ export class RyuutamaActor extends Actor {
     systemData.hitpoints.max = systemData.abilities.Str.value * 2
     systemData.mindpoints.max = systemData.abilities.Spi.value * 2
     systemData.load.max = systemData.abilities.Str.value + 3 + systemData.load.mod
+
+    // When positive health add to one ability mod
+    if (systemData.health.value > 9) {
+      systemData.abilities[systemData.health.ability].mod += 2
+    }
+
+    // Add modifiers for each status effect
+    if (systemData.health.value < systemData.status.wounded) {
+      systemData.abilities.Str.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.poisoned) {
+      systemData.abilities.Dex.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.dizzy) {
+      systemData.abilities.Int.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.fatigued) {
+      systemData.abilities.Spi.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.ill || systemData.health.value < systemData.status.shocked) {
+      systemData.abilities.Spi.mod -= 2;
+      systemData.abilities.Dex.mod -= 2;
+      systemData.abilities.Str.mod -= 2;
+      systemData.abilities.Int.mod -= 2;
+    }
+
+    // Loop through ability scores, and add their modifiers to our sheet output.
+    for (let [key, ability] of Object.entries(systemData.abilities)) {
+      // Set the total clamped between 4 and 12
+      ability.value = Math.min(Math.max(ability.base + ability.mod, 4), 12);
+    }
   }
 
   /**
@@ -82,8 +113,8 @@ export class RyuutamaActor extends Actor {
 
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Calculate the modifier using d20 rules.
-      // ability.mod = Math.floor((ability.value - 10) / 2);
+      // Reset all mods
+      ability.mod = 0;
     }
 
     // Values for max hp and max mp

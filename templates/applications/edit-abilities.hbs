@@ -1,35 +1,43 @@
 <form class="flexcol" autocomplete="off">
     <label for="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</label>
     <select name="Str" id="Str">
+        {{#select Str.base}}
         <option value="4">4</option>
         <option value="6">6</option>
         <option value="8">8</option>
         <option value="10">10</option>
         <option value="12">12</option>
+        {{/select}}
     </select>
     <label for="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</label>
-    <select name="Dex" id="Dex">
+    <select name="Dex" id="Dex" >
+        {{#select Dex.base}}
         <option value="4">4</option>
         <option value="6">6</option>
         <option value="8">8</option>
         <option value="10">10</option>
         <option value="12">12</option>
+        {{/select}}
     </select>
     <label for="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</label>
     <select name="Int" id="Int">
+        {{#select Int.base}}
         <option value="4">4</option>
         <option value="6">6</option>
         <option value="8">8</option>
         <option value="10">10</option>
         <option value="12">12</option>
+        {{/select}}
     </select>
     <label for="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</label>
     <select name="Spi" id="Spi">
+        {{#select Spi.base}}
         <option value="4">4</option>
         <option value="6">6</option>
         <option value="8">8</option>
         <option value="10">10</option>
         <option value="12">12</option>
+        {{/select}}
     </select>
     <button type="submit">Aplicar cambios</button>
 </form>

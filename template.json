@@ -9,22 +9,31 @@
       "base": {
         "abilities": {
           "Str": {
-            "value": 4
+            "value": 4,
+            "base": 4,
+            "mod": 0
           },
           "Dex": {
-            "value": 4
+            "value": 4,
+            "base": 4,
+            "mod": 0
           },
           "Int": {
-            "value": 4
+            "value": 4,
+            "base": 4,
+            "mod": 0
           },
           "Spi": {
-            "value": 4
+            "value": 4,
+            "base": 4,
+            "mod": 0
           }
         },
         "health": {
           "value": 8,
-          "min": 0,
-          "max": 8
+          "min": 2,
+          "max": 20,
+          "ability": "Str"
         },
         "hitpoints": {
           "value": 8,
