@@ -1,5 +1,9 @@
 {
   "RYUUTAMA": {
+    "Hitpoints": "Hit points",
+    "Mindpoints": "Mind points",
+    "Health": "Health",
+    "Level": "Level",
     "Ability": {
       "Str": { "long": "Strength", "abbr": "STR" },
       "Dex": { "long": "Dexterity", "abbr": "DEX" },
@@ -49,7 +53,8 @@
         "UseRoll": "Use roll",
         "Uses": "uses"
       },
-      "Size": "Size"
+      "Size": "Size",
+      "Price": "Price"
     },
     "Effect": {
       "Source": "Source",
