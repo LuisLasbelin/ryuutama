@@ -4,6 +4,8 @@
     "Mindpoints": "Mind points",
     "Health": "Health",
     "Level": "Level",
+    "Defense": "Defense",
+    "Load": "Load",
     "Ability": {
       "Str": { "long": "Strength", "abbr": "STR" },
       "Dex": { "long": "Dexterity", "abbr": "DEX" },
@@ -53,8 +55,14 @@
         "UseRoll": "Use roll",
         "Uses": "uses"
       },
+      "Armor": {
+        "Handicap": "Handicap"
+      },
       "Size": "Size",
-      "Price": "Price"
+      "Price": "Price",
+      "Weapons": "Weapons",
+      "Armours": "Armor",
+      "Items": "Items"
     },
     "Effect": {
       "Source": "Source",

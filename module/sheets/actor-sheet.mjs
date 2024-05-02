@@ -101,7 +101,9 @@ export class RyuutamaActorSheet extends ActorSheet {
     const gear = [];
     const features = [];
     const weapons = [];
-    const total_weight = 0;
+    const shields = [];
+    const armor = [];
+    let total_load = 0;
     const spells = {
       1: [],
       2: [],
@@ -138,16 +140,38 @@ export class RyuutamaActorSheet extends ActorSheet {
       else if (i.type === "weapon") {
         weapons.push(i)
       }
-    }
+      else if (i.type === "armor") {
+        armor.push(i)
+      }
+      else if (i.type === "shield") {
+        shields.push(i)
+      }
 
-    console.log(enchantments)
+      // Optional size to add up, if it equiped it doesn't count on the load
+      if (i.system.equiped != true) total_load += i.system.size ?? 0;
+    }
 
     // Assign and return
     context.gear = gear;
+    context.armor = armor;
+    context.shields = shields;
     context.features = features;
     context.spells = spells;
     context.enchantments = enchantments;
     context.weapons = weapons;
+    context.total_load = total_load;
+    context.max_load = this.actor.system.load.max;
+    context.percentile_load = parseInt(total_load) * 100 / parseInt(context.max_load);
+
+    console.log(total_load)
+
+    this.actor.update({
+      system: {
+        load : {
+          value : total_load
+        }
+      }
+    });
   }
 
   /* -------------------------------------------- */
