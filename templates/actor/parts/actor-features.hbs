@@ -20,7 +20,7 @@
       <h4>{{item.name}}</h4>
     </div>
     <div style="flex: 1;" class='item-formula item-prop'>
-      {{item.system.formula.roll1}}+{{item.system.formula.roll2}}+{{item.system.formula.diceBonus}}
+      {{item.system.formula.roll1}}+{{item.system.formula.roll2}}{{#if item.system.formula.diceBonus}}+{{item.system.formula.diceBonus}}{{/if}}
     </div>
     <div class='item-controls'>
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Edit" type=' feature'}}'>

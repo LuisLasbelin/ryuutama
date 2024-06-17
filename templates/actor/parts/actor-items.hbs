@@ -33,7 +33,7 @@
       {{item.system.attack_formula.roll1}}+{{item.system.attack_formula.roll2}}+{{item.system.attack_formula.diceBonus}}
     </div>
     <div style="flex:1;" class='item-formula item-prop'>
-      {{item.system.damage_formula.roll1}}+{{item.system.attack_formula.diceBonus}}</div>
+      {{item.system.damage_formula.roll1}}{{#if item.system.damage_formula.diceBonus}}+{{item.system.damage_formula.diceBonus}}{{/if}}</div>
     <div style="flex:1;" class='item-formula item-prop'>{{item.system.price}}</div>
 
     <div class='item-controls'>

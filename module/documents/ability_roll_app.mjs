@@ -33,8 +33,8 @@ class AbilityRollApp extends FormApplication {
         console.log(formData)
         // Handle rolls that supply the formula directly.
         let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
-        if (formData.roll_mod == null) formData.roll_mod = 0; // For errors
-        let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}+${formData.roll_mod}`
+        let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}`
+        if (formData.roll_mod != null) roll_string += `+${formData.roll_mod}`
         let roll = new Roll(roll_string, this.object.getRollData());
         await roll.evaluate();
         // Check for crits or fails
@@ -51,10 +51,10 @@ class AbilityRollApp extends FormApplication {
     }
 
     checkForCrit(roll, formData) {
-        let results = roll.result.split("+")
-        if (results[0] == this.object.system.abilities[formData.roll1].value && results[1] == this.object.system.abilities[formData.roll2].value) return 1;
-        if (results[0] == 6 && results[1] == 6) return 1;
-        if (results[0] == 1 && results[1] == 1) return -1;
+        if (roll.result[0] == this.object.system.abilities[formData.roll1].value && results[4] == this.object.system.abilities[formData.roll2].value) return 1;
+        if (roll.result[0] == 6 && roll.result[4] == 6) return 1;
+        if (roll.result[0] == 1 && roll.result[4] == 1) return -1;
+        return 0
     }
 }
 
