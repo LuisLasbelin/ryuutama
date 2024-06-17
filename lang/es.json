@@ -1,52 +1,120 @@
 {
-    "RYUUTAMA": {
-      "Ability": {
-        "Str": { "long": "Fuerza", "abbr": "FUE" },
-        "Dex": { "long": "Destreza", "abbr": "DES" },
-        "Int": { "long": "Inteligencia", "abbr": "INT" },
-        "Spi": { "long": "Espíritu", "abbr": "ESP" }
-      },
-      "SheetLabels": {
-        "Actor": "Ryuutama Actor Sheet",
-        "Item": "Ryuutama Item Sheet"
-      },
-      "Item": {
-        "Spell": {
-          "SpellLVL": "Conjuros de nivel {level}",
-          "AddLVL": "Añadir nivel {level}"
-        },
-        "Weapon": {
-          "AttackRoll": "Ataque",
-          "DamageRoll": "Daño",
-          "AttacksWith": "ataca con",
-          "DamageDealt": " inflige daño"
-        },
-        "Feature": {
-          "UseRoll": "Tirada",
-          "Uses": "usa"
-        }
-      },
-      "Effect": {
-        "Source": "Source",
-        "Toggle": "Toggle Effect",
-        "Temporary": "Temporary Effects",
-        "Passive": "Passive Effects",
-        "Inactive": "Inactive Effects"
-      }
+  "RYUUTAMA": {
+    "Description": "Descripción",
+    "Items": "Objetos",
+    "Effects": "Efectos",
+    "Features": "Habilidades",
+    "Spells": "Conjuros",
+    "Hitpoints": "Puntos de Golpe",
+    "Mindpoints": "Puntos de Mente",
+    "Health": "Salud",
+    "Level": "Nivel",
+    "Defense": "Defensa",
+    "Load": "Carga",
+    "Coins": "Monedas",
+    "Wealth": "Valor",
+    "Marching": "Marcha",
+    "Orientation": "Orientación",
+    "Camping": "Acampar",
+    "Ability": {
+      "Str": { "long": "Fuerza", "abbr": "FUE" },
+      "Dex": { "long": "Destreza", "abbr": "DES" },
+      "Int": { "long": "Inteligencia", "abbr": "INT" },
+      "Spi": { "long": "Espíritu", "abbr": "ESP" }
     },
-  
-    "TYPES": {
-      "Actor": {
-        "character": "Personaje",
-        "npc": "PNJ"
+    "SheetLabels": {
+      "Actor": "Ficha de Actor de Ryuutama",
+      "Item": "Ficha de Objeto de Ryuutama"
+    },
+    "Item": {
+      "Spell": {
+        "EnchantmentsKnown": "Encantamientos conocidos",
+        "Level": "Nivel",
+        "SpellLVL": "Conjuros {level}",
+        "EnchantmentLVL": "Encantamientos {level}",
+        "AddLVL": "Añadir {level}",
+        "LowLevel": "Nivel bajo",
+        "MidLevel": "Nivel medio",
+        "HighLevel": "Nivel alto",
+        "Type": "Estación",
+        "Enchantment": "Encantamiento",
+        "Spring": "Primavera",
+        "Summer": "Verano",
+        "Autumn": "Otoño",
+        "Winter": "Invierno",
+        "Cost": "Coste PM",
+        "Duration": "Duración",
+        "Distance": "Distancia",
+        "Caster": "Lanzador",
+        "Touch": "Toque",
+        "AnyArea": "Cualquier área",
+        "CloseArea": "Área cercana",
+        "AllAreas": "Todas las áreas",
+        "Watch": "Visible",
+        "Undefined": "??",
+        "Ritual": "Ritual",
+        "Target": "Objetivo",
+        "IsRoll": "Tiene tirada"
       },
-      "Item": {
-        "item": "Objeto",
-        "feature": "Habilidad",
-        "spell": "Conjuro",
-        "weapon": "Arma",
-        "class": "Clase"
-      }
+      "Weapon": {
+        "AttackRoll": "Ataque",
+        "DamageRoll": "Daño",
+        "AttacksWith": "ataca con",
+        "DamageDealt": "daño"
+      },
+      "Equiped": "Equipado",
+      "Defense": "Defensa",
+      "Handicap": "Penalización",
+      "Feature": {
+        "UseRoll": "Tirada",
+        "Uses": "usa"
+      },
+      "Armor": {
+        "Handicap": "Penalización"
+      },
+      "Size": "Tamaño",
+      "Price": "Precio",
+      "Weapons": "Armas",
+      "Armours": "Armadura",
+      "Items": "Objetos"
+    },
+    "Status": {
+      "Wounded": "Herido",
+      "WoundedEffect": "Reduce FUE 1 grado",
+      "Poisoned": "Envenenado",
+      "PoisonedEffect": "Reduce DES 1 grado",
+      "Ill": "Enfermo",
+      "IllEffect": "Reduce TODO 1 grado",
+      "Fatigued": "Fatigado",
+      "FatiguedEffect": "Reduce ESP 1 grado",
+      "Dizzy": "Mareado",
+      "DizzyEffect": "Reduce INT 1 grado",
+      "Shocked": "Conmocionado",
+      "ShockedEffect": "Reduce TODO 1 grado"
+    },
+    "Effect": {
+      "Source": "Origen",
+      "Toggle": "Alternar Efecto",
+      "Temporary": "Efectos Temporales",
+      "Passive": "Efectos Pasivos",
+      "Inactive": "Efectos Inactivos"
+    }
+  },
+
+  "TYPES": {
+    "Actor": {
+      "character": "Actor",
+      "npc": "PNJ",
+      "animal": "Animal"
+    },
+    "Item": {
+      "item": "Objeto",
+      "feature": "Habilidad",
+      "spell": "Conjuro",
+      "weapon": "Arma",
+      "class": "Clase",
+      "shield": "Escudo",
+      "armor": "Armadura"
     }
   }
-  
+}
