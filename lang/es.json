@@ -1,5 +1,11 @@
 {
   "RYUUTAMA": {
+    "Dialog": {
+      "critical": "<p class='critical-label'>CRÍTICO ╰(*°▽°*)╯</p>",
+      "blunder": "<p class='blunder-label'>PIFIA (。﹏。*)</p>",
+      "hit": "<p class='hit-label'>ACIERTA en {target} ┗|｀O′|┛</p>",
+      "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>"
+    },
     "Description": "Descripción",
     "Items": "Objetos",
     "Effects": "Efectos",
@@ -17,10 +23,22 @@
     "Orientation": "Orientación",
     "Camping": "Acampar",
     "Ability": {
-      "Str": { "long": "Fuerza", "abbr": "FUE" },
-      "Dex": { "long": "Destreza", "abbr": "DES" },
-      "Int": { "long": "Inteligencia", "abbr": "INT" },
-      "Spi": { "long": "Espíritu", "abbr": "ESP" }
+      "Str": {
+        "long": "Fuerza",
+        "abbr": "FUE"
+      },
+      "Dex": {
+        "long": "Destreza",
+        "abbr": "DES"
+      },
+      "Int": {
+        "long": "Inteligencia",
+        "abbr": "INT"
+      },
+      "Spi": {
+        "long": "Espíritu",
+        "abbr": "ESP"
+      }
     },
     "SheetLabels": {
       "Actor": "Ficha de Actor de Ryuutama",
@@ -100,7 +118,6 @@
       "Inactive": "Efectos Inactivos"
     }
   },
-
   "TYPES": {
     "Actor": {
       "character": "Actor",

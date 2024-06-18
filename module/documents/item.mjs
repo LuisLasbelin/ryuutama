@@ -37,12 +37,11 @@ export class RyuutamaItem extends Item {
    * @returns string
    */
   checkForCrit(roll, roll1_max, roll2_max) {
-    console.log("Roll result: ", roll.result[0] == roll1_max, roll.result[4] == roll2_max)
-    if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return `<h3>CRITICAL ╰(*°▽°*)╯</h3>`;
-    if (roll.result[0] == 6 && roll.result[4] == 6) return `<h3>CRITICAL ╰(*°▽°*)╯</h3>`;
-    if (roll.result[0] == 1 && roll.result[4] == 1) return `<h3>FAIL (。﹏。*)</h3>`;
+    if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
+    if (roll.result[0] == 6 && roll.result[4] == 6) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
+    if (roll.result[0] == 1 && roll.result[4] == 1) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["blunder"]);
     return ""
-}
+  }
 
   /**
    * Handle clickable rolls from items.
@@ -60,28 +59,51 @@ export class RyuutamaItem extends Item {
     if (item.type === "weapon") {
       // Retrieve roll data.
       const rollData = this.getRollData();
-      let attack_label = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>` + item.system.description;
+      // Attack roll
+      let msg_content = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${item.name}</h2>` + item.system.description;
       let attack_roll_string = `d${item.actor.system.abilities[rollData.attack_formula.roll1].value}+d${item.actor.system.abilities[rollData.attack_formula.roll2].value}`
       if (rollData.attack_formula.diceBonus) attack_roll_string += `+${rollData.attack_formula.diceBonus}`
       const attack_roll = new Roll(attack_roll_string, rollData);
-      const damage_label = `<h2>${item.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.DamageDealt')}</h2>`;
+      // Damage roll
       let damage_roll_string = `d${item.actor.system.abilities[rollData.damage_formula.roll1].value}`
       if (rollData.damage_formula.diceBonus != 0) damage_roll_string += `+${rollData.damage_formula.diceBonus}`
       const damage_roll = new Roll(damage_roll_string, rollData);
-      // Invoke the roll and submit it to chat.
+      // Invoke the roll and evaluate it to check for crits or blunders
       await damage_roll.evaluate()
       await attack_roll.evaluate()
-      attack_label += this.checkForCrit(attack_roll, item.actor.system.abilities[rollData.attack_formula.roll1].value, item.actor.system.abilities[rollData.attack_formula.roll2].value)
-      attack_roll.toMessage({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: attack_label,
-      })
-      damage_roll.toMessage({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: damage_label,
-      })
+      msg_content += this.checkForCrit(attack_roll, item.actor.system.abilities[rollData.attack_formula.roll1].value, item.actor.system.abilities[rollData.attack_formula.roll2].value)
+
+      // Show the attack result on the chat
+      msg_content += `<div class="roll-result">(${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[rollData.attack_formula.roll1])}) ${attack_roll.result[0]} + (${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[rollData.attack_formula.roll2])}) ${attack_roll.result[4]}`
+      if (rollData.attack_formula.diceBonus) {
+        if (rollData.attack_formula.diceBonus > 0) msg_content += ` +${rollData.attack_formula.diceBonus}`
+        else msg_content += ` ${rollData.attack_formula.diceBonus}`
+      }
+      msg_content += ` = <span class="roll-total">${attack_roll.total}</span></div>`
+      // Get the evasion value of the main target and compare it to the roll to check if the attack hits
+      let rolls_to_show = [attack_roll]
+      if (game.user.targets.size > 0) { // the targets property is a Set
+        game.user.targets.forEach(token => {
+          let target_evasion = Math.max(token.combatant.initiative, 0)
+          if (attack_roll.total >= target_evasion) {
+            msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["hit"], {target: token.document.name})
+            rolls_to_show.push(damage_roll) // add the damage roll to show it in the dice
+            msg_content += `<h2>${game.i18n.localize("RYUUTAMA.Item.Weapon.DamageRoll")}</h2><div class="damage-result">${damage_roll.total}</span></div>`
+          }
+          else {
+            msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["miss"], {target: token.document.name})
+          }
+        });
+      }
+
+      let chatData = {
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        rolls: rolls_to_show,
+        content: msg_content
+      };
+      ChatMessage.applyRollMode(chatData, "roll");
+      ChatMessage.create(chatData);
+
       return;
     } // if has attack
     if (item.type === "feature") {

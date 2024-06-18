@@ -2,7 +2,9 @@
   font-family: $font-primary;
 }
 
-.rollable,.ability-roll {
+.rollable,
+.ability-roll {
+
   &:hover,
   &:focus {
     color: #000;
@@ -13,4 +15,53 @@
 
 img {
   border: 0;
+}
+
+.critical-label {
+  border: 6px solid greenyellow;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1.25em;
+}
+
+.blunder-label {
+  border: 6px solid lightcoral;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1.25em;
+}
+
+.hit-label {
+  border: 4px solid greenyellow;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.miss-label {
+  border: 4px solid lightcoral;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+// Roll dialog
+.roll-result {
+  border: 4px solid lightgray;
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: lightgray;
+}
+
+.roll-total {
+  margin: 0.3em;
+  padding: 0.3em;
+  text-align: center;
+  font-size: 1.25em;
+  background-color: aliceblue;
+}
+
+.damage-result {
+  display: flex;
+  justify-content: center;
+  font-size: 1.25em;
+  background-color: lightcoral;
 }

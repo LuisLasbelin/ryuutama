@@ -17,3 +17,10 @@ RYUUTAMA.abilityAbbreviations = {
   Int: 'RYUUTAMA.Ability.Int.abbr',
   Spi: 'RYUUTAMA.Ability.Spi.abbr',
 };
+
+RYUUTAMA.dialogLabels = {
+  critical: `RYUUTAMA.Dialog.critical`,
+  blunder: `RYUUTAMA.Dialog.blunder`,
+  hit: 'RYUUTAMA.Dialog.hit',
+  miss: 'RYUUTAMA.Dialog.miss',
+}

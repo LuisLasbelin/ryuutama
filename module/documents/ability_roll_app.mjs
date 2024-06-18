@@ -38,9 +38,7 @@ class AbilityRollApp extends FormApplication {
         let roll = new Roll(roll_string, this.object.getRollData());
         await roll.evaluate();
         // Check for crits or fails
-        let crit = this.checkForCrit(roll, formData);
-        if (crit > 0) label += `<h3>CRITICAL ╰(*°▽°*)╯</h3>`;
-        if (crit < 0) label += `<h3>FAIL (。﹏。*)</h3>`;
+        label += this.checkForCrit(roll, formData);
 
         roll.toMessage({
             speaker: ChatMessage.getSpeaker({ actor: this.object }),
@@ -51,9 +49,9 @@ class AbilityRollApp extends FormApplication {
     }
 
     checkForCrit(roll, formData) {
-        if (roll.result[0] == this.object.system.abilities[formData.roll1].value && results[4] == this.object.system.abilities[formData.roll2].value) return 1;
-        if (roll.result[0] == 6 && roll.result[4] == 6) return 1;
-        if (roll.result[0] == 1 && roll.result[4] == 1) return -1;
+        if (roll.result[0] == this.object.system.abilities[formData.roll1].value && results[4] == this.object.system.abilities[formData.roll2].value) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
+        if (roll.result[0] == 6 && roll.result[4] == 6) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
+        if (roll.result[0] == 1 && roll.result[4] == 1) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["blunder"]);
         return 0
     }
 }

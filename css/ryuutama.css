@@ -4,7 +4,9 @@
   font-family: "Roboto", sans-serif;
 }
 
-.rollable:hover, .rollable:focus, .ability-roll:hover, .ability-roll:focus {
+.rollable:hover, .rollable:focus,
+.ability-roll:hover,
+.ability-roll:focus {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;
@@ -12,6 +14,54 @@
 
 img {
   border: 0;
+}
+
+.critical-label {
+  border: 6px solid greenyellow;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1.25em;
+}
+
+.blunder-label {
+  border: 6px solid lightcoral;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1.25em;
+}
+
+.hit-label {
+  border: 4px solid greenyellow;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.miss-label {
+  border: 4px solid lightcoral;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+.roll-result {
+  border: 4px solid lightgray;
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: lightgray;
+}
+
+.roll-total {
+  margin: 0.3em;
+  padding: 0.3em;
+  text-align: center;
+  font-size: 1.25em;
+  background-color: aliceblue;
+}
+
+.damage-result {
+  display: flex;
+  justify-content: center;
+  font-size: 1.25em;
+  background-color: lightcoral;
 }
 
 .grid,
