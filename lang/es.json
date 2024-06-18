@@ -4,7 +4,8 @@
       "critical": "<p class='critical-label'>CRÍTICO ╰(*°▽°*)╯</p>",
       "blunder": "<p class='blunder-label'>PIFIA (。﹏。*)</p>",
       "hit": "<p class='hit-label'>ACIERTA en {target} ┗|｀O′|┛</p>",
-      "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>"
+      "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>",
+      "blocked": "<p class='roll-result'><span class='fa fa-shield'></span> Bloqueado con escudo</p>"
     },
     "Description": "Descripción",
     "Items": "Objetos",
@@ -90,11 +91,15 @@
       "Armor": {
         "Handicap": "Penalización"
       },
+      "Shield": {
+        "Dodge": "Esquiva"
+      },
       "Size": "Tamaño",
       "Price": "Precio",
       "Weapons": "Armas",
       "Armours": "Armadura",
-      "Items": "Objetos"
+      "Items": "Objetos",
+      "Shields": "Escudos"
     },
     "Status": {
       "Wounded": "Herido",

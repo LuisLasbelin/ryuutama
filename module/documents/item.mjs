@@ -84,13 +84,25 @@ export class RyuutamaItem extends Item {
       let rolls_to_show = [attack_roll]
       if (game.user.targets.size > 0) { // the targets property is a Set
         game.user.targets.forEach(token => {
-          let target_evasion = Math.max(token.combatant.initiative, 0)
+          // Check for any shields the target might have
+          let dodge_value = 0
+          if (token.document.actor.items) {
+            const items = token.document.actor.items.contents
+            for (let k in items) {
+              console.log(items[k])
+              if (items[k].type == "shield" && items[k].system.equiped == true) {
+                dodge_value = items[k].system.dodge
+              }
+            }
+          }
+          let target_evasion = Math.max(token.combatant.initiative, dodge_value)
           if (attack_roll.total >= target_evasion) {
             msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["hit"], {target: token.document.name})
             rolls_to_show.push(damage_roll) // add the damage roll to show it in the dice
             msg_content += `<h2>${game.i18n.localize("RYUUTAMA.Item.Weapon.DamageRoll")}</h2><div class="damage-result">${damage_roll.total}</span></div>`
           }
           else {
+            if (dodge_value > token.combatant.initiative) msg_content += game.i18n.localize("RYUUTAMA.Dialog.blocked")
             msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["miss"], {target: token.document.name})
           }
         });
