@@ -7,6 +7,8 @@
       "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>",
       "blocked": "<p class='roll-result'><span class='fa fa-shield'></span> Bloqueado con escudo</p>"
     },
+    "UseFocus": "¿Concentración?",
+    "Focus": "Concentración",
     "Modifiers": "Modificadores",
     "Description": "Descripción",
     "Items": "Objetos",

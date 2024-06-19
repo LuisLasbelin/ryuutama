@@ -41,6 +41,12 @@ class AbilityRollApp extends FormApplication {
     }
 
     async _updateObject(event, formData) {
+        if (formData.focus == true) {
+            this.roll_bonuses.push({
+                name: game.i18n.localize("RYUUTAMA.Focus"),
+                value: "+1"
+            })
+        }
         console.log("Roll made with data:")
         console.log(formData)
         if (this.type == "weapon") {
@@ -57,9 +63,9 @@ class AbilityRollApp extends FormApplication {
         let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
         let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}`
         // add all roll bonuses
-        for (let bonus in formData.roll_bonuses) {
+        this.roll_bonuses.forEach((bonus) => {
             roll_string += bonus.value
-        }
+        })
         let roll = new Roll(roll_string, this.object.getRollData());
         await roll.evaluate();
         // Check for crits or fails
@@ -78,6 +84,9 @@ class AbilityRollApp extends FormApplication {
         let msg_content = `<h2>${this.object.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
         let attack_roll_string = `d${this.object.actor.system.abilities[this.ability1].value}+d${this.object.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
+        this.roll_bonuses.forEach((bonus) => {
+            attack_roll_string += bonus.value
+        })
         const attack_roll = new Roll(attack_roll_string, this.object.getRollData());
         // Damage roll
         let damage_roll_string = `d${this.object.actor.system.abilities[this.add_roll].value}`
