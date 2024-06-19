@@ -8,6 +8,7 @@
       "blocked": "<p class='roll-shield'><span class='fa fa-shield'></span> Bloqueado con escudo</p>",
       "focusUsed": "<p class='roll-focus'><span class='fa fa-eye'></span> Concentrado: Usa {used_mp} MP, quedan {new_mp} MP</p>"
     },
+    "Exp": "EXP",
     "UseFocus": "¿Concentración?",
     "Focus": "Concentración",
     "Modifiers": "Modificadores",
@@ -16,8 +17,8 @@
     "Effects": "Efectos",
     "Features": "Habilidades",
     "Spells": "Conjuros",
-    "Hitpoints": "Puntos de Golpe",
-    "Mindpoints": "Puntos de Mente",
+    "Hitpoints": "PGolpe",
+    "Mindpoints": "PMente",
     "Health": "Salud",
     "Level": "Nivel",
     "Defense": "Defensa",

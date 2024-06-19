@@ -134,7 +134,7 @@
         "roll2": "Dex",
         "diceBonus": "0"
       },
-      "effect": ""
+      "effect": {}
     },
     "spell": {
       "templates": [

@@ -1,4 +1,17 @@
 <ol class='items-list'>
+  <!-- LEVEL -->
+  <div class="resource flex-group-center">
+    <div>
+      <span class="resource-content flexrow">
+        <label class="flexshrink">{{localize 'RYUUTAMA.Exp'}}</label>
+        <input type="number" name="system.attributes.level.exp" value="{{system.attributes.level.exp}}"
+          data-dtype="Number" class="flexshrink input-small" />
+        <progress id="next-level" value={{system.attributes.level.exp}} max={{next_exp}}>
+          {{system.attributes.level.exp}} </progress>
+      </span>
+    </div>
+  </div>
+  <!-- SKILLS -->
   <li class='item flexrow items-header'>
     <div style="flex:2;" class='item-name'>{{localize 'Name'}}</div>
     <div style="flex:1;" class='item-formula'>{{localize 'RYUUTAMA.Item.Feature.UseRoll'}}</div>
@@ -20,7 +33,8 @@
       <h4>{{item.name}}</h4>
     </div>
     <div style="flex: 1;" class='item-formula item-prop'>
-      {{item.system.formula.roll1}}+{{item.system.formula.roll2}}{{#if item.system.formula.diceBonus}}+{{item.system.formula.diceBonus}}{{/if}}
+      {{item.system.formula.roll1}}+{{item.system.formula.roll2}}{{#if
+      item.system.formula.diceBonus}}+{{item.system.formula.diceBonus}}{{/if}}
     </div>
     <div class='item-controls'>
       <a class='item-control item-edit' title='{{localize "DOCUMENT.Edit" type=' feature'}}'>

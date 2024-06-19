@@ -69,13 +69,6 @@ img {
   background-color: lightcoral;
 }
 
-input[type=number] {
-  background: none;
-  border: none;
-  border-bottom: 2px solid #1e0039;
-  border-radius: 0;
-}
-
 .grid,
 .grid-2col {
   display: grid;
@@ -269,6 +262,10 @@ input[type=number] {
   text-align: center;
 }
 
+.flex-space {
+  gap: 5px;
+}
+
 /* Styles limited to ryuutama sheets */
 .ryuutama .item-form {
   font-family: "Roboto", sans-serif;
@@ -294,7 +291,9 @@ input[type=number] {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
-  border-bottom: 0;
+  background: none;
+  border: 0;
+  align-items: center;
 }
 .ryuutama .sheet-header h1.charname input {
   width: 100%;
@@ -335,6 +334,21 @@ input[type=number] {
 }
 .ryuutama .resource-content {
   align-items: center;
+}
+.ryuutama .level {
+  margin: 0 0.3em 0 0.3em;
+  min-width: 30px;
+  text-align: center;
+}
+.ryuutama input[type=number], .ryuutama input[type=text] {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #1e0039;
+  border-radius: 0;
+}
+.ryuutama .input-small {
+  min-width: 42px;
+  flex: 0;
 }
 .ryuutama .resource-label {
   font-weight: bold;

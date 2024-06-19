@@ -25,7 +25,9 @@
     height: 50px;
     padding: 0px;
     margin: 5px 0;
-    border-bottom: 0;
+    background: none;
+    border: 0;
+    align-items: center;
 
     input {
       width: 100%;
@@ -80,4 +82,22 @@
 
 .resource-content {
   align-items: center;
+}
+
+.level {
+  margin: 0 0.3em 0 0.3em;
+  min-width: 30px;
+  text-align: center;
+}
+
+input[type="number"], input[type="text"] {
+  background: none;
+  border: none;
+  border-bottom: 2px solid $c-bars;
+  border-radius: 0;
+}
+
+.input-small {
+  min-width: 42px;
+  flex: 0;
 }
