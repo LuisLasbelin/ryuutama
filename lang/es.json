@@ -78,6 +78,8 @@
       "Weapon": {
         "AttackRoll": "Ataque",
         "DamageRoll": "Daño",
+        "AttackBonus": "Ataque adicional",
+        "DamageBonus": "Daño adicional",
         "AttacksWith": "ataca con",
         "DamageDealt": "daño"
       },

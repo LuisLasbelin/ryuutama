@@ -1,27 +1,30 @@
-<form class="flexrow" autocomplete="off">
+<form class="flexcol" autocomplete="off">
 
-    <select name="roll1" id="roll1">
-        {{#select ability1}}
-        <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
-        <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
-        <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
-        <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
-        {{/select}}
-    </select>
+    <div class="flexrow" id="ability-rolls">
+        <select name="roll1" id="roll1" disabled={{disabled_controls}}>
+            {{#select ability1}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+        </select>
 
-    <select name="roll2" id="roll2">
-        {{#select ability2}}
-        <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
-        <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
-        <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
-        <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
-        {{/select}}
-    </select>
+        <select name="roll2" id="roll2" disabled={{disabled_controls}}>
+            {{#select ability2}}
+            <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
+            <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
+            <option value="Int">{{localize 'RYUUTAMA.Ability.Int.abbr'}}</option>
+            <option value="Spi">{{localize 'RYUUTAMA.Ability.Spi.abbr'}}</option>
+            {{/select}}
+        </select>
+    </div>
 
-    <fieldset>
-        <legend>Numeric mod</legend>
-        <input type="number" name="roll_mod" value=0 />
-    </fieldset>
+    <div class="flexcol" id="bonuses-list">
+        {{#each roll_bonuses}}
+            <p>{{this.name}}<span style="justify-content: end;">{{this.value}}</span></p>
+        {{/each}}
+    </div>
 
     <button type="submit">Roll</button>
 
