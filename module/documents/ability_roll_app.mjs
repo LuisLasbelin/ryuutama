@@ -15,8 +15,12 @@ class AbilityRollApp extends FormApplication {
         else {
             this.disabled_controls = false
         }
-        if (this.object.actor.system.mindpoints.value > 0 || type == "health") this.disabled_focus = true
+        if (object.actor.system.mindpoints.value < 1 || type == "health") this.disabled_focus = true
         else this.disabled_focus = false
+        if (object.actor.system.blunderPoints < 1 || type == "health") this.disabled_blunder = true
+        else this.disabled_blunder = false
+
+        console.log(this.disabled_blunder, this.disabled_focus)
     }
 
     static get defaultOptions() {
@@ -41,6 +45,9 @@ class AbilityRollApp extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
+        console.log(html.find('#blunder'))
+        if (!this.disabled_blunder) html.find('#blunder').removeAttr("disabled")
+        if (!this.disabled_focus) html.find('#focus').removeAttr("disabled")
     }
 
     async _updateObject(event, formData) {
@@ -77,11 +84,33 @@ class AbilityRollApp extends FormApplication {
         return game.i18n.format('RYUUTAMA.Dialog.focusUsed', {used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2)})
     }
 
+    /**
+     * Use a blunder point to focus
+     * @param {*} formData 
+     * @returns string with the point used for message
+     */
+    useBlunderPoint(formData) {
+        if (formData.blunder == true) {
+            this.roll_bonuses.push({
+                name: game.i18n.localize("RYUUTAMA.BlunderPoint"),
+                value: "+1"
+            })
+            // Consume half the MP
+            this.object.actor.update({
+                system: {
+                    blunderPoints: this.object.actor.system.blunderPoints - 1
+                }
+            })
+        }
+        return game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', {remaining: this.object.actor.system.blunderPoints})
+    }
+
     async abilityRoll(event, formData) {
         // Handle rolls that supply the formula directly.
         let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
         // Add focus to message if it was used
         label += this.useFocus(formData)
+        label += this.useBlunderPoint(formData)
         let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}`
         // add all roll bonuses
         this.roll_bonuses.forEach((bonus) => {
@@ -105,6 +134,7 @@ class AbilityRollApp extends FormApplication {
         let msg_content = `<h2>${this.object.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
         
         msg_content += this.useFocus(formData)
+        msg_content += this.useBlunderPoint(formData)
         
         let attack_roll_string = `d${this.object.actor.system.abilities[this.ability1].value}+d${this.object.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
