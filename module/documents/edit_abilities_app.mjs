@@ -25,7 +25,8 @@ class EditAbilitiesApp extends FormApplication {
       },
       Spi: {
         base: this.object.system.abilities.Spi.base
-      }
+      },
+      archetype: this.object.system.archetype
     };
   }
 
@@ -49,7 +50,10 @@ class EditAbilitiesApp extends FormApplication {
         base: parseInt(formData.Spi)
       }
     }
-    return this.object._updateAbilities(values)
+    const archetype = formData.archetype
+    this.object._updateArchetype(archetype)
+    this.object._updateAbilities(values)
+    return
   }
 }
 

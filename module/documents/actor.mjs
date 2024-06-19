@@ -167,6 +167,14 @@ export class RyuutamaActor extends Actor {
     // Process additional NPC data here.
   }
 
+  _updateArchetype(archetype) {
+    this.update({
+      system: {
+        archetype: archetype
+      }
+    })
+  }
+
   _updateAbilities(abilities) {
     this.update({
       system: {

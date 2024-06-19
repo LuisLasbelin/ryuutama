@@ -96,6 +96,8 @@ export class RyuutamaActorSheet extends ActorSheet {
       v.short = game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[k]) ?? k;
       v.icon = 'systems/ryuutama/assets/' + k + '_icon.png'
     }
+    // Archetype name
+    context.archetype_name = game.i18n.localize(CONFIG.RYUUTAMA.archetypes[context.system.archetype])
     // Next level EXP
     const levels_exp = [-2, -1, 100, 600, 1200, 2000, 3000, 4200, 5800, 7500, 10000, 99999]
     let next_exp = 0

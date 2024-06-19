@@ -10,6 +10,9 @@
       "blunderPointUsed": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {remaining}</p>",
       "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No está entrenado! ಠ益ಠ</p>"
     },
+    "Offensive": "Ofensivo",
+    "Tech": "Técnico",
+    "Magical": "Mágico",
     "Skills": "Habilidades",
     "LevelPowerups": "Mejoras de Nivel",
     "Exp": "EXP",

@@ -24,3 +24,9 @@ RYUUTAMA.dialogLabels = {
   hit: 'RYUUTAMA.Dialog.hit',
   miss: 'RYUUTAMA.Dialog.miss',
 }
+
+RYUUTAMA.archetypes = {
+  offensive: 'RYUUTAMA.Offensive',
+  tech: 'RYUUTAMA.Tech',
+  magical: 'RYUUTAMA.Magical'
+}

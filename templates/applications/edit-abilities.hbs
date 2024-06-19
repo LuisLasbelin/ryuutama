@@ -39,5 +39,13 @@
         <option value="12">12</option>
         {{/select}}
     </select>
+    <label class="resource-label flexshrink">{{localize 'RYUUTAMA.Item.Type'}}</label>
+      <select class="flexshrink" name="archetype" data-type="String">
+        {{#select archetype}}
+        <option value="offensive">{{localize 'RYUUTAMA.Offensive'}}</option>
+        <option value="tech">{{localize 'RYUUTAMA.Tech'}}</option>
+        <option value="magical">{{localize 'RYUUTAMA.Magical'}}</option>
+        {{/select}}
+      </select>
     <button type="submit">Aplicar cambios</button>
 </form>
