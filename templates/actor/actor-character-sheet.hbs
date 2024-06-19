@@ -15,7 +15,7 @@
       {{/each}}
       <div class="ability flexcol flex-group-center">
         <label>{{localize "RYUUTAMA.Health"}}</label>
-        <input type="text" name="system.health.value" value={{system.health.value}} />
+        <input type="number" name="system.health.value" value={{system.health.value}} />
         {{#if positiveHealth}}
         <select name="system.health.ability" id="system.health.ability">
           {{#select system.health.ability}}
@@ -51,7 +51,7 @@
           <div class="resource flex-group-center">
             <label for="system.hitpoints.value" class="resource-label">{{localize "RYUUTAMA.Hitpoints"}}</label>
             <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.hitpoints.value" value="{{system.hitpoints.value}}" data-dtype="Number" />
+              <input type="number" name="system.hitpoints.value" value="{{system.hitpoints.value}}" data-dtype="Number" />
               <span> / </span>
               <label for="system.hitpoints.max">{{system.hitpoints.max}}</label>
             </div>
@@ -60,7 +60,7 @@
           <div class="resource flex-group-center">
             <label for="system.mindpoints.value" class="resource-label">{{localize "RYUUTAMA.Mindpoints"}}</label>
             <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.mindpoints.value" value="{{system.mindpoints.value}}"
+              <input type="number" name="system.mindpoints.value" value="{{system.mindpoints.value}}"
                 data-dtype="Number" />
               <span> / </span>
               <label for="system.mindpoints.max">{{system.mindpoints.max}}</label>
@@ -70,7 +70,7 @@
           <div class="resource flex-group-center">
             <label for="system.attributes.level.value" class="resource-label">{{localize "RYUUTAMA.Level"}}</label>
             <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="system.attributes.level.value" value="{{system.attributes.level.value}}"
+              <input type="number" name="system.attributes.level.value" value="{{system.attributes.level.value}}"
                 data-dtype="Number" />
             </div>
           </div>
