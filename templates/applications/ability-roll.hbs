@@ -24,7 +24,7 @@
         {{#each roll_bonuses}}
             <div class="flexrow" style="margin-top: 0.5em; margin-bottom: 0.5em"><span style="flex: 2;">{{this.name}}</span><span style="justify-self: end; flex: 1; text-align: end;">{{this.value}}</span></div>
         {{/each}}
-        <div class="flexrow"><span>{{localize 'RYUUTAMA.UseFocus'}}</span><input style="justify-self: end;" type="checkbox" name="focus" id="focus"/></div>
+        <div class="flexrow"><span>{{localize 'RYUUTAMA.UseFocus'}}</span><input style="justify-self: end;" type="checkbox" name="focus" id="focus" disabled={{disabled_focus}}/></div>
     </div>
 
     <button type="submit">Roll</button>

@@ -15,6 +15,8 @@ class AbilityRollApp extends FormApplication {
         else {
             this.disabled_controls = false
         }
+        if (this.object.actor.system.mindpoints.value > 0 || type == "health") this.disabled_focus = true
+        else this.disabled_focus = false
     }
 
     static get defaultOptions() {
@@ -32,7 +34,8 @@ class AbilityRollApp extends FormApplication {
         return {
             ability1: this.ability1,
             ability2: this.ability2,
-            roll_bonuses: this.roll_bonuses
+            roll_bonuses: this.roll_bonuses,
+            disabled_focus: this.disabled_focus
         };
     }
 
@@ -41,12 +44,6 @@ class AbilityRollApp extends FormApplication {
     }
 
     async _updateObject(event, formData) {
-        if (formData.focus == true) {
-            this.roll_bonuses.push({
-                name: game.i18n.localize("RYUUTAMA.Focus"),
-                value: "+1"
-            })
-        }
         console.log("Roll made with data:")
         console.log(formData)
         if (this.type == "weapon") {
@@ -58,9 +55,33 @@ class AbilityRollApp extends FormApplication {
         return;
     }
 
+    /**
+     * Modifies MP and adds focus bonus
+     * @returns string for chat message with data
+     */
+    useFocus(formData) {
+        if (formData.focus == true) {
+            this.roll_bonuses.push({
+                name: game.i18n.localize("RYUUTAMA.Focus"),
+                value: "+1"
+            })
+            // Consume half the MP
+            this.object.actor.update({
+                system: {
+                    mindpoints: {
+                        value: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2)
+                    }
+                }
+            })
+        }
+        return game.i18n.format('RYUUTAMA.Dialog.focusUsed', {used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2)})
+    }
+
     async abilityRoll(event, formData) {
         // Handle rolls that supply the formula directly.
         let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
+        // Add focus to message if it was used
+        label += this.useFocus(formData)
         let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}`
         // add all roll bonuses
         this.roll_bonuses.forEach((bonus) => {
@@ -82,6 +103,9 @@ class AbilityRollApp extends FormApplication {
     async weaponRoll(event, formData) {
         // Attack roll
         let msg_content = `<h2>${this.object.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
+        
+        msg_content += this.useFocus(formData)
+        
         let attack_roll_string = `d${this.object.actor.system.abilities[this.ability1].value}+d${this.object.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
         this.roll_bonuses.forEach((bonus) => {
