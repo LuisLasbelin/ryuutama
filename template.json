@@ -74,7 +74,7 @@
         }
       },
       "class": "",
-      "archetype": "",
+      "archetype": "combat",
       "proficientWeapons": [],
       "coins": 0,
       "speciality": "",
@@ -127,6 +127,7 @@
       "templates": [
         "base"
       ],
+      "has_roll": true,
       "prerequisite": "",
       "target_number": "",
       "formula": {
@@ -134,7 +135,10 @@
         "roll2": "Dex",
         "diceBonus": "0"
       },
-      "effect": {}
+      "passive": {
+        "target": "",
+        "value": 0
+      }
     },
     "spell": {
       "templates": [
@@ -160,6 +164,7 @@
         "sellable",
         "equipable"
       ],
+      "type": "blade",
       "size": 1,
       "hands": 1,
       "attack_formula": {

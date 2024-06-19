@@ -45,7 +45,7 @@ class AbilityRollApp extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
-        console.log(html.find('#blunder'))
+        // Enable de cheboxes if they have enough resources
         if (!this.disabled_blunder) html.find('#blunder').removeAttr("disabled")
         if (!this.disabled_focus) html.find('#focus').removeAttr("disabled")
     }
@@ -80,8 +80,9 @@ class AbilityRollApp extends FormApplication {
                     }
                 }
             })
+            return game.i18n.format('RYUUTAMA.Dialog.focusUsed', { used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2) })
         }
-        return game.i18n.format('RYUUTAMA.Dialog.focusUsed', {used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2)})
+        return ""
     }
 
     /**
@@ -101,8 +102,49 @@ class AbilityRollApp extends FormApplication {
                     blunderPoints: this.object.actor.system.blunderPoints - 1
                 }
             })
+            return game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', { remaining: this.object.actor.system.blunderPoints })
         }
-        return game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', {remaining: this.object.actor.system.blunderPoints})
+        return ""
+    }
+
+    checkTrainedWithWeapon(formData) {
+        const used_weapon_type = this.object.system.type // string with the weapon type
+        let trained_weapons = []
+        // loop through all the passsive skills to search for @trainedweapon
+        this.object.actor.items.forEach(element => {
+            if (element.type == "feature") {
+                if (element.system.has_roll == false) {
+                    if (element.system.passive.target.includes("@trainedweapon")) {
+                        // split the string to get the weapon
+                        const passive_target = element.system.passive.target.split("@")
+                        if (passive_target[2] == used_weapon_type) {
+                            // found the actor is trained in that weapon
+                            // if the actor is trained in the same weapon 2 times it adds +1 to attack roll
+                            if (trained_weapons.includes(passive_target[2])) {
+                                this.roll_bonuses.push({
+                                    name: game.i18n.localize("RYUUTAMA.Item.Specialized"),
+                                    value: "+1"
+                                })
+                            }
+                            else {
+                                trained_weapons.push(passive_target[2])
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        console.log(trained_weapons)
+        if (trained_weapons.includes(used_weapon_type)) return ""
+        // The actor is not trained, lose 1 HP
+        this.object.actor.update({
+            system: {
+                hitpoints: {
+                    value: this.object.actor.system.hitpoints.value - 1
+                }
+            }
+        })
+        return game.i18n.format("RYUUTAMA.dialog.untrained", { weapon: game.i18n.localize("RYUUTAMA.Item.WeaponType." + used_weapon_type) })
     }
 
     async abilityRoll(event, formData) {
@@ -132,10 +174,11 @@ class AbilityRollApp extends FormApplication {
     async weaponRoll(event, formData) {
         // Attack roll
         let msg_content = `<h2>${this.object.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
-        
+
         msg_content += this.useFocus(formData)
         msg_content += this.useBlunderPoint(formData)
-        
+        msg_content += this.checkTrainedWithWeapon(formData)
+
         let attack_roll_string = `d${this.object.actor.system.abilities[this.ability1].value}+d${this.object.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
         this.roll_bonuses.forEach((bonus) => {

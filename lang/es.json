@@ -7,8 +7,11 @@
       "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>",
       "blocked": "<p class='roll-shield'><span class='fa fa-shield'></span> Bloqueado con escudo</p>",
       "focusUsed": "<p class='roll-focus'><span class='fa fa-eye'></span> (+1) Usa {used_mp} MP, quedan {new_mp} MP</p>",
-      "blunderPointUsed": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {remaining}</p>"
+      "blunderPointUsed": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {remaining}</p>",
+      "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No está entrenado! ಠ益ಠ</p>"
     },
+    "Skills": "Habilidades",
+    "LevelPowerups": "Mejoras de Nivel",
     "Exp": "EXP",
     "BlunderPoints": "P. Pifia",
     "UseBlunderPoint": "Punto de Pifia",
@@ -110,7 +113,18 @@
       "Weapons": "Armas",
       "Armours": "Armadura",
       "Items": "Objetos",
-      "Shields": "Escudos"
+      "Shields": "Escudos",
+      "HasRoll": "Tiene tirada",
+      "Passive": "Pasiva",
+      "Type": "Tipo",
+      "WeaponType": {
+        "shortblade": "Hoja corta",
+        "blade": "Hoja",
+        "polearm": "Arma de asta",
+        "axe": "Hacha",
+        "bow": "Arco",
+        "unarmed": "Desarmado"
+      }
     },
     "Status": {
       "Wounded": "Herido",

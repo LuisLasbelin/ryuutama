@@ -67,19 +67,21 @@ export class RyuutamaItem extends Item {
       return new AbilityRollApp(item, item.type, rollData.attack_formula.roll1, rollData.attack_formula.roll2, roll_bonuses, rollData.damage_formula.roll1).render(true);
     } // if it is a feature / skill
     if (item.type === "feature") {
-      const rollData = this.getRollData();
-      let label = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Feature.Uses')} ${item.name}</h2>` + item.system.description;
-      let roll_string = `d${item.actor.system.abilities[rollData.formula.roll1].value}+d${item.actor.system.abilities[rollData.formula.roll2].value}`
-      if (rollData.formula.diceBonus != 0) roll_string += `+${rollData.formula.diceBonus}`
-      const roll = new Roll(roll_string, rollData);
-      await roll.evaluate()
-      label += this.checkForCrit(roll, item.actor.system.abilities[rollData.formula.roll1].value, item.actor.system.abilities[rollData.formula.roll2].value)
-      roll.toMessage({
-        speaker: speaker,
-        rollMode: rollMode,
-        flavor: label,
-      })
-      return;
+      if (item.system.has_roll) {
+        const rollData = this.getRollData();
+        let label = `<h2>${item.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Feature.Uses')} ${item.name}</h2>` + item.system.description;
+        let roll_string = `d${item.actor.system.abilities[rollData.formula.roll1].value}+d${item.actor.system.abilities[rollData.formula.roll2].value}`
+        if (rollData.formula.diceBonus != 0) roll_string += `+${rollData.formula.diceBonus}`
+        const roll = new Roll(roll_string, rollData);
+        await roll.evaluate()
+        label += this.checkForCrit(roll, item.actor.system.abilities[rollData.formula.roll1].value, item.actor.system.abilities[rollData.formula.roll2].value)
+        roll.toMessage({
+          speaker: speaker,
+          rollMode: rollMode,
+          flavor: label,
+        })
+        return;
+      }
     } // if spells
     if (item.type === "spell") {
       // Add descriptors to the content

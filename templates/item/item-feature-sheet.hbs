@@ -24,9 +24,11 @@
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
+      <label for="has_roll">{{localize 'RYUUTAMA.Item.HasRoll'}}</label>
+      <input type="checkbox" name="system.has_roll" id="has_roll" {{checked system.has_roll}}>
       {{!-- As you add new fields, add them in here! --}}
       <h2>{{localize 'RYUUTAMA.Item.Feature.UseRoll'}}</h2>
-      <div class="grid grid-4col">
+      <div class="grid grid-3col">
         <div class="grid-span-1">
           <label class="resource-label">Roll 1</label>
           <select name="system.formula.roll1" data-type="String">
@@ -51,12 +53,25 @@
         </div>
         <div class="grid-span-1">
           <label class="resource-label">Mod</label>
-          <input type="text" name="system.formula.diceBonus" value="{{system.formula.diceBonus}}"
-            data-dtype="String" />
+          <input type="text" name="system.formula.diceBonus" value="{{system.formula.diceBonus}}" data-dtype="String" />
         </div>
       </div>
-    </div>
+      {{!-- As you add new fields, add them in here! --}}
+      <h2>{{localize 'RYUUTAMA.Item.Feature.Passive'}}</h2>
+      <div class="grid grid-2col">
+        <div class="grid-span-1">
+          <div class="grid-span-1">
+            <label class="resource-label">Target</label>
+            <input type="text" name="system.passive.target" value="{{system.passive.target}}" data-dtype="String" />
+          </div>
+          <div class="grid-span-1">
+            <label class="resource-label">Value</label>
+            <input type="text" name="system.passive.value" value="{{system.passive.value}}" data-dtype="String" />
+          </div>
+        </div>
 
+      </div>
+    </div>
     {{!-- Effects Tab --}}
     <div class="tab effects" data-group="primary" data-tab="effects">
       {{> "systems/ryuutama/templates/item/parts/item-effects.hbs"}}

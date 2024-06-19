@@ -36,6 +36,17 @@
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
+      <label class="resource-label">{{localize 'RYUUTAMA.Item.Type'}}</label>
+      <select name="system.type" data-type="String">
+        {{#select system.type}}
+        <option value="shortblade">{{localize 'RYUUTAMA.Item.WeaponType.shortblade'}}</option>
+        <option value="blade">{{localize 'RYUUTAMA.Item.WeaponType.blade'}}</option>
+        <option value="polearm">{{localize 'RYUUTAMA.Item.WeaponType.polearm'}}</option>
+        <option value="axe">{{localize 'RYUUTAMA.Item.WeaponType.axe'}}</option>
+        <option value="bow">{{localize 'RYUUTAMA.Item.WeaponType.bow'}}</option>
+        <option value="unarmed">{{localize 'RYUUTAMA.Item.WeaponType.unarmed'}}</option>
+        {{/select}}
+      </select>
       <div class="resource">
         <h2>{{localize 'RYUUTAMA.Item.Weapon.AttackRoll'}}</h2>
         <div class="grid grid-4col">
@@ -63,7 +74,8 @@
           </div>
           <div class="grid-span-1">
             <label class="resource-label">Mod</label>
-            <input type="text" name="system.attack_formula.diceBonus" value="{{system.attack_formula.diceBonus}}" data-dtype="String" />
+            <input type="text" name="system.attack_formula.diceBonus" value="{{system.attack_formula.diceBonus}}"
+              data-dtype="String" />
           </div>
         </div>
         <h2>{{localize 'RYUUTAMA.Item.Weapon.DamageRoll'}}</h2>
@@ -81,7 +93,8 @@
           </div>
           <div class="grid-span-1">
             <label class="resource-label">Mod</label>
-            <input type="text" name="system.damage_formula.diceBonus" value="{{system.damage_formula.diceBonus}}" data-dtype="String" />
+            <input type="text" name="system.damage_formula.diceBonus" value="{{system.damage_formula.diceBonus}}"
+              data-dtype="String" />
           </div>
         </div>
       </div>
