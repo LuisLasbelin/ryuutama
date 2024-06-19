@@ -31,7 +31,8 @@ class AbilityRollApp extends FormApplication {
         // Send data to the template
         return {
             ability1: this.ability1,
-            ability2: this.ability2
+            ability2: this.ability2,
+            roll_bonuses: this.roll_bonuses
         };
     }
 
