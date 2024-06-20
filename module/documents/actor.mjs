@@ -216,4 +216,14 @@ export class RyuutamaActor extends Actor {
       }
     })
   }
+
+  damage(amount) {
+    this.update({
+      system: {
+          hitpoints: {
+              value: this.actor.system.hitpoints.value - amount
+          }
+      }
+  })
+  }
 }
