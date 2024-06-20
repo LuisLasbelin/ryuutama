@@ -171,7 +171,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.features = features;
     context.weapons = weapons;
     context.total_load = total_load;
-    context.max_load = context.system.load.max - context.system.load.mod;
+    context.max_load = context.system.load.max
     context.percentile_load = total_load * 100 / (context.max_load + context.system.load.mod);
     context.positiveHealth = context.system.health.value > 9;
 

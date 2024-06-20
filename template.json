@@ -38,12 +38,14 @@
         "hitpoints": {
           "value": 8,
           "min": 0,
-          "max": 8
+          "max": 8,
+          "mod": 0
         },
         "mindpoints": {
           "value": 8,
           "min": 0,
-          "max": 8
+          "max": 8,
+          "mod": 0
         },
         "load": {
           "value": 0,
@@ -74,8 +76,7 @@
         }
       },
       "class": "",
-      "archetype": "combat",
-      "proficientWeapons": [],
+      "archetype": "",
       "coins": 0,
       "speciality": "",
       "blunderPoints": 0

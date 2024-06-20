@@ -16,6 +16,39 @@ export class RyuutamaActor extends Actor {
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+    // Set the ability values
+    this.update({
+      system: {
+        abilities: {
+          Str: {
+            value: this.system.abilities.Str.base + this.system.abilities.Str.mod
+          },
+          Dex: {
+            value: this.system.abilities.Dex.base + this.system.abilities.Dex.mod
+          },
+          Int: {
+            value: this.system.abilities.Int.base + this.system.abilities.Int.mod
+          },
+          Spi: {
+            value: this.system.abilities.Spi.base + this.system.abilities.Spi.mod
+          }
+        }
+      }
+    })
+    // Values for max hp and max mp
+    this.update({
+      system: {
+        hitpoints: {
+          max: this.system.abilities.Str.value * 2 + this.system.hitpoints.mod
+        },
+        mindpoints: {
+          max: this.system.abilities.Spi.value * 2 + this.system.mindpoints.mod
+        },
+        load: {
+          max: this.system.abilities.Str.value + 3 + this.system.load.mod
+        }
+      }
+    })
   }
 
   /**
@@ -35,35 +68,22 @@ export class RyuutamaActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
-    this._prepareNpcData(actorData);
-    this._prepareAnimalData(actorData);
+    if (actorData.type == "npc") this._prepareNpcData(actorData);
+    if (actorData.type == "animal") this._prepareAnimalData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
   _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
-
+    if (actorData.type !== "character") return;
     // Make modifications to data here. For example:
     const systemData = actorData.system;
-
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Calculate the modifier using d20 rules.
-      // ability.mod = Math.floor((ability.value - 10) / 2);
-    }
-
-    // Values for max hp and max mp
-    systemData.hitpoints.max = systemData.abilities.Str.value * 2
-    systemData.mindpoints.max = systemData.abilities.Spi.value * 2
-    systemData.load.max = systemData.abilities.Str.value + 3 + systemData.load.mod
 
     // When positive health add to one ability mod
     if (systemData.health.value > 9) {
       systemData.abilities[systemData.health.ability].mod += 2
     }
-
     // Add modifiers for each status effect
     if (systemData.health.value < systemData.status.wounded) {
       systemData.abilities.Str.mod -= 2;
@@ -95,8 +115,7 @@ export class RyuutamaActor extends Actor {
    * Prepare NPC type specific data.
    */
   _prepareNpcData(actorData) {
-    if (actorData.type !== 'npc') return;
-
+    if (actorData.type !== "npc") return;
     // Make modifications to data here. For example:
     const systemData = actorData.system;
     systemData.xp = systemData.cr * systemData.cr * 100;
@@ -106,8 +125,7 @@ export class RyuutamaActor extends Actor {
    * Prepare Animal type specific data
    */
   _prepareAnimalData(actorData) {
-    if (actorData.type !== 'animal') return;
-
+    if (actorData.type !== "animal") return;
     // Make modifications to data here. For example:
     const systemData = actorData.system;
 
@@ -168,11 +186,77 @@ export class RyuutamaActor extends Actor {
   }
 
   _updateArchetype(archetype) {
+    const last_archetype = this.system.archetype
+    console.log("Changed from " + last_archetype + " to " + archetype)
+    // if it is the same don't change nothing
+    if (last_archetype == archetype) return;
+    // Delete the changes from the last archetype only if there is one
+
+    if (last_archetype != "") {
+      if (last_archetype == "offensive") {
+        this.update({
+          system: {
+            hitpoints: {
+              max: this.system.hitpoints.max - 4
+            }
+          }
+        })
+      }
+      if (last_archetype == "tech") {
+        this.update({
+          system: {
+            load: {
+              mod: this.system.load.mod - 3
+            }
+          }
+        })
+      }
+      if (last_archetype == "magical") {
+        this.update({
+          system: {
+            mindpoints: {
+              max: this.system.mindpoints.max - 4
+            }
+          }
+        })
+      }
+    }
     this.update({
       system: {
         archetype: archetype
       }
     })
+
+    // Set the changes from the new archetype only if there is one
+    if (archetype != "") {
+      if (archetype == "offensive") {
+        this.update({
+          system: {
+            hitpoints: {
+              max: this.system.hitpoints.max + 4
+            }
+          }
+        })
+      }
+      if (archetype == "tech") {
+        this.update({
+          system: {
+            load: {
+              mod: this.system.load.mod + 3
+            }
+          }
+        })
+      }
+      if (archetype == "magical") {
+        this.update({
+          system: {
+            mindpoints: {
+              max: this.system.mindpoints.max + 4
+            }
+          }
+        })
+      }
+    }
   }
 
   _updateAbilities(abilities) {
@@ -181,6 +265,5 @@ export class RyuutamaActor extends Actor {
         abilities: abilities
       }
     })
-    this.render(true)
   }
 }
