@@ -221,7 +221,7 @@ export class RyuutamaActor extends Actor {
     this.update({
       system: {
           hitpoints: {
-              value: this.actor.system.hitpoints.value - amount
+              value: this.system.hitpoints.value - amount
           }
       }
   })
