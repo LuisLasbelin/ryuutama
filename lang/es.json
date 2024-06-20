@@ -1,6 +1,7 @@
 {
   "RYUUTAMA": {
     "Dialog": {
+      "rollResult": "<p class='roll-result'>{formula}</p>",
       "critical": "<p class='critical-label'>CRÍTICO ╰(*°▽°*)╯</p>",
       "blunder": "<p class='blunder-label'>PIFIA (。﹏。*)</p>",
       "hit": "<p class='hit-label'>ACIERTA en {target} ┗|｀O′|┛</p>",
@@ -8,9 +9,17 @@
       "blocked": "<p class='roll-shield'><span class='fa fa-shield'></span> Bloqueado con escudo</p>",
       "focusUsed": "<p class='roll-focus'><span class='fa fa-eye'></span> (+1) Usa {used_mp} MP, quedan {new_mp} MP</p>",
       "blunderPointUsed": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {remaining}</p>",
-      "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No está entrenado! ಠ益ಠ</p>",
+      "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No sabe usar el arma -1 PG! ಠ益ಠ</p>",
       "isTech": "<p class='roll-focus'><span class='fa fa-key'></span> (+1) Es Técnico</p>",
-      "OffensiveBonus": "<p class='roll-focus'><span class='fa fa-certificate'></span> (+1) Es Ofensivo</p>"
+      "OffensiveBonus": "<p class='roll-focus'><span class='fa fa-certificate'></span> (+1) Es Ofensivo</p>",
+      "SpecializedIn": "<p class='roll-focus'><span class='fa fa-snow'></span> (+2) Especializado en {target}</p>",
+      "TravelTrained": "<p class='roll-focus'><span class='fa fa-snow'></span> (+1) Entrenado en viajes</p>",
+      "attackMod": "<p class='roll-focus'><span class='fa fa-certificate'></span> Precisión {mod}</p>"
+    },
+    "TravelTrained": "Entrenado en viajes",
+    "SpecializedIn": "Especializado en {target}",
+    "TerrainAndClimate": {
+      "snow": "nieve"
     },
     "Offensive": "Ofensivo",
     "Tech": "Técnico",

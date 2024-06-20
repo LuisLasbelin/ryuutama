@@ -62,7 +62,12 @@ export class RyuutamaItem extends Item {
     if (item.type === "weapon") {
       const rollData = this.getRollData();
       let roll_bonuses = []
-      if (rollData.attack_formula.diceBonus != 0) roll_bonuses.push({ name: game.i18n.localize("RYUUTAMA.Item.Weapon.AttackModifier"), value: rollData.attack_formula.diceBonus })
+      if (rollData.attack_formula.diceBonus != 0) roll_bonuses.push({ 
+        name: game.i18n.localize("RYUUTAMA.Item.Weapon.AttackModifier"), 
+        value: rollData.attack_formula.diceBonus,
+        optional: false,
+        id: "attackMod"
+      })
       console.log(roll_bonuses)
       return new AbilityRollApp(item.actor, item, item.type, rollData.attack_formula.roll1, rollData.attack_formula.roll2, roll_bonuses, rollData.damage_formula.roll1).render(true);
     } // if it is a feature / skill
