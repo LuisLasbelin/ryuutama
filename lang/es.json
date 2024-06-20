@@ -9,7 +9,8 @@
       "focusUsed": "<p class='roll-focus'><span class='fa fa-eye'></span> (+1) Usa {used_mp} MP, quedan {new_mp} MP</p>",
       "blunderPointUsed": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {remaining}</p>",
       "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No está entrenado! ಠ益ಠ</p>",
-      "isTech": "<p class='roll-focus'><span class='fa fa-key'></span> (+1) Es Técnico</p>"
+      "isTech": "<p class='roll-focus'><span class='fa fa-key'></span> (+1) Es Técnico</p>",
+      "OffensiveBonus": "<p class='roll-focus'><span class='fa fa-certificate'></span> (+1) Es Ofensivo</p>"
     },
     "Offensive": "Ofensivo",
     "Tech": "Técnico",

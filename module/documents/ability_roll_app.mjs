@@ -187,10 +187,15 @@ class AbilityRollApp extends FormApplication {
         const attack_roll = new Roll(attack_roll_string, this.object.getRollData());
         // Damage roll
         let damage_roll_string = `d${this.object.actor.system.abilities[this.add_roll].value}`
-        // Bonuses to damage
-        const damage_roll = new Roll(damage_roll_string, this.object.getRollData());
+        // If the actor is offensive archetype, add +1 to damage
+        if (this.object.actor.system.archetype == "offensive") {
+            this.add_roll_bonuses.push({
+                name: game.i18n.localize("RYUUTAMA.Dialog.OffensiveBonus"),
+                value: "+1"
+            })
+        }
+        console.log(attack_roll_string)
         // Invoke the roll and evaluate it to check for crits or blunders
-        await damage_roll.evaluate()
         await attack_roll.evaluate()
         msg_content += this.checkForCrit(attack_roll, this.object.actor.system.abilities[this.ability1].value, this.object.actor.system.abilities[this.ability2].value)
 
@@ -199,7 +204,7 @@ class AbilityRollApp extends FormApplication {
         // Get the evasion value of the main target and compare it to the roll to check if the attack hits
         let rolls_to_show = [attack_roll]
         if (game.user.targets.size > 0) { // the targets property is a Set
-            game.user.targets.forEach(token => {
+            game.user.targets.forEach(async token => {
                 // Check for any shields the target might have
                 let dodge_value = 0
                 if (token.document.actor.items) {
@@ -214,16 +219,35 @@ class AbilityRollApp extends FormApplication {
                 let target_evasion = Math.max(token.combatant.initiative, dodge_value)
                 if (attack_roll.total >= target_evasion) {
                     msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["hit"], { target: token.document.name })
+
+                    // Bonuses to damage
+                    msg_content += `<h2>${game.i18n.localize("RYUUTAMA.Item.Weapon.DamageRoll")}</h2>`
+                    this.add_roll_bonuses.forEach((bonus) => {
+                        damage_roll_string += bonus.value
+                        msg_content += bonus.name
+                    })
+                    const damage_roll = new Roll(damage_roll_string, this.object.getRollData());
+                    await damage_roll.evaluate()
                     rolls_to_show.push(damage_roll) // add the damage roll to show it in the dice
-                    msg_content += `<h2>${game.i18n.localize("RYUUTAMA.Item.Weapon.DamageRoll")}</h2><div class="damage-result">${damage_roll.total}</span></div>`
+                    msg_content += `<div class="damage-result">${damage_roll.total}</span></div>`
                 }
                 else {
                     if (dodge_value > token.combatant.initiative) msg_content += game.i18n.localize("RYUUTAMA.Dialog.blocked")
                     msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["miss"], { target: token.document.name })
                 }
+                this._emitRollMessage(rolls_to_show, msg_content)
             });
         }
 
+        return;
+    }
+
+    /**
+     * Sends a message with the following elements
+     * @param {*} rolls_to_show array of rolls
+     * @param {*} msg_content html element in string for body
+     */
+    _emitRollMessage(rolls_to_show, msg_content) {
         let chatData = {
             type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             rolls: rolls_to_show,
@@ -231,8 +255,6 @@ class AbilityRollApp extends FormApplication {
         };
         ChatMessage.applyRollMode(chatData, "roll");
         ChatMessage.create(chatData);
-
-        return;
     }
 
     /**
