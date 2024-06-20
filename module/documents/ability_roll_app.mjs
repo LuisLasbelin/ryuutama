@@ -67,6 +67,7 @@ class AbilityRollApp extends FormApplication {
      * @returns string for chat message with data
      */
     useFocus(formData) {
+        let final_label = ""
         if (formData.focus == true) {
             this.roll_bonuses.push({
                 name: game.i18n.localize("RYUUTAMA.Focus"),
@@ -80,17 +81,8 @@ class AbilityRollApp extends FormApplication {
                     }
                 }
             })
-            return game.i18n.format('RYUUTAMA.Dialog.focusUsed', { used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2) })
+            final_label += game.i18n.format('RYUUTAMA.Dialog.focusUsed', { used_mp: Math.ceil(this.object.actor.system.mindpoints.value / 2), new_mp: this.object.actor.system.mindpoints.value - Math.ceil(this.object.actor.system.mindpoints.value / 2) })
         }
-        return ""
-    }
-
-    /**
-     * Use a blunder point to focus
-     * @param {*} formData 
-     * @returns string with the point used for message
-     */
-    useBlunderPoint(formData) {
         if (formData.blunder == true) {
             this.roll_bonuses.push({
                 name: game.i18n.localize("RYUUTAMA.BlunderPoint"),
@@ -102,9 +94,19 @@ class AbilityRollApp extends FormApplication {
                     blunderPoints: this.object.actor.system.blunderPoints - 1
                 }
             })
-            return game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', { remaining: this.object.actor.system.blunderPoints })
+            final_label += game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', { remaining: this.object.actor.system.blunderPoints })
         }
-        return ""
+        if (formData.focus || formData.blunder) {
+            // If the actor is tech archetype, add +1 to the attack roll
+            if (this.object.actor.system.archetype == "tech") {
+                this.roll_bonuses.push({
+                    name: game.i18n.localize("RYUUTAMA.TechFocus"),
+                    value: "+1"
+                })
+                final_label += game.i18n.localize('RYUUTAMA.Dialog.isTech')
+            }
+        }
+        return final_label
     }
 
     checkTrainedWithWeapon(formData) {
@@ -152,7 +154,6 @@ class AbilityRollApp extends FormApplication {
         let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
         // Add focus to message if it was used
         label += this.useFocus(formData)
-        label += this.useBlunderPoint(formData)
         let roll_string = `d${this.object.system.abilities[formData.roll1].value}+d${this.object.system.abilities[formData.roll2].value}`
         // add all roll bonuses
         this.roll_bonuses.forEach((bonus) => {
@@ -176,7 +177,6 @@ class AbilityRollApp extends FormApplication {
         let msg_content = `<h2>${this.object.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
 
         msg_content += this.useFocus(formData)
-        msg_content += this.useBlunderPoint(formData)
         msg_content += this.checkTrainedWithWeapon(formData)
 
         let attack_roll_string = `d${this.object.actor.system.abilities[this.ability1].value}+d${this.object.actor.system.abilities[this.ability2].value}`

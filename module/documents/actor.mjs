@@ -104,6 +104,22 @@ export class RyuutamaActor extends Actor {
       systemData.abilities.Int.mod -= 2;
     }
 
+    if (systemData.archetype == "offensive") {
+      systemData.hitpoints.mod = systemData.hitpoints.mod + 4
+    }
+    if (systemData.archetype == "tech") {
+      systemData.load.mod = systemData.load.mod + 3
+      systemData.techInitiative = 1
+    }
+    if (systemData.archetype == "magical") {
+      systemData.mindpoints.mod = systemData.mindpoints.mod + 4
+    }
+
+    // Apply new modifiers
+    systemData.load.max += systemData.load.mod
+    systemData.hitpoints.max += systemData.hitpoints.mod
+    systemData.mindpoints.max += systemData.mindpoints.mod
+
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       // Set the total clamped between 4 and 12
@@ -186,77 +202,11 @@ export class RyuutamaActor extends Actor {
   }
 
   _updateArchetype(archetype) {
-    const last_archetype = this.system.archetype
-    console.log("Changed from " + last_archetype + " to " + archetype)
-    // if it is the same don't change nothing
-    if (last_archetype == archetype) return;
-    // Delete the changes from the last archetype only if there is one
-
-    if (last_archetype != "") {
-      if (last_archetype == "offensive") {
-        this.update({
-          system: {
-            hitpoints: {
-              max: this.system.hitpoints.max - 4
-            }
-          }
-        })
-      }
-      if (last_archetype == "tech") {
-        this.update({
-          system: {
-            load: {
-              mod: this.system.load.mod - 3
-            }
-          }
-        })
-      }
-      if (last_archetype == "magical") {
-        this.update({
-          system: {
-            mindpoints: {
-              max: this.system.mindpoints.max - 4
-            }
-          }
-        })
-      }
-    }
     this.update({
       system: {
         archetype: archetype
       }
     })
-
-    // Set the changes from the new archetype only if there is one
-    if (archetype != "") {
-      if (archetype == "offensive") {
-        this.update({
-          system: {
-            hitpoints: {
-              max: this.system.hitpoints.max + 4
-            }
-          }
-        })
-      }
-      if (archetype == "tech") {
-        this.update({
-          system: {
-            load: {
-              mod: this.system.load.mod + 3
-            }
-          }
-        })
-      }
-      if (archetype == "magical") {
-        this.update({
-          system: {
-            mindpoints: {
-              max: this.system.mindpoints.max + 4
-            }
-          }
-        })
-      }
-    }
   }
 
   _updateAbilities(abilities) {

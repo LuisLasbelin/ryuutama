@@ -116,6 +116,7 @@ export class RyuutamaActorSheet extends ActorSheet {
         break
       }
     }
+    context.magical = context.system.archetype == "magical"
     context.next_exp = next_exp
   }
 

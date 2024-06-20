@@ -79,7 +79,8 @@
       "archetype": "",
       "coins": 0,
       "speciality": "",
-      "blunderPoints": 0
+      "blunderPoints": 0,
+      "techInitiative": 0
     },
     "npc": {
       "templates": [
