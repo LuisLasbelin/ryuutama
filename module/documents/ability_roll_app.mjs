@@ -260,7 +260,7 @@ class AbilityRollApp extends FormApplication {
                 }
                 let target_evasion = Math.max(token.combatant.initiative, dodge_value)
                 if (attack_roll.total >= target_evasion) {
-                    msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["hit"], { target: token.document.name })
+                    msg_content += game.i18n.format('RYUUTAMA.Dialog.hit', { target: token.document.name })
 
                     // Damage roll
                     let damage_roll_string = `d${this.actor.system.abilities[this.add_roll].value}`
@@ -280,7 +280,7 @@ class AbilityRollApp extends FormApplication {
                 }
                 else {
                     if (dodge_value > token.combatant.initiative) msg_content += game.i18n.localize("RYUUTAMA.Dialog.blocked")
-                    msg_content += game.i18n.format(CONFIG.RYUUTAMA.dialogLabels["miss"], { target: token.document.name })
+                    msg_content += game.i18n.format('RYUUTAMA.Dialog.miss', { target: token.document.name })
                 }
                 this._emitRollMessage(rolls_to_show, msg_content)
                 return;
@@ -314,9 +314,9 @@ class AbilityRollApp extends FormApplication {
      * @returns 
      */
     _checkForCrit(roll, roll1_max, roll2_max) {
-        if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
-        if (roll.result[0] == 6 && roll.result[4] == 6) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["critical"]);
-        if (roll.result[0] == 1 && roll.result[4] == 1) return game.i18n.localize(CONFIG.RYUUTAMA.dialogLabels["blunder"]);
+        if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return game.i18n.localize('RYUUTAMA.Dialog.critical');
+        if (roll.result[0] == 6 && roll.result[4] == 6) return game.i18n.localize('RYUUTAMA.Dialog.critical');
+        if (roll.result[0] == 1 && roll.result[4] == 1) return game.i18n.localize('RYUUTAMA.Dialog.blunder');
         return ""
     }
 }

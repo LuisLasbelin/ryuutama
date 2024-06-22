@@ -22,6 +22,12 @@
     "TerrainAndClimate": {
       "snow": "nieve"
     },
+    "TargetNumber": "Dificultad",
+    "TargetNum": {
+      "gamemaster": "Game Master",
+      "topography": "Topografía",
+      "versus": "Enfrentada"
+    },
     "MiscMod": "Otros",
     "Offensive": "Ofensivo",
     "Tech": "Técnico",

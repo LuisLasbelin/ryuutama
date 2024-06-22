@@ -18,13 +18,6 @@ RYUUTAMA.abilityAbbreviations = {
   Spi: 'RYUUTAMA.Ability.Spi.abbr',
 };
 
-RYUUTAMA.dialogLabels = {
-  critical: `RYUUTAMA.Dialog.critical`,
-  blunder: `RYUUTAMA.Dialog.blunder`,
-  hit: 'RYUUTAMA.Dialog.hit',
-  miss: 'RYUUTAMA.Dialog.miss',
-}
-
 RYUUTAMA.archetypes = {
   offensive: 'RYUUTAMA.Offensive',
   tech: 'RYUUTAMA.Tech',
@@ -59,4 +52,10 @@ RYUUTAMA.climates = {
   dark: 3,
   storm: 5,
   blizzard: 5
+}
+
+RYUUTAMA.target_nums = {
+  gm: "RYUUTAMA.TargetNum.gamemaster",
+  topography: "RYUUTAMA.TargetNum.topography",
+  versus: "RYUUTAMA.TargetNum.versus"
 }
