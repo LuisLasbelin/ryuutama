@@ -15,7 +15,7 @@ export class RyuutamaActorSheet extends ActorSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ['ryuutama', 'sheet', 'actor'],
-      width: 900,
+      width: 700,
       height: 600,
       tabs: [
         {
