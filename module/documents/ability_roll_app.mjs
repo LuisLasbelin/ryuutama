@@ -44,12 +44,7 @@ class AbilityRollApp extends FormApplication {
         if (["weapon"].includes(this.type)) {
             // If the actor is offensive archetype, add +1 to damage
             if (this.actor.system.archetype == "offensive") {
-                this.add_roll_bonuses.push({
-                    name: game.i18n.localize("RYUUTAMA.Dialog.OffensiveBonus"),
-                    value: "+1",
-                    id: "offensivedamage",
-                    optional: false
-                })
+                this.add_roll_bonuses.push(new RollBonus("offensivedamage", game.i18n.localize("RYUUTAMA.Dialog.OffensiveBonus"), "+1"))
             }
         }
         if (["ability", "marching", "orientating", "camping"].includes(this.type)) {
@@ -60,23 +55,18 @@ class AbilityRollApp extends FormApplication {
                             // split the string to get the speciality
                             const passive_target = element.system.passive.target.split("@")
                             // if the actor is specialized add the option to add +2 to the roll
-                            this.roll_bonuses.push({
-                                name: game.i18n.format('RYUUTAMA.SpecializedIn', { target: game.i18n.localize("RYUUTAMA.TerrainAndClimate." + passive_target[2]) }),
-                                id: "Specialist",
-                                value: element.system.passive.value,
-                                optional: true,
-                                specialization: passive_target[2]
-                            })
+                            this.roll_bonuses.push(new RollBonus(
+                                "specialist",
+                                game.i18n.format('RYUUTAMA.SpecializedIn', { target: game.i18n.localize("RYUUTAMA.TerrainAndClimate." + passive_target[2]) }),
+                                element.system.passive.value,
+                                true,
+                                passive_target[2]
+                            ))
                         }
                         if (element.system.passive.target.includes("@travel") && ["marching", "orientating", "camping"].includes(this.type)) {
                             // found the actor is trained in that weapon
                             // Bards add +1 to all travel rolls
-                            this.roll_bonuses.push({
-                                name: game.i18n.localize('RYUUTAMA.TravelTrained'),
-                                id: "Travel",
-                                value: element.system.passive.value,
-                                optional: false
-                            })
+                            this.roll_bonuses.push(new RollBonus("travel", game.i18n.localize('RYUUTAMA.TravelTrained'), element.system.passive.value))
                         }
                     }
                 }
@@ -102,6 +92,10 @@ class AbilityRollApp extends FormApplication {
 
     async _updateObject(event, formData) {
         console.log(formData)
+        // Get the misc mod and add it to the roll bonuses
+        if (formData.miscmod.length > 0) {
+            this.roll_bonuses.push(new RollBonus("misc", game.i18n.localize("RYUUTAMA.MiscMod"), formData.miscmod))
+        }
         if (this.type == "weapon") {
             await this.weaponRoll(event, formData)
         }
@@ -118,12 +112,7 @@ class AbilityRollApp extends FormApplication {
     _useFocus(formData) {
         let final_label = ""
         if (formData.focus == true) {
-            this.roll_bonuses.push({
-                name: game.i18n.localize("RYUUTAMA.Focus"),
-                value: "+1",
-                id: "focus",
-                optional: false
-            })
+            this.roll_bonuses.push(new RollBonus("focus", game.i18n.localize("RYUUTAMA.Focus"), "+1", Math.ceil(this.actor.system.mindpoints.value / 2)))
             // Consume half the MP
             this.actor.update({
                 system: {
@@ -132,33 +121,20 @@ class AbilityRollApp extends FormApplication {
                     }
                 }
             })
-            final_label += game.i18n.format('RYUUTAMA.Dialog.focusUsed', { used_mp: Math.ceil(this.actor.system.mindpoints.value / 2), new_mp: this.actor.system.mindpoints.value - Math.ceil(this.actor.system.mindpoints.value / 2) })
         }
         if (formData.blunder == true) {
-            this.roll_bonuses.push({
-                name: game.i18n.localize("RYUUTAMA.BlunderPoint"),
-                value: "+1",
-                id: "blunderpoint",
-                optional: false
-            })
+            this.roll_bonuses.push(new RollBonus("blunderpoint", game.i18n.localize("RYUUTAMA.BlunderPoint"), "+1", this.actor.system.blunderPoints))
             // Consume half the MP
             this.actor.update({
                 system: {
                     blunderPoints: this.actor.system.blunderPoints - 1
                 }
             })
-            final_label += game.i18n.format('RYUUTAMA.Dialog.blunderPointUsed', { remaining: this.actor.system.blunderPoints })
         }
         if (formData.focus || formData.blunder) {
             // If the actor is tech archetype, add +1 to the attack roll
             if (this.actor.system.archetype == "tech") {
-                this.roll_bonuses.push({
-                    name: game.i18n.localize("RYUUTAMA.TechFocus"),
-                    value: "+1",
-                    id: "techfocus",
-                    optional: false
-                })
-                final_label += game.i18n.localize('RYUUTAMA.Dialog.isTech')
+                this.roll_bonuses.push(new RollBonus("techfocus", game.i18n.localize("RYUUTAMA.TechFocus"), "+1"))
             }
         }
         return final_label
@@ -178,12 +154,7 @@ class AbilityRollApp extends FormApplication {
                             // found the actor is trained in that weapon
                             // if the actor is trained in the same weapon 2 times it adds +1 to attack roll
                             if (trained_weapons.includes(passive_target[2])) {
-                                this.roll_bonuses.push({
-                                    name: game.i18n.localize("RYUUTAMA.Item.Trained"),
-                                    value: "+1",
-                                    id: "trained",
-                                    optional: false
-                                })
+                                this.roll_bonuses.push(new RollBonus("trained", game.i18n.localize("RYUUTAMA.Item.Trained"), "+1"))
                             }
                             else {
                                 trained_weapons.push(passive_target[2])
@@ -198,6 +169,25 @@ class AbilityRollApp extends FormApplication {
         return false
     }
 
+    /**
+     * Returns the label to add to a chat message and mods to add to a roll
+     * @param {*} formData 
+     * @returns Object {label, mods}
+     */
+    _getActiveMods(formData) {
+        let label = ""
+        let mods = ""
+        this.roll_bonuses.forEach((bonus) => {
+            if (!formData[bonus.id] && bonus.optional) return;
+            mods += bonus.value
+            label += game.i18n.format('RYUUTAMA.Dialog.' + bonus.id, {
+                target: game.i18n.localize(bonus.dialogtarget),
+                mod: bonus.value
+            })
+        })
+        return {label: label, mods: mods}
+    }
+
     async abilityRoll(event, formData) {
         if (!formData.roll1) {
             formData.roll1 = this.ability1
@@ -209,12 +199,10 @@ class AbilityRollApp extends FormApplication {
         label += this._useFocus(formData)
         let roll_string = `d${this.actor.system.abilities[formData.roll1].value}+d${this.actor.system.abilities[formData.roll2].value}`
         // add all roll bonuses
-        this.roll_bonuses.forEach((bonus) => {
-            if (formData[bonus.id]) {
-                roll_string += bonus.value
-                if (bonus.id == "Specialist") label += game.i18n.format('RYUUTAMA.Dialog.SpecializedIn', { target: game.i18n.localize("RYUUTAMA.TerrainAndClimate." + bonus.specialization) })
-            }
-        })
+        let mods = this._getActiveMods(formData)
+        label += mods.label
+        roll_string += mods.mods
+
         let roll = new Roll(roll_string, this.actor.getRollData());
         await roll.evaluate();
         // Result
@@ -241,15 +229,10 @@ class AbilityRollApp extends FormApplication {
 
         let attack_roll_string = `d${this.actor.system.abilities[this.ability1].value}+d${this.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
-        this.roll_bonuses.forEach((bonus) => {
-            if (!formData[bonus.id] && bonus.optional) return;
-            
-            attack_roll_string += bonus.value
-            msg_content += game.i18n.format('RYUUTAMA.Dialog.' + bonus.id, {
-                weapon: game.i18n.localize("RYUUTAMA.Item.WeaponType." + this.object.type),
-                mod: bonus.value
-            })
-        })
+        let mods = this._getActiveMods(formData)
+        msg_content += mods.label
+        attack_roll_string += mods.mods
+
         const attack_roll = new Roll(attack_roll_string, this.actor.getRollData());
         // Invoke the roll and evaluate it to check for crits or blunders
         await attack_roll.evaluate()
@@ -338,4 +321,14 @@ class AbilityRollApp extends FormApplication {
     }
 }
 
-export { AbilityRollApp }
+class RollBonus {
+    constructor(id, name, value, optional = false, dialogtarget = "") {
+        this.name = name;
+        this.value = value;
+        this.id = id;
+        this.optional = optional;
+        this.dialogtarget = dialogtarget;
+    }
+}
+
+export { AbilityRollApp, RollBonus }
