@@ -10,21 +10,26 @@
     {{!-- Sheet Body --}}
     <section class="sheet-body">
         <div class="flexrow flex-space">
-            <label for="terrain" class="flexshrink">{{localize 'RYUUTAMA.Terrain'}}</label>
-            <select type="text" name="terrain" class="flexshrink" id="terrain" value="{{data.system.terrain}}">
+            <label class="flexshrink resource-label">{{localize 'RYUUTAMA.Terrain'}}</label>
+            <select name="data.system.terrain" class="flexshrink save-terrain" data-type="String">
                 {{#select data.system.terrain}}
                 {{#each terrains}}
-                <option value={{@key}}>{{this.name}}</option>
+                <option value={{this.id}} {{#if this.selected}}selected{{/if}}>{{this.name}} ({{this.value}})</option>
                 {{/each}}
+                <!--
+                <option value="barren">{{localize 'RYUUTAMA.Terrains.barren'}}</option>
+                <option value="prairie">{{localize 'RYUUTAMA.Terrains.prairie'}}</option>
+                <option value="forest">{{localize 'RYUUTAMA.Terrains.forest'}}</option>
+                -->
                 {{/select}}
             </select>
         </div>
         <div class="flexrow flex-space">
-            <label for="terrain" class="flexshrink">{{localize 'RYUUTAMA.Climate'}}</label>
-            <select type="text" name="climate" class="flexshrink" id="climate" value="{{data.system.climate}}">
+            <label class="flexshrink resource-label">{{localize 'RYUUTAMA.Climate'}}</label>
+            <select name="data.system.climate" class="flexshrink save-climate" data-type="String">
                 {{#select data.system.climate}}
                 {{#each climates}}
-                <option value={{@key}}>{{this.name}}</option>
+                <option value={{this.id}} {{#if this.selected}}selected{{/if}}>{{this.name}} ({{this.value}})</option>
                 {{/each}}
                 {{/select}}
             </select>

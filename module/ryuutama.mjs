@@ -55,6 +55,7 @@ Hooks.once('init', function () {
     label: 'RYUUTAMA.SheetLabels.Item',
   });
   DocumentSheetConfig.registerSheet(JournalEntryPage, 'ryuutama', RyuutamaRegionSheet, {
+    types: ["region"],
     makeDefault: true,
     label: 'RYUUTAMA.SheetLabels.Region'
   })

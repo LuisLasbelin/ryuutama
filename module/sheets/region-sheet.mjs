@@ -30,16 +30,20 @@ export class RyuutamaRegionSheet extends JournalPageSheet {
         let terrains = []
         for (const k in CONFIG.RYUUTAMA.terrains) {
             terrains.push({
-                name: game.i18n.localize("RYUUTAMA.Terrain." + k),
-                value: CONFIG.RYUUTAMA.terrains[k]
+                id: k,
+                name: game.i18n.localize("RYUUTAMA.Terrains." + k),
+                value: CONFIG.RYUUTAMA.terrains[k],
+                selected: journalData.system.terrain == k
             })
         }
 
         let climates = []
         for (const k in CONFIG.RYUUTAMA.climates) {
             climates.push({
-                name: game.i18n.localize("RYUUTAMA.Climate." + k),
-                value: CONFIG.RYUUTAMA.climates[k]
+                id: k,
+                name: game.i18n.localize("RYUUTAMA.Climates." + k),
+                value: `+${CONFIG.RYUUTAMA.climates[k]}`,
+                selected: journalData.system.climate == k
             })
         }
 
@@ -47,5 +51,27 @@ export class RyuutamaRegionSheet extends JournalPageSheet {
         context.climates = climates;
 
         return context;
+    }
+
+    /** @override */
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        // Render the item sheet for viewing/editing prior to the editable check.
+        html.on('change', '.save-terrain', (ev) => {
+            this.object.update({
+                system: {
+                    terrain: ev.currentTarget.value
+                }
+            })
+        });
+
+        html.on('change', '.save-climate', (ev) => {
+            this.object.update({
+                system: {
+                    climate: ev.currentTarget.value
+                }
+            })
+        });
     }
 }

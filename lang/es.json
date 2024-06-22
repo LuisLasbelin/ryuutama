@@ -162,7 +162,9 @@
       "Passive": "Efectos Pasivos",
       "Inactive": "Efectos Inactivos"
     },
-    "Terrain": {
+    "Terrain": "Terreno",
+    "Climate": "Clima",
+    "Terrains": {
       "barren": "Yermo",
       "prairie": "Pradera",
       "forest": "Bosque",
@@ -175,7 +177,7 @@
       "jungle": "Jungla",
       "peaks": "Alta Montaña"
     },
-    "Climate": {
+    "Climates": {
       "sun": "Despejado",
       "cloud": "Nublado",
       "drizzle": "LLovizna",
