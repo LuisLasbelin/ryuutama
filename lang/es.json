@@ -68,7 +68,8 @@
     },
     "SheetLabels": {
       "Actor": "Ficha de Actor de Ryuutama",
-      "Item": "Ficha de Objeto de Ryuutama"
+      "Item": "Ficha de Objeto de Ryuutama",
+      "Region": "Region"
     },
     "Item": {
       "Spell": {
@@ -160,6 +161,34 @@
       "Temporary": "Efectos Temporales",
       "Passive": "Efectos Pasivos",
       "Inactive": "Efectos Inactivos"
+    },
+    "Terrain": {
+      "barren": "Yermo",
+      "prairie": "Pradera",
+      "forest": "Bosque",
+      "hill": "Colinas",
+      "rocky": "Pedregal",
+      "primordial": "Bosque primordial",
+      "swamp": "Pantano",
+      "mountain": "Montaña",
+      "desert": "Desierto",
+      "jungle": "Jungla",
+      "peaks": "Alta Montaña"
+    },
+    "Climate": {
+      "sun": "Despejado",
+      "cloud": "Nublado",
+      "drizzle": "LLovizna",
+      "wind": "Viento",
+      "lightfog": "Neblina",
+      "hot": "Calor",
+      "cold": "Frio",
+      "rain": "Lluvia",
+      "snow": "Nieve",
+      "fog": "Niebla",
+      "dark": "Oscuridad",
+      "storm": "Tormenta",
+      "blizzard": "Ventisca"
     }
   },
   "TYPES": {
@@ -176,6 +205,9 @@
       "class": "Clase",
       "shield": "Escudo",
       "armor": "Armadura"
+    },
+    "JournalPage": {
+      "region": "Región"
     }
   }
 }

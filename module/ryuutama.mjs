@@ -4,6 +4,7 @@ import { RyuutamaItem } from './documents/item.mjs';
 // Import sheet classes.
 import { RyuutamaActorSheet } from './sheets/actor-sheet.mjs';
 import { RyuutamaItemSheet } from './sheets/item-sheet.mjs';
+import { RyuutamaRegionSheet } from './sheets/region-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { RYUUTAMA } from './helpers/config.mjs';
@@ -53,6 +54,10 @@ Hooks.once('init', function () {
     makeDefault: true,
     label: 'RYUUTAMA.SheetLabels.Item',
   });
+  DocumentSheetConfig.registerSheet(JournalEntryPage, 'ryuutama', RyuutamaRegionSheet, {
+    makeDefault: true,
+    label: 'RYUUTAMA.SheetLabels.Region'
+  })
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

@@ -209,5 +209,12 @@
       ],
       "features": []
     }
-  }
+  },
+  "JournalEntryPage": {
+		"types": ["region"],
+		"region": {
+      "terrain": "forest",
+      "climate": "sun"
+		}
+	}
 }

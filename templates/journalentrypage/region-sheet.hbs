@@ -1,0 +1,33 @@
+{{!-- This template is a fallback for when items don't have more specific templates. --}}
+{{!-- Generally, you'll want to make more specific templates when possible. --}}
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <div class="header-fields">
+            <h1 class="charname"><input name="name" type="text" value="{{data.name}}" placeholder="Name" /></h1>
+        </div>
+    </header>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+        <div class="flexrow flex-space">
+            <label for="terrain" class="flexshrink">{{localize 'RYUUTAMA.Terrain'}}</label>
+            <select type="text" name="terrain" class="flexshrink" id="terrain" value="{{data.system.terrain}}">
+                {{#select data.system.terrain}}
+                {{#each terrains}}
+                <option value={{@key}}>{{this.name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="flexrow flex-space">
+            <label for="terrain" class="flexshrink">{{localize 'RYUUTAMA.Climate'}}</label>
+            <select type="text" name="climate" class="flexshrink" id="climate" value="{{data.system.climate}}">
+                {{#select data.system.climate}}
+                {{#each climates}}
+                <option value={{@key}}>{{this.name}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </section>
+</form>

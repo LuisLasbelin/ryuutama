@@ -30,3 +30,33 @@ RYUUTAMA.archetypes = {
   tech: 'RYUUTAMA.Tech',
   magical: 'RYUUTAMA.Magical'
 }
+
+RYUUTAMA.terrains = {
+  barren: 6,
+  prairie: 6,
+  forest: 8,
+  hill: 8,
+  rocky: 8,
+  primordial: 10,
+  swamp: 10,
+  mountain: 10,
+  desert: 12,
+  jungle: 12,
+  peaks: 14
+}
+
+RYUUTAMA.climates = {
+  sun: 0,
+  cloud: 0,
+  drizzle: 1,
+  wind: 1,
+  lightfog: 1,
+  hot: 1,
+  cold: 1,
+  rain: 3,
+  snow: 3,
+  fog: 3,
+  dark: 3,
+  storm: 5,
+  blizzard: 5
+}
