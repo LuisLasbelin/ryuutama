@@ -3,8 +3,8 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
-import { EditAbilitiesApp } from '../documents/edit_abilities_app.mjs'
-import { AbilityRollApp } from '../documents/ability_roll_app.mjs'
+import { EditAbilitiesApp } from '../apss/edit_abilities_app.mjs'
+import { AbilityRollApp } from '../apps/ability_roll_app.mjs'
 
 /**
  * Extend the basic ActorSheet with some very simple modifications

@@ -1,4 +1,4 @@
-import { AbilityRollApp } from '../documents/ability_roll_app.mjs'
+import { AbilityRollApp } from '../apps/ability_roll_app.mjs'
 
 
 /**
@@ -62,8 +62,8 @@ export class RyuutamaItem extends Item {
     if (item.type === "weapon") {
       const rollData = this.getRollData();
       let roll_bonuses = []
-      if (rollData.attack_formula.diceBonus != 0) roll_bonuses.push({ 
-        name: game.i18n.localize("RYUUTAMA.Item.Weapon.AttackModifier"), 
+      if (rollData.attack_formula.diceBonus != 0) roll_bonuses.push({
+        name: game.i18n.localize("RYUUTAMA.Item.Weapon.AttackModifier"),
         value: rollData.attack_formula.diceBonus,
         optional: false,
         id: "attackMod"

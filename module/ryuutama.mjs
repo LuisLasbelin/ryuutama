@@ -8,6 +8,7 @@ import { RyuutamaRegionSheet } from './sheets/region-sheet.mjs';
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from './helpers/templates.mjs';
 import { RYUUTAMA } from './helpers/config.mjs';
+import { RegionWindowApp } from './apps/region_window.mjs';
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -20,6 +21,8 @@ Hooks.once('init', function () {
     RyuutamaActor,
     RyuutamaItem,
     rollItemMacro,
+    openRegionWindow,
+    getCurrentTerrainAndClimate
   };
 
   // Add custom constants for configuration.
@@ -146,4 +149,20 @@ function rollItemMacro(itemUuid) {
     // Trigger the item roll
     item.roll();
   });
+}
+
+function openRegionWindow() {
+  console.log("Opening region window")
+  new RegionWindowApp(game.scenes.active.name)
+}
+
+function getCurrentTerrainAndClimate() {
+  game.journal.search("climate").forEach(journal => {
+    journal.pages.forEach(page => {
+      if (page.type == "region") {
+        return {terrain: page.system.terrain, climate: page.system.climate};
+      }
+    });
+  });
+  return false;
 }
