@@ -3,7 +3,7 @@ import {
   prepareActiveEffectCategories,
 } from '../helpers/effects.mjs';
 
-import { EditAbilitiesApp } from '../apss/edit_abilities_app.mjs'
+import { EditAbilitiesApp } from '../apps/edit_abilities_app.mjs'
 import { AbilityRollApp } from '../apps/ability_roll_app.mjs'
 
 /**

@@ -22,7 +22,8 @@ Hooks.once('init', function () {
     RyuutamaItem,
     rollItemMacro,
     openRegionWindow,
-    getCurrentTerrainAndClimate
+    getCurrentTerrainAndClimate,
+    getActiveRegionJournalEntry
   };
 
   // Add custom constants for configuration.
@@ -153,16 +154,23 @@ function rollItemMacro(itemUuid) {
 
 function openRegionWindow() {
   console.log("Opening region window")
-  new RegionWindowApp(game.scenes.active.name)
+  return new RegionWindowApp(game.scenes.active.name).render(true)
 }
 
 function getCurrentTerrainAndClimate() {
+  const page = getActiveRegionJournalEntry()
+  if (page) return { terrain: page.system.terrain, climate: page.system.climate };
+  return false;
+}
+
+function getActiveRegionJournalEntry() {
+  let result = false
   game.journal.search("climate").forEach(journal => {
     journal.pages.forEach(page => {
       if (page.type == "region") {
-        return {terrain: page.system.terrain, climate: page.system.climate};
+        result = page
       }
     });
   });
-  return false;
+  return result;
 }

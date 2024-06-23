@@ -1,0 +1,22 @@
+<form class="flexcol" autocomplete="off">
+    <div class="flexrow flex-space">
+        <label class="flexshrink resource-label">{{localize 'RYUUTAMA.Terrain'}}</label>
+        <select id="terrain" name="terrain" class="flexshrink save" data-type="String">
+            {{#select terrain}}
+            {{#each terrains}}
+            <option value={{this.id}} {{#if this.selected}}selected{{/if}}>{{this.name}} ({{this.value}})</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="flexrow flex-space">
+        <label class="flexshrink resource-label">{{localize 'RYUUTAMA.Climate'}}</label>
+        <select id="climate" name="climate" class="flexshrink save" data-type="String">
+            {{#select climate}}
+            {{#each climates}}
+            <option value={{this.id}} {{#if this.selected}}selected{{/if}}>{{this.name}} ({{this.value}})</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+</form>
