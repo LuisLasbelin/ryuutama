@@ -49,7 +49,6 @@ class RegionWindowApp extends FormApplication {
         super.activateListeners(html);
         // When changing a selector, update the journal
         html.on('change', '.save', (ev) => {
-            console.log(ev, html.find('.save'))
             this.submit()
         })
         
