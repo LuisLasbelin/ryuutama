@@ -1,5 +1,8 @@
 {
   "RYUUTAMA": {
+    "UI": {
+      "NoRegionEntry": "No hay ninguna entrada de dario con una ficha de región."
+    },
     "Dialog": {
       "rollResult": "<p class='roll-result'>{formula}</p>",
       "critical": "<p class='critical-label'>CRÍTICO ╰(*°▽°*)╯</p>",
@@ -15,7 +18,9 @@
       "specialist": "<p class='roll-focus'><span class='fa fa-snow'></span> (+2) Especializado en {target}</p>",
       "travel": "<p class='roll-focus'><span class='fa fa-snow'></span> (+1) Entrenado en viajes</p>",
       "attackMod": "<p class='roll-focus'><span class='fa fa-certificate'></span> Precisión {mod}</p>",
-      "misc": "<p class='roll-focus'><span class='fa fa-plus'></span> Otros {mod}</p>"
+      "misc": "<p class='roll-focus'><span class='fa fa-plus'></span> Otros {mod}</p>",
+      "travelhit": "<p class='hit-label'> Supera la tirada contra Topografía ({difficulty})</p>",
+      "travelmiss": "<p class='miss-label'> Falla contra la Topografía ({difficulty})</p>"
     },
     "TravelTrained": "Entrenado en viajes",
     "SpecializedIn": "Especializado en {target}",

@@ -60,12 +60,29 @@ export class RyuutamaItemSheet extends ItemSheet {
       this._prepareWeaponData(context);
     }
 
+    if (itemData.type == "feature") {
+      this._prepareFeatureData(context)
+    }
+
     console.log(context)
     return context;
   }
 
   _prepareWeaponData(context) {
     // Unused
+  }
+
+  _prepareFeatureData(context) {
+    let target_nums = []
+    for (const k in CONFIG.RYUUTAMA.target_nums) {
+      target_nums.push({
+        id: k,
+        name: game.i18n.localize(CONFIG.RYUUTAMA.target_nums[k]),
+        selected: k == context.system.target_number
+      })
+    }
+
+    context.target_nums = target_nums;
   }
 
   /* -------------------------------------------- */

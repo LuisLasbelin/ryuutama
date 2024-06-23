@@ -213,6 +213,29 @@ class AbilityRollApp extends FormApplication {
 
         label += `<div class="roll-total">${roll.total}</div>`
 
+        // If the target number of the feature is topography then compare it
+        if(["orientating", "marching", "camping"].includes(this.type) || this.object.system.target_number == "topography") {
+            let difficulty = 0
+            // Get the target number from the first region journal entry it finds
+            game.journal.search("climate").forEach(journal => {
+                journal.pages.forEach(page => {
+                    if(page.type == "region") {
+                        // then get the sum of the values
+                        difficulty += CONFIG.RYUUTAMA.terrains[page.system.terrain] + CONFIG.RYUUTAMA.climates[page.system.climate]
+                        return;
+                    }
+                    if (difficulty > 0) return;
+                });
+            });
+            if (difficulty > 0) {
+                if (roll.total >= difficulty) label += game.i18n.format("RYUUTAMA.Dialog.travelhit", {difficulty: difficulty})
+                else label += game.i18n.format("RYUUTAMA.Dialog.travelmiss", {difficulty: difficulty})
+            }
+            else {
+                ui.notifications.error(game.i18n.localize("RYUUTAMA.UI.NoRegionEntry"));
+            }
+        }
+
         this._emitRollMessage([roll], label)
         return;
     }

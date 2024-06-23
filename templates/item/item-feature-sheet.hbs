@@ -28,8 +28,8 @@
       <input type="checkbox" name="system.has_roll" id="has_roll" {{checked system.has_roll}}>
       {{!-- As you add new fields, add them in here! --}}
       <h2>{{localize 'RYUUTAMA.Item.Feature.UseRoll'}}</h2>
-      <div class="grid grid-3col">
-        <div class="grid-span-1">
+      <div class="flexrow flex-space">
+        <div class="flexshrink">
           <label class="resource-label">Roll 1</label>
           <select name="system.formula.roll1" data-type="String">
             {{#select system.formula.roll1}}
@@ -40,7 +40,7 @@
             {{/select}}
           </select>
         </div>
-        <div class="grid-span-1">
+        <div class="flexshrink">
           <label class="resource-label">Roll 2</label>
           <select name="system.formula.roll2" data-type="String">
             {{#select system.formula.roll2}}
@@ -51,9 +51,19 @@
             {{/select}}
           </select>
         </div>
-        <div class="grid-span-1">
+        <div class="">
           <label class="resource-label">Mod</label>
           <input type="text" name="system.formula.diceBonus" value="{{system.formula.diceBonus}}" data-dtype="String" />
+        </div>
+        <div class="flexshrink">
+          <label class="resource-label">{{localize 'RYUUTAMA.TargetNumber'}}</label>
+          <select name="system.target_number" data-type="String">
+            {{#select system.target_number}}
+            {{#each target_nums}}
+            <option value={{this.id}} {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
         </div>
       </div>
       {{!-- As you add new fields, add them in here! --}}
@@ -69,7 +79,6 @@
             <input type="text" name="system.passive.value" value="{{system.passive.value}}" data-dtype="String" />
           </div>
         </div>
-
       </div>
     </div>
     {{!-- Effects Tab --}}
