@@ -4,6 +4,7 @@
       "NoRegionEntry": "No hay ninguna entrada de dario con una ficha de región."
     },
     "Dialog": {
+      "MakesAbilityRoll": "<h2>{actor}</h2>",
       "rollResult": "<p class='roll-result'>{formula}</p>",
       "critical": "<p class='critical-label'>CRÍTICO ╰(*°▽°*)╯</p>",
       "blunder": "<p class='blunder-label'>PIFIA (。﹏。*)</p>",
@@ -24,9 +25,7 @@
     },
     "TravelTrained": "Entrenado en viajes",
     "SpecializedIn": "Especializado en {target}",
-    "TerrainAndClimate": {
-      "snow": "nieve"
-    },
+    "ClimateAndTerrainInfo": "Informe: El terreno es {terrain} y el tiempo {climate}.",
     "TargetNumber": "Dificultad",
     "TargetNum": {
       "gamemaster": "Game Master",

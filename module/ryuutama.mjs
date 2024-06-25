@@ -69,6 +69,23 @@ Hooks.once('init', function () {
 });
 
 /* -------------------------------------------- */
+/*  Region Button Hook                          */
+/* -------------------------------------------- */
+Hooks.on('getSceneControlButtons', (buttons) => {
+  if (!canvas) return;
+  let group = buttons.find((b) => b.name === 'notes');
+  group.tools.push({
+    button: true,
+    icon: 'fas fa-tree',
+    name: 'region',
+    title: 'Toggle Region',
+    onClick: () => {
+      game.ryuutama.openRegionWindow();
+    },
+  });
+});
+
+/* -------------------------------------------- */
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
@@ -153,8 +170,13 @@ function rollItemMacro(itemUuid) {
 }
 
 function openRegionWindow() {
-  console.log("Opening region window")
-  return new RegionWindowApp(game.scenes.active.name).render(true)
+  if (game.user.isTrusted) return new RegionWindowApp(game.scenes.active.name).render(true);
+  // In other case just show an UI log with the region terrain and climate
+  let data = game.ryuutama.getCurrentTerrainAndClimate()
+  return ui.notifications.info(game.i18n.format('RYUUTAMA.ClimateAndTerrainInfo'), {
+    terrain: game.i18n.localize("RYUUTAMA.Terrains." + data.terrain),
+    climate: game.i18n.localize("RYUUTAMA.Climates." + data.climate),
+  })
 }
 
 function getCurrentTerrainAndClimate() {
@@ -165,7 +187,7 @@ function getCurrentTerrainAndClimate() {
 
 function getActiveRegionJournalEntry() {
   let result = false
-  game.journal.search("climate").forEach(journal => {
+  game.journal.search("region").forEach(journal => {
     journal.pages.forEach(page => {
       if (page.type == "region") {
         result = page

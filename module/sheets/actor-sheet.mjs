@@ -358,7 +358,7 @@ export class RyuutamaActorSheet extends ActorSheet {
    * @private
    */
   _prepareAbilityRoll(type = "none", ability1 = "Str", ability2 = "Str", event) {
-    return new AbilityRollApp(this.actor, null, type, ability1, ability2).render(true);
+    return new AbilityRollApp(this.actor, { system: { target_number: "none" } }, type, ability1, ability2).render(true);
   }
 
   /**

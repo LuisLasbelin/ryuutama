@@ -194,7 +194,7 @@ class AbilityRollApp extends FormApplication {
             formData.roll2 = this.ability2
         }
         // Starting label
-        let label = `<h2>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h2>`;
+        let label = `${game.i18n.format('RYUUTAMA.Dialog.MakesAbilityRoll', {actor: this.actor.name})}<h3>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h3>`;
         // Add focus to message if it was used
         label += this._useFocus(formData)
         let roll_string = `d${this.actor.system.abilities[formData.roll1].value}+d${this.actor.system.abilities[formData.roll2].value}`

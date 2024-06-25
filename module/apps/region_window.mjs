@@ -51,7 +51,6 @@ class RegionWindowApp extends FormApplication {
         html.on('change', '.save', (ev) => {
             this.submit()
         })
-        
     }
 
     async _updateObject(event, formData) {
