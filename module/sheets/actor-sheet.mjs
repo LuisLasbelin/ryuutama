@@ -53,20 +53,21 @@ export class RyuutamaActorSheet extends ActorSheet {
     if (actorData.type == 'character') {
       this._prepareItems(context);
       this._prepareCharacterData(context);
+      this._prepareActorData(context);
       this._prepareSpells(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'npc') {
       this._prepareItems(context);
-      this._prepareCharacterData(context);
+      this._prepareActorData(context);
       this._prepareSpells(context);
     }
 
     // Prepare NPC data and items.
     if (actorData.type == 'animal') {
       this._prepareItems(context);
-      this._prepareCharacterData(context);
+      this._prepareActorData(context);
     }
 
     // Add roll data for TinyMCE editors.
@@ -83,19 +84,27 @@ export class RyuutamaActorSheet extends ActorSheet {
   }
 
   /**
-   * Organize and classify Items for Character sheets.
+   * Set the names and labels for abilities
    *
    * @param {Object} actorData The actor to prepare.
    *
    * @return {undefined}
    */
-  _prepareCharacterData(context) {
-    // Handle ability scores.
+  _prepareActorData(context) {
+    // Handle ability names and labels.
     for (let [k, v] of Object.entries(context.system.abilities)) {
       v.label = game.i18n.localize(CONFIG.RYUUTAMA.abilities[k]) ?? k;
       v.short = game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[k]) ?? k;
       v.icon = 'systems/ryuutama/assets/' + k + '_icon.png'
     }
+  }
+
+  /**
+   * Prepare levels and magical archetype special tab for spells
+   * 
+   * @param {Object} context The character to prepare
+   */
+  _prepareCharacterData(context) {
     // Archetype name
     context.archetype_name = game.i18n.localize(CONFIG.RYUUTAMA.archetypes[context.system.archetype])
     // Next level EXP
@@ -228,7 +237,8 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     context.spells = spells;
     context.enchantments = enchantments;
-    context.max_enchantments = context.system.attributes.level.value * 2;
+    // max enchantments are only for player characters
+    if (context.type == "character") context.max_enchantments = context.system.attributes.level.value * 2;
     context.total_enchantments = total_enchantments;
   }
 

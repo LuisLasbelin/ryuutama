@@ -35,20 +35,6 @@ export class RyuutamaActor extends Actor {
         }
       }
     })
-    // Values for max hp and max mp
-    this.update({
-      system: {
-        hitpoints: {
-          max: this.system.abilities.Str.value * 2 + this.system.hitpoints.mod
-        },
-        mindpoints: {
-          max: this.system.abilities.Spi.value * 2 + this.system.mindpoints.mod
-        },
-        load: {
-          max: this.system.abilities.Str.value + 3 + this.system.load.mod
-        }
-      }
-    })
   }
 
   /**
@@ -68,8 +54,8 @@ export class RyuutamaActor extends Actor {
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData(actorData);
-    if (actorData.type == "npc") this._prepareNpcData(actorData);
-    if (actorData.type == "animal") this._prepareAnimalData(actorData);
+    this._prepareNpcData(actorData);
+    this._prepareAnimalData(actorData);
   }
 
   /**
@@ -79,6 +65,21 @@ export class RyuutamaActor extends Actor {
     if (actorData.type !== "character") return;
     // Make modifications to data here. For example:
     const systemData = actorData.system;
+
+    // Values for max hp and max mp
+    this.update({
+      system: {
+        hitpoints: {
+          max: this.system.abilities.Str.value * 2 + this.system.hitpoints.mod
+        },
+        mindpoints: {
+          max: this.system.abilities.Spi.value * 2 + this.system.mindpoints.mod
+        },
+        load: {
+          max: this.system.abilities.Str.value + 3 + this.system.load.mod
+        }
+      }
+    })
 
     // When positive health add to one ability mod
     if (systemData.health.value > 9) {

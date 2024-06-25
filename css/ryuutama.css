@@ -335,7 +335,7 @@ img {
 }
 .ryuutama .sidebar {
   height: 100%;
-  overflow: hidden;
+  margin: 1em;
 }
 .ryuutama .sheet-body,
 .ryuutama .sheet-body .tab,
