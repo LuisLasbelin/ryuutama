@@ -136,6 +136,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const armor = [];
     let wealth = 0;
     let total_load = 0;
+    let total_defense = 0;
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -153,9 +154,11 @@ export class RyuutamaActorSheet extends ActorSheet {
       }
       else if (i.type === "armor") {
         armor.push(i)
+        if (i.system.equiped) total_defense += i.system.defense
       }
       else if (i.type === "shield") {
         shields.push(i)
+        if (i.system.equiped) total_defense += i.system.defense
       }
 
       wealth += i.system.price ?? 0;
@@ -175,6 +178,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.max_load = context.system.load.max
     context.percentile_load = total_load * 100 / (context.max_load + context.system.load.mod);
     context.positiveHealth = context.system.health.value > 9;
+    context.total_defense = total_defense;
 
     this.actor.update({
       system: {

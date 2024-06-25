@@ -40,7 +40,9 @@
     <header class="sheet-header">
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
       <div class="header-fields">
-        <h1 class="charname flexrow flex-between"><input class="flexlarge" name="name" type="text" value="{{actor.name}}" placeholder="Name" /><span class="level flexshrink">{{system.attributes.level.value}}</span></h1>
+        <h1 class="charname flexrow flex-between"><input class="flexlarge" name="name" type="text"
+            value="{{actor.name}}" placeholder="Name" /><span
+            class="level flexshrink">{{system.attributes.level.value}}</span></h1>
         {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
         use both the "grid" and "grid-Ncol" class where "N" can be any number
         from 1 to 12 and will create that number of columns. --}}
@@ -51,8 +53,8 @@
           <div class="resource flex-group-center">
             <label for="system.hitpoints.value" class="resource-label">{{localize "RYUUTAMA.Hitpoints"}}</label>
             <div class="resource-content flexrow flex-around flex-space">
-              <input type="number" name="system.hitpoints.value" value="{{system.hitpoints.value}}"
-                data-dtype="Number" class="input-small flexshrink" />
+              <input type="number" name="system.hitpoints.value" value="{{system.hitpoints.value}}" data-dtype="Number"
+                class="input-small flexshrink" />
               <span class="flexshrink"> / </span>
               <label for="system.hitpoints.max" class="flexshrink">{{system.hitpoints.max}}</label>
             </div>
@@ -69,10 +71,18 @@
           </div>
 
           <div class="resource flex-group-center">
+            <label for="total_defense" class="resource-label">{{localize "RYUUTAMA.Defense"}}</label>
+            <div class="resource-content flexrow flex-around flex-space">
+              <input type="number" name="total_defense" value="{{total_defense}}" data-dtype="Number"
+                class="input-small flexshrink" disabled />
+            </div>
+          </div>
+
+          <div class="resource flex-group-center">
             <label for="system.blunderPoints" class="resource-label">{{localize "RYUUTAMA.BlunderPoints"}}</label>
             <div class="resource-content flexrow flex-around flex-space">
-              <input type="number" name="system.blunderPoints" value="{{system.blunderPoints}}"
-                data-dtype="Number" class="input-small flexshrink" />
+              <input type="number" name="system.blunderPoints" value="{{system.blunderPoints}}" data-dtype="Number"
+                class="input-small flexshrink" />
             </div>
           </div>
         </div>
