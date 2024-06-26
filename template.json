@@ -88,7 +88,8 @@
         "base"
       ],
       "cr": 0,
-      "coins": 0
+      "coins": 0,
+      "initiative": 0
     }
   },
   "Item": {

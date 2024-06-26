@@ -1,17 +1,21 @@
 <ol class='items-list'>
   <!-- LEVEL -->
-  <div class="resource flex-group-center">
-    <div>
-      <span class="resource-content flexrow flex-space">
-        <span class="resource-label flexshrink">{{archetype_name}}</span>
-        <label class="flexshrink">{{localize 'RYUUTAMA.Exp'}}</label>
-        <input type="number" name="system.attributes.level.exp" value="{{system.attributes.level.exp}}"
-          data-dtype="Number" class="flexshrink input-small" />
-        <progress id="next-level" value={{system.attributes.level.exp}} max={{next_exp}}>
-          {{system.attributes.level.exp}} </progress>
-      </span>
-    </div>
+  {{#if isNpc}}
+  <div class="resource flexrow flex-space">
+    <label class="flexshrink" for="system.initiative">{{localize 'RYUUTAMA.Initiative'}}</label>
+    <input type="number" name="system.initiative" value="{{system.initiative}}" data-dtype="Number"
+      class="flexshrink input-small" />
   </div>
+  {{else}}
+  <div style="align-items: center;" class="resource flexrow flex-space">
+    <span class="resource-label flexshrink">{{archetype_name}}</span>
+    <label class="flexshrink">{{localize 'RYUUTAMA.Exp'}}</label>
+    <input type="number" name="system.attributes.level.exp" value="{{system.attributes.level.exp}}"
+      data-dtype="Number" class="flexshrink input-small" />
+    <progress id="next-level" value={{system.attributes.level.exp}} max={{next_exp}}>
+      {{system.attributes.level.exp}} </progress>
+  </div>
+  {{/if}}
   <!-- SKILLS -->
   <li class='item flexrow items-header'>
     <div style="flex:2;" class='item-name'>{{localize 'RYUUTAMA.Skills'}}</div>

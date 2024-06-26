@@ -207,7 +207,7 @@ export class RyuutamaActorSheet extends ActorSheet {
       3: []
     };
     // max enchantments are only for player characters
-    if (context.system.attributes.level) {
+    if (context.system.attributes?.level) {
       context.max_enchantments = context.system.attributes.level.value * 2;
       // Limit the spells shown by level
       if (context.system.attributes.level.value < 4) {
