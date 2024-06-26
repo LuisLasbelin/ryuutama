@@ -68,7 +68,6 @@ export class RyuutamaItem extends Item {
         optional: false,
         id: "attackMod"
       })
-      console.log(roll_bonuses)
       return new AbilityRollApp(item.actor, item, item.type, rollData.attack_formula.roll1, rollData.attack_formula.roll2, roll_bonuses, rollData.damage_formula.roll1).render(true);
     } // if it is a feature / skill
     if (item.type === "feature") {

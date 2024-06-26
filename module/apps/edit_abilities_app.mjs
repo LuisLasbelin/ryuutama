@@ -1,7 +1,6 @@
 class EditAbilitiesApp extends FormApplication {
 
   static get defaultOptions() {
-    console.log(super.defaultOptions)
     return mergeObject(super.defaultOptions, {
       classes: ['form'],
       popOut: true,
@@ -35,7 +34,6 @@ class EditAbilitiesApp extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    console.log(formData)
     const values = {
       Str: {
         base: parseInt(formData.Str)

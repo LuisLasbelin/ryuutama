@@ -23,8 +23,6 @@ class AbilityRollApp extends FormApplication {
         else this.disabled_blunder = false
 
         this._updatePassiveModifiers()
-
-        console.log(this)
     }
 
     static get defaultOptions() {
@@ -107,7 +105,6 @@ class AbilityRollApp extends FormApplication {
     }
 
     async _updateObject(event, formData) {
-        console.log(formData)
         // Get the misc mod and add it to the roll bonuses
         if (formData.miscmod.length > 0) {
             this.roll_bonuses.push(new RollBonus("misc", game.i18n.localize("RYUUTAMA.MiscMod"), formData.miscmod))
@@ -222,7 +219,6 @@ class AbilityRollApp extends FormApplication {
         let roll = new Roll(roll_string, this.actor.getRollData());
         await roll.evaluate();
         // Result
-        console.log(roll.terms)
         label += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${roll.terms[0].faces} (${roll.terms[0].results[0].result}) + d${roll.terms[2].faces} (${roll.terms[2].results[0].result})` })
         // Check for crits or fails
         label += this._checkForCrit(roll, this.actor.system.abilities[formData.roll1].value, this.actor.system.abilities[formData.roll2].value);
@@ -283,7 +279,6 @@ class AbilityRollApp extends FormApplication {
                 if (token.document.actor.items) {
                     const items = token.document.actor.items.contents
                     for (let k in items) {
-                        console.log(items[k])
                         if (items[k].type == "shield" && items[k].system.equiped == true) {
                             dodge_value = items[k].system.dodge
                         }

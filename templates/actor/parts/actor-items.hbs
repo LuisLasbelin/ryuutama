@@ -199,8 +199,17 @@
   {{/each}}
 </ol>
 <footer style="width: 50%; bottom: 12px; position: absolute;">
-  <div style="display: flex; flex-direction:row:">
-    <h4 style="flex: 1;">{{localize "RYUUTAMA.Load"}} ({{total_load}} / {{max_load}})</h4>
+  <div style="display: flex; flex-direction:row;">
+    <div class="flexrow">
+      <span class="flexshrink">{{localize "RYUUTAMA.Load"}}</span>
+      <div style="align-items: center; justify-content:center;" class="flexrow">({{total_load}} /
+        {{#if isNpc}}
+        <input class="flexshrink input-small" type="number" name="system.load.max" value={{system.load.max}}>
+        {{else}}
+        {{max_load}}
+        {{/if}})
+      </div>
+    </div>
   </div>
   <div style="border: solid black 2px;">
     <div style="height:12px;width:{{percentile_load}}%; background-color: blue;"></div>

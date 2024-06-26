@@ -55,6 +55,7 @@ export class RyuutamaActorSheet extends ActorSheet {
       this._prepareCharacterData(context);
       this._prepareActorData(context);
       this._prepareSpells(context);
+      context.isNpc = false;
     }
 
     // Prepare NPC data and items.
@@ -62,6 +63,7 @@ export class RyuutamaActorSheet extends ActorSheet {
       this._prepareItems(context);
       this._prepareActorData(context);
       this._prepareSpells(context);
+      context.isNpc = true;
     }
 
     // Add roll data for TinyMCE editors.
@@ -158,7 +160,10 @@ export class RyuutamaActorSheet extends ActorSheet {
       wealth += i.system.price ?? 0;
 
       // Optional size to add up, if it equiped it doesn't count on the load
-      if (i.system.equiped != true) total_load += i.system.size ?? 0;
+      if (i.system.size) {
+        let quantity = i.system.quantity ?? 1
+        if (i.system.equiped != true) total_load += i.system.size * quantity
+      }
     }
 
     // Assign and return
@@ -390,7 +395,6 @@ export class RyuutamaActorSheet extends ActorSheet {
  * @private
  */
   _onEquipItem(event) {
-    console.log($(event))
     const li = $(event.currentTarget).parents('.item');
     const item = this.actor.items.get(li.data('itemId'));
     item.update({

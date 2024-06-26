@@ -63,8 +63,6 @@ export class RyuutamaItemSheet extends ItemSheet {
     if (itemData.type == "feature") {
       this._prepareFeatureData(context)
     }
-
-    console.log(context)
     return context;
   }
 
