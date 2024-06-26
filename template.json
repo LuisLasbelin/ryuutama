@@ -82,7 +82,8 @@
       "coins": 0,
       "speciality": "",
       "blunderPoints": 0,
-      "techInitiative": 0
+      "techInitiative": 0,
+      "armorHandicap": 0
     },
     "npc": {
       "templates": [

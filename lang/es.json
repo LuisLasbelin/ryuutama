@@ -12,6 +12,7 @@
       "miss": "<p class='miss-label'>FALLA a {target} (⊙_⊙)？</p>",
       "blocked": "<p class='roll-shield'><span class='fa fa-shield'></span> Bloqueado con escudo</p>",
       "focus": "<p class='roll-focus'><span class='fa fa-eye'></span> (+1) Usa {target} MP</p>",
+      "armorhandicap": "<p class='roll-focus'><span class='fas fa-minus'></span> ({mod}) Penalizador de armadura</p>",
       "blunderpoint": "<p class='roll-focus'><span class='fa fa-asterisk'></span> (+1) Usa un Punto de Pifia, quedan {target}</p>",
       "untrained": "<p class='roll-focus'><span class='fa fa-exclamation-triangle'></span> No sabe usar el arma -1 PG! ಠ益ಠ</p>",
       "techfocus": "<p class='roll-focus'><span class='fa fa-key'></span> (+1) Es Técnico</p>",
@@ -140,7 +141,7 @@
         "Uses": "usa"
       },
       "Armor": {
-        "Handicap": "Penalización"
+        "Handicap": "Penalización de armadura"
       },
       "Shield": {
         "Dodge": "Esquiva"

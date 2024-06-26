@@ -61,6 +61,14 @@ class AbilityRollApp extends FormApplication {
                 }
             });
         }
+        if (this.type == "marching") {
+            this.roll_bonuses.push(new RollBonus(
+                "armorhandicap",
+                game.i18n.localize('RYUUTAMA.Item.Armor.Handicap'),
+                -this.actor.system.armorHandicap,
+                false
+            ))
+        }
         if (["ability", "marching", "orientating", "camping"].includes(this.type)) {
             this.actor.items.forEach(element => {
                 if (element.type == "feature") {

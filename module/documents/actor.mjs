@@ -80,26 +80,6 @@ export class RyuutamaActor extends Actor {
       }
     })
 
-    // Add modifiers for each status effect
-    if (systemData.health.value < systemData.status.wounded) {
-      systemData.abilities.Str.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.poisoned) {
-      systemData.abilities.Dex.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.dizzy) {
-      systemData.abilities.Int.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.fatigued) {
-      systemData.abilities.Spi.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.ill || systemData.health.value < systemData.status.shocked) {
-      systemData.abilities.Spi.mod -= 2;
-      systemData.abilities.Dex.mod -= 2;
-      systemData.abilities.Str.mod -= 2;
-      systemData.abilities.Int.mod -= 2;
-    }
-
     if (systemData.archetype == "offensive") {
       systemData.hitpoints.mod += 4
     }
@@ -111,6 +91,8 @@ export class RyuutamaActor extends Actor {
       systemData.mindpoints.mod += 4
     }
 
+    // Reset the armor handicap value just in case to avoid accumulating
+    systemData.armorHandicap = 0
     // Check other modifiers
     actorData.items.forEach(element => {
       if (element.type == "feature") {
@@ -119,6 +101,10 @@ export class RyuutamaActor extends Actor {
             systemData.load.mod += 3
           }
         }
+      }
+      if (["armor", "shield"].includes(element.type)) {
+        // Apply initiative penalty
+        systemData.armorHandicap += element.system.handicap
       }
     });
 
@@ -142,6 +128,26 @@ export class RyuutamaActor extends Actor {
       systemData.abilities[systemData.health.ability].mod += 2
     }
 
+    // Add modifiers for each status effect
+    if (systemData.health.value < systemData.status.wounded) {
+      systemData.abilities.Str.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.poisoned) {
+      systemData.abilities.Dex.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.dizzy) {
+      systemData.abilities.Int.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.fatigued) {
+      systemData.abilities.Spi.mod -= 2;
+    }
+    if (systemData.health.value < systemData.status.ill || systemData.health.value < systemData.status.shocked) {
+      systemData.abilities.Spi.mod -= 2;
+      systemData.abilities.Dex.mod -= 2;
+      systemData.abilities.Str.mod -= 2;
+      systemData.abilities.Int.mod -= 2;
+    }
+
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
       // Set the total clamped between 4 and 12
@@ -149,7 +155,7 @@ export class RyuutamaActor extends Actor {
     }
 
     // Default initiative roll
-    systemData.initiative = `d${systemData.abilities.Dex.value}+d${systemData.abilities.Spi.value}+${systemData.techInitiative}`
+    systemData.initiative = `d${systemData.abilities.Dex.value}+d${systemData.abilities.Spi.value}+${systemData.techInitiative}-${systemData.armorHandicap}`
   }
 
   /**
