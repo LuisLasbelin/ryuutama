@@ -3,11 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name" /></h1>
-      <div class="grid grid-3col">
-        <div class="resource">
-          <label class="resource-label">Quantity</label>
-          <input type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number" />
-        </div>
+      <div class="grid grid-4col">
         <div class="resource">
           <label class="resource-label">Weight</label>
           <input type="text" name="system.size" value="{{system.size}}" data-dtype="Number" />
@@ -15,6 +11,14 @@
         <div class="resource">
           <label class="resource-label">Price</label>
           <input type="text" name="system.price" value="{{system.price}}" data-dtype="Number" />
+        </div>
+        <div class="resource">
+          <label class="resource-label">{{localize "RYUUTAMA.Item.Capacity"}}</label>
+          <input type="text" name="system.capacity" value="{{system.capacity}}" data-dtype="Number" />
+        </div>
+        <div class="resource">
+          <label class="resource-label">{{localize "RYUUTAMA.Liquid"}}</label>
+          <input type="checkbox" name="system.liquid.hasLiquid" {{checked system.liquid.hasLiquid}} data-dtype="Number" />
         </div>
       </div>
     </div>

@@ -96,11 +96,12 @@
   "Item": {
     "types": [
       "item",
-      "feature",
+      "container",
       "spell",
       "weapon",
       "shield",
       "armor",
+      "feature",
       "class"
     ],
     "templates": {
@@ -121,6 +122,19 @@
         "sellable"
       ],
       "quantity": 1,
+      "size": 0
+    },
+    "container": {
+      "templates": [
+        "base",
+        "sellable"
+      ],
+      "capacity": 0,
+      "liquid": {
+        "hasLiquid": false,
+        "value": 0,
+        "max": 0
+      },
       "size": 0
     },
     "feature": {

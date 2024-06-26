@@ -130,6 +130,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const weapons = [];
     const shields = [];
     const armor = [];
+    const containers = [];
     let wealth = 0;
     let total_load = 0;
     let total_defense = 0;
@@ -147,6 +148,9 @@ export class RyuutamaActorSheet extends ActorSheet {
       }
       else if (i.type === "weapon") {
         weapons.push(i)
+      }
+      else if (i.type === "container") {
+        containers.push(i)
       }
       else if (i.type === "armor") {
         armor.push(i)
@@ -173,6 +177,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.shields = shields;
     context.features = features;
     context.weapons = weapons;
+    context.containers = containers;
     context.total_load = total_load;
     context.max_load = context.system.load.max
     context.percentile_load = total_load * 100 / (context.max_load + context.system.load.mod);

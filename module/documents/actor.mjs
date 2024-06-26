@@ -102,6 +102,9 @@ export class RyuutamaActor extends Actor {
           }
         }
       }
+      if (element.type == "container") {
+        systemData.load.mod += element.system.capacity
+      }
       if (["armor", "shield"].includes(element.type)) {
         // Apply initiative penalty
         systemData.armorHandicap += element.system.handicap

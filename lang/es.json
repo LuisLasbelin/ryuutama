@@ -136,6 +136,7 @@
       "Defense": "Defensa",
       "Quantity": "Cantidad",
       "Handicap": "Penalización",
+      "Capacity": "Capacidad",
       "Feature": {
         "UseRoll": "Tirada",
         "Uses": "usa"
@@ -155,6 +156,7 @@
       "HasRoll": "Tiene tirada",
       "Passive": "Pasiva",
       "Type": "Tipo",
+      "Containers": "Recipientes",
       "WeaponType": {
         "shortblade": "Hoja corta",
         "blade": "Hoja",
@@ -254,7 +256,8 @@
       "weapon": "Arma",
       "class": "Clase",
       "shield": "Escudo",
-      "armor": "Armadura"
+      "armor": "Armadura",
+      "container": "Recipiente"
     },
     "JournalPage": {
       "region": "Región"
