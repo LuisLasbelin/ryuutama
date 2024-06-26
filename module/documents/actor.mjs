@@ -147,6 +147,9 @@ export class RyuutamaActor extends Actor {
       // Set the total clamped between 4 and 12
       ability.value = Math.min(Math.max(ability.base + ability.mod, 4), 12);
     }
+
+    // Default initiative roll
+    systemData.initiative = `d${systemData.abilities.Dex.value}+d${systemData.abilities.Spi.value}+${systemData.techInitiative}`
   }
 
   /**

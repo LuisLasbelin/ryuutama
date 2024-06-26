@@ -63,7 +63,8 @@
           "fatigued": 0,
           "dizzy": 0,
           "shocked": 0
-        }
+        },
+        "initiative": ""
       }
     },
     "character": {
@@ -88,8 +89,7 @@
         "base"
       ],
       "cr": 0,
-      "coins": 0,
-      "initiative": 0
+      "coins": 0
     }
   },
   "Item": {

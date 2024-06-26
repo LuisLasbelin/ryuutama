@@ -34,7 +34,7 @@ Hooks.once('init', function () {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: 'd@abilities.Dex.value+d@abilities.Spi.value+@techInitiative',
+    formula: '@initiative',
     decimals: 2,
   };
 
