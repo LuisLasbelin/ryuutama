@@ -159,6 +159,19 @@ export class RyuutamaActor extends Actor {
 
     // Default initiative roll
     systemData.initiative = `d${systemData.abilities.Dex.value}+d${systemData.abilities.Spi.value}+${systemData.techInitiative}-${systemData.armorHandicap}`
+
+    // Prepare defense value
+    // Iterate through items, calculate total defense for characters
+    let total_defense = 0;
+    actorData.items.forEach(element => {
+      if (element.type === "armor") {
+        if (element.system.equiped) total_defense += element.system.defense
+      }
+      if (element.type === "shield") {
+        if (element.system.equiped) total_defense += element.system.defense
+      }
+    });
+    systemData.defense = total_defense;
   }
 
   /**

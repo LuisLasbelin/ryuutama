@@ -112,6 +112,7 @@ export class RyuutamaActorSheet extends ActorSheet {
         break
       }
     }
+
     context.magical = context.system.archetype == "magical"
     context.next_exp = next_exp
   }
@@ -133,8 +134,6 @@ export class RyuutamaActorSheet extends ActorSheet {
     const containers = [];
     let wealth = 0;
     let total_load = 0;
-    let total_defense = 0;
-
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
@@ -154,11 +153,9 @@ export class RyuutamaActorSheet extends ActorSheet {
       }
       else if (i.type === "armor") {
         armor.push(i)
-        if (i.system.equiped) total_defense += i.system.defense
       }
       else if (i.type === "shield") {
         shields.push(i)
-        if (i.system.equiped) total_defense += i.system.defense
       }
 
       wealth += i.system.price ?? 0;
@@ -182,14 +179,12 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.max_load = context.system.load.max
     context.percentile_load = total_load * 100 / (context.max_load + context.system.load.mod);
     context.positiveHealth = context.system.health.value > 9;
-    context.total_defense = total_defense;
 
     this.actor.update({
       system: {
         load: {
           value: total_load
-        },
-        defense: total_defense
+        }
       }
     });
   }
@@ -268,8 +263,10 @@ export class RyuutamaActorSheet extends ActorSheet {
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
     html.on('click', '.item-equip', this._onEquipItem.bind(this));
-    html.on('click', '.minus-quantity', this._changeItemQuantity.bind(this, -1));
-    html.on('click', '.plus-quantity', this._changeItemQuantity.bind(this, 1));
+    html.on('click', '.minus-quantity', this._changeItemQuantity.bind(this, -1, false));
+    html.on('click', '.plus-quantity', this._changeItemQuantity.bind(this, 1, false));
+    html.on('click', '.minus-quantity-liquid', this._changeItemQuantity.bind(this, -1, true));
+    html.on('click', '.plus-quantity-liquid', this._changeItemQuantity.bind(this, 1, true));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
@@ -413,12 +410,25 @@ export class RyuutamaActorSheet extends ActorSheet {
   /**
 * Modify the quantity of an item
 * @param {Number} quantity to modify the quantity
+* @param {Boolean} isLiquid if its liquid modify the current amount
 * @param {Event} event   The originating click event
 * @private
 */
-  _changeItemQuantity(quantity, event) {
+  _changeItemQuantity(quantity, isLiquid, event) {
     const li = $(event.currentTarget).parents('.item');
     const item = this.actor.items.get(li.data('itemId'));
+    if (isLiquid) {
+      let new_quantity = item.system.liquid.value + quantity
+      if (new_quantity < 0) return; // The number cannot be negative
+      item.update({
+        system: {
+          liquid: {
+            value: new_quantity
+          }
+        }
+      })
+      return;
+    }
     let new_quantity = item.system.quantity + quantity
     if (new_quantity < 0) return; // The number cannot be negative
     item.update({

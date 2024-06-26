@@ -323,6 +323,9 @@ img {
   margin: 8px;
   font-size: large;
 }
+.ryuutama .abilities {
+  min-width: 100px;
+}
 .ryuutama .ability-dice {
   display: flex;
   font-size: x-large;
@@ -334,6 +337,7 @@ img {
   margin-left: 12px;
 }
 .ryuutama .sidebar {
+  height: 100%;
   margin: 1em;
 }
 .ryuutama .sheet-body,

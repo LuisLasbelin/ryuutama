@@ -13,13 +13,21 @@
           <input type="text" name="system.price" value="{{system.price}}" data-dtype="Number" />
         </div>
         <div class="resource">
+          <label class="resource-label">{{localize "RYUUTAMA.Liquid"}}</label>
+          <input type="checkbox" name="system.liquid.hasLiquid" {{checked system.liquid.hasLiquid}}
+            data-dtype="Number" />
+        </div>
+        {{#if system.liquid.hasLiquid}}
+         <div class="resource">
+          <label class="resource-label">{{localize "RYUUTAMA.Item.Capacity"}}</label>
+          <input type="text" name="system.liquid.max" value="{{system.liquid.max}}" data-dtype="Number" />
+        </div>
+        {{else}}
+        <div class="resource">
           <label class="resource-label">{{localize "RYUUTAMA.Item.Capacity"}}</label>
           <input type="text" name="system.capacity" value="{{system.capacity}}" data-dtype="Number" />
         </div>
-        <div class="resource">
-          <label class="resource-label">{{localize "RYUUTAMA.Liquid"}}</label>
-          <input type="checkbox" name="system.liquid.hasLiquid" {{checked system.liquid.hasLiquid}} data-dtype="Number" />
-        </div>
+        {{/if}}
       </div>
     </div>
   </header>
