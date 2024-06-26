@@ -2,8 +2,7 @@
   "Actor": {
     "types": [
       "character",
-      "npc",
-      "animal"
+      "npc"
     ],
     "templates": {
       "base": {
@@ -86,12 +85,7 @@
       "templates": [
         "base"
       ],
-      "cr": 0
-    },
-    "animal": {
-      "templates": [
-        "base"
-      ],
+      "cr": 0,
       "coins": 0
     }
   },

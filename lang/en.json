@@ -101,8 +101,7 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC",
-      "animal": "Animal"
+      "npc": "NPC"
     },
     "Item": {
       "item": "Item",

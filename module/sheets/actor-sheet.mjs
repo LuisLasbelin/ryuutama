@@ -64,12 +64,6 @@ export class RyuutamaActorSheet extends ActorSheet {
       this._prepareSpells(context);
     }
 
-    // Prepare NPC data and items.
-    if (actorData.type == 'animal') {
-      this._prepareItems(context);
-      this._prepareActorData(context);
-    }
-
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 

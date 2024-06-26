@@ -125,6 +125,7 @@
       },
       "Equiped": "Equipado",
       "Defense": "Defensa",
+      "Quantity": "Cantidad",
       "Handicap": "Penalización",
       "Feature": {
         "UseRoll": "Tirada",
@@ -193,7 +194,7 @@
     "Climates": {
       "sun": "Despejado",
       "cloud": "Nublado",
-      "drizzle": "LLovizna",
+      "drizzle": "Llovizna",
       "wind": "Viento",
       "lightfog": "Neblina",
       "hot": "Calor",
@@ -209,8 +210,7 @@
   "TYPES": {
     "Actor": {
       "character": "Actor",
-      "npc": "PNJ",
-      "animal": "Animal"
+      "npc": "PNJ"
     },
     "Item": {
       "item": "Objeto",
