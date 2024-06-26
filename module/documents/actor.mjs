@@ -80,10 +80,6 @@ export class RyuutamaActor extends Actor {
       }
     })
 
-    // When positive health add to one ability mod
-    if (systemData.health.value > 9) {
-      systemData.abilities[systemData.health.ability].mod += 2
-    }
     // Add modifiers for each status effect
     if (systemData.health.value < systemData.status.wounded) {
       systemData.abilities.Str.mod -= 2;
@@ -140,6 +136,11 @@ export class RyuutamaActor extends Actor {
     systemData.hitpoints.max += systemData.hitpoints.mod
     systemData.mindpoints.max += systemData.mindpoints.mod
     systemData.health.value = systemData.health.base + systemData.health.mod
+
+    // When positive health add to one ability mod, this modifier must not affect other calculations
+    if (systemData.health.value > 9) {
+      systemData.abilities[systemData.health.ability].mod += 2
+    }
 
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
