@@ -1,7 +1,7 @@
 <form class="flexcol" autocomplete="off">
 
     <div class="flexrow" id="ability-rolls">
-        <select name="roll1" id="roll1" disabled={{disabled_controls}}>
+        <select name="roll1" id="roll1" {{#if disabled_controls}}disabled{{/if}}>
             {{#select ability1}}
             <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
             <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>
@@ -10,7 +10,7 @@
             {{/select}}
         </select>
 
-        <select name="roll2" id="roll2" disabled={{disabled_controls}}>
+        <select name="roll2" id="roll2" {{#if disabled_controls}}disabled{{/if}}>
             {{#select ability2}}
             <option value="Str">{{localize 'RYUUTAMA.Ability.Str.abbr'}}</option>
             <option value="Dex">{{localize 'RYUUTAMA.Ability.Dex.abbr'}}</option>

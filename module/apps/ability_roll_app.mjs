@@ -82,6 +82,9 @@ class AbilityRollApp extends FormApplication {
                             // Bards add +1 to all travel rolls
                             this.roll_bonuses.push(new RollBonus("travel", game.i18n.localize('RYUUTAMA.TravelTrained'), element.system.passive.value))
                         }
+                        if (element.system.passive.target.includes("@eloquence")) {
+                            this.roll_bonuses.push(new RollBonus("eloquence", game.i18n.localize('RYUUTAMA.Eloquence'), element.system.passive.value, true))
+                        }
                     }
                 }
             });
