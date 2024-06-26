@@ -30,9 +30,11 @@
         },
         "health": {
           "value": 8,
+          "base": 2,
           "min": 2,
           "max": 20,
-          "ability": "Str"
+          "ability": "Str",
+          "mod": 0
         },
         "hitpoints": {
           "value": 8,

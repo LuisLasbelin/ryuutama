@@ -102,19 +102,10 @@ export class RyuutamaActorSheet extends ActorSheet {
     // Archetype name
     context.archetype_name = game.i18n.localize(CONFIG.RYUUTAMA.archetypes[context.system.archetype])
     // Next level EXP
-    const levels_exp = [-2, -1, 100, 600, 1200, 2000, 3000, 4200, 5800, 7500, 10000, 99999]
+    const levels_exp = CONFIG.RYUUTAMA.levels
     let next_exp = 0
     for (let l = 0; l < levels_exp.length - 1; l++) {
       if (context.system.attributes.level.exp < levels_exp[l + 1]) {
-        this.actor.update({
-          system: {
-            attributes: {
-              level: {
-                value: l
-              }
-            }
-          }
-        })
         next_exp = levels_exp[l + 1]
         break
       }
@@ -200,19 +191,31 @@ export class RyuutamaActorSheet extends ActorSheet {
  * @return {undefined}
  */
   _prepareSpells(context) {
+    let spells = {
+      1: [],
+      2: [],
+      3: []
+    };
+    let enchantments = {
+      1: [],
+      2: [],
+      3: []
+    };
+    // max enchantments are only for player characters
+    if (context.system.attributes.level) {
+      context.max_enchantments = context.system.attributes.level.value * 2;
+      // Limit the spells shown by level
+      if (context.system.attributes.level.value < 4) {
+        delete spells["2"]
+        delete enchantments["2"]
+      }
+      if (context.system.attributes.level.value < 7) {
+        delete spells["3"]
+        delete enchantments["3"]
+      }
+    }
     // Initialize containers.
     let total_enchantments = 0;
-    const spells = {
-      1: [],
-      2: [],
-      3: []
-    };
-    const enchantments = {
-      1: [],
-      2: [],
-      3: []
-    };
-
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       // Append to spells.
@@ -231,8 +234,6 @@ export class RyuutamaActorSheet extends ActorSheet {
 
     context.spells = spells;
     context.enchantments = enchantments;
-    // max enchantments are only for player characters
-    if (context.type == "character") context.max_enchantments = context.system.attributes.level.value * 2;
     context.total_enchantments = total_enchantments;
   }
 
@@ -256,13 +257,18 @@ export class RyuutamaActorSheet extends ActorSheet {
     // Add Inventory Item
     html.on('click', '.item-create', this._onItemCreate.bind(this));
     html.on('click', '.item-equip', this._onEquipItem.bind(this));
+    html.on('click', '.minus-quantity', this._changeItemQuantity.bind(this, -1));
+    html.on('click', '.plus-quantity', this._changeItemQuantity.bind(this, 1));
 
     // Delete Inventory Item
     html.on('click', '.item-delete', (ev) => {
       const li = $(ev.currentTarget).parents('.item');
       const item = this.actor.items.get(li.data('itemId'));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
+      let confirmed = confirm(game.i18n.format("RYUUTAMA.Delete?", { target: item.name }))
+      if (confirmed) {
+        item.delete();
+        li.slideUp(200, () => this.render(false));
+      }
     });
 
     // Active Effect management
@@ -384,6 +390,7 @@ export class RyuutamaActorSheet extends ActorSheet {
  * @private
  */
   _onEquipItem(event) {
+    console.log($(event))
     const li = $(event.currentTarget).parents('.item');
     const item = this.actor.items.get(li.data('itemId'));
     item.update({
@@ -391,5 +398,24 @@ export class RyuutamaActorSheet extends ActorSheet {
         equiped: !item.system.equiped
       }
     })
+  }
+
+  /**
+* Modify the quantity of an item
+* @param {Number} quantity to modify the quantity
+* @param {Event} event   The originating click event
+* @private
+*/
+  _changeItemQuantity(quantity, event) {
+    const li = $(event.currentTarget).parents('.item');
+    const item = this.actor.items.get(li.data('itemId'));
+    let new_quantity = item.system.quantity + quantity
+    if (new_quantity < 0) return; // The number cannot be negative
+    item.update({
+      system: {
+        quantity: new_quantity
+      }
+    })
+    return;
   }
 }

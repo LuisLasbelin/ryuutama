@@ -105,20 +105,41 @@ export class RyuutamaActor extends Actor {
     }
 
     if (systemData.archetype == "offensive") {
-      systemData.hitpoints.mod = systemData.hitpoints.mod + 4
+      systemData.hitpoints.mod += 4
     }
     if (systemData.archetype == "tech") {
-      systemData.load.mod = systemData.load.mod + 3
+      systemData.load.mod += 3
       systemData.techInitiative = 1
     }
     if (systemData.archetype == "magical") {
-      systemData.mindpoints.mod = systemData.mindpoints.mod + 4
+      systemData.mindpoints.mod += 4
+    }
+
+    // Check other modifiers
+    actorData.items.forEach(element => {
+      if (element.type == "feature") {
+        if (element.system.has_roll == false) {
+          if (element.system.passive.target.includes("@robust")) {
+            systemData.load.mod += 3
+          }
+        }
+      }
+    });
+
+    // Level
+    const levels_exp = CONFIG.RYUUTAMA.levels
+    for (let l = 0; l < levels_exp.length - 1; l++) {
+      if (systemData.attributes.level.exp < levels_exp[l + 1]) {
+        systemData.attributes.level.value = l
+        break;
+      }
     }
 
     // Apply new modifiers
     systemData.load.max += systemData.load.mod
     systemData.hitpoints.max += systemData.hitpoints.mod
     systemData.mindpoints.max += systemData.mindpoints.mod
+    systemData.health.value = systemData.health.base + systemData.health.mod
 
     // Loop through ability scores, and add their modifiers to our sheet output.
     for (let [key, ability] of Object.entries(systemData.abilities)) {
@@ -200,10 +221,10 @@ export class RyuutamaActor extends Actor {
   damage(amount) {
     this.update({
       system: {
-          hitpoints: {
-              value: this.system.hitpoints.value - amount
-          }
+        hitpoints: {
+          value: this.system.hitpoints.value - amount
+        }
       }
-  })
+    })
   }
 }

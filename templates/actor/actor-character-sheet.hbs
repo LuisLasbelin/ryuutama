@@ -15,7 +15,7 @@
       {{/each}}
       <div class="ability flexcol flex-group-center">
         <label>{{localize "RYUUTAMA.Health"}}</label>
-        <input type="number" name="system.health.value" value={{system.health.value}} />
+        <input type="number" name="system.health.base" value={{system.health.value}} />
         {{#if positiveHealth}}
         <select name="system.health.ability" id="system.health.ability">
           {{#select system.health.ability}}

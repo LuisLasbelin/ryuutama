@@ -22,7 +22,7 @@ class AbilityRollApp extends FormApplication {
         if (actor.system.blunderPoints < 1 || type == "health") this.disabled_blunder = true
         else this.disabled_blunder = false
 
-        this._checkPassiveModifiers()
+        this._updatePassiveModifiers()
 
         console.log(this)
     }
@@ -40,12 +40,28 @@ class AbilityRollApp extends FormApplication {
     /**
      * Checks for passive modifiers on the actor to add to the roll
      */
-    _checkPassiveModifiers() {
+    _updatePassiveModifiers() {
         if (["weapon"].includes(this.type)) {
             // If the actor is offensive archetype, add +1 to damage
             if (this.actor.system.archetype == "offensive") {
                 this.add_roll_bonuses.push(new RollBonus("offensivedamage", game.i18n.localize("RYUUTAMA.Dialog.OffensiveBonus"), "+1"))
             }
+        }
+        if (this.type == "health") {
+            this.actor.items.forEach(element => {
+                if (element.type == "feature") {
+                    if (element.system.has_roll == false) {
+                        if (element.system.passive.target.includes("@robust")) {
+                            // Robust characters add +1 to health rolls
+                            this.roll_bonuses.push(new RollBonus(
+                                "robust",
+                                game.i18n.localize('RYUUTAMA.Robust'),
+                                "+1"
+                            ))
+                        }
+                    }
+                }
+            });
         }
         if (["ability", "marching", "orientating", "camping"].includes(this.type)) {
             this.actor.items.forEach(element => {
@@ -185,7 +201,7 @@ class AbilityRollApp extends FormApplication {
                 mod: bonus.value
             })
         })
-        return {label: label, mods: mods}
+        return { label: label, mods: mods }
     }
 
     async abilityRoll(event, formData) {
@@ -194,7 +210,7 @@ class AbilityRollApp extends FormApplication {
             formData.roll2 = this.ability2
         }
         // Starting label
-        let label = `${game.i18n.format('RYUUTAMA.Dialog.MakesAbilityRoll', {actor: this.actor.name})}<h3>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h3>`;
+        let label = `${game.i18n.format('RYUUTAMA.Dialog.MakesAbilityRoll', { actor: this.actor.name })}<h3>${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll1])} + ${game.i18n.localize(CONFIG.RYUUTAMA.abilityAbbreviations[formData.roll2])}</h3>`;
         // Add focus to message if it was used
         label += this._useFocus(formData)
         let roll_string = `d${this.actor.system.abilities[formData.roll1].value}+d${this.actor.system.abilities[formData.roll2].value}`
@@ -214,14 +230,14 @@ class AbilityRollApp extends FormApplication {
         label += `<div class="roll-total">${roll.total}</div>`
 
         // If the target number of the feature is topography then compare it
-        if(["orientating", "marching", "camping"].includes(this.type) || this.object.system.target_number == "topography") {
+        if (["orientating", "marching", "camping"].includes(this.type) || this.object.system.target_number == "topography") {
             let difficulty = 0
             // Get the target number from the first region journal entry it finds
             let region_data = game.ryuutama.getCurrentTerrainAndClimate();
             if (region_data) difficulty += CONFIG.RYUUTAMA.terrains[region_data.terrain] + CONFIG.RYUUTAMA.climates[region_data.climate]
             if (difficulty > 0) {
-                if (roll.total >= difficulty) label += game.i18n.format("RYUUTAMA.Dialog.travelhit", {difficulty: difficulty})
-                else label += game.i18n.format("RYUUTAMA.Dialog.travelmiss", {difficulty: difficulty})
+                if (roll.total >= difficulty) label += game.i18n.format("RYUUTAMA.Dialog.travelhit", { difficulty: difficulty })
+                else label += game.i18n.format("RYUUTAMA.Dialog.travelmiss", { difficulty: difficulty })
             }
             else {
                 ui.notifications.error(game.i18n.localize("RYUUTAMA.UI.NoRegionEntry"));

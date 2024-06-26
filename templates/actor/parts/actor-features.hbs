@@ -36,7 +36,7 @@
     <div style="flex: 1;" class='item-formula item-prop'>
       {{#if item.system.has_roll}}
       {{item.system.formula.roll1}}+{{item.system.formula.roll2}}
-      {{#if item.system.formula.diceBonus}}+{{item.system.formula.diceBonus}}{{/if}}
+      {{#if item.system.formula.diceBonus}}{{item.system.formula.diceBonus}}{{/if}}
       {{else}}
       {{localize 'RYUUTAMA.Item.Passive'}}
       {{/if}}

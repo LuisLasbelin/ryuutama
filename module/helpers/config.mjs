@@ -59,3 +59,5 @@ RYUUTAMA.target_nums = {
   topography: "RYUUTAMA.TargetNum.topography",
   versus: "RYUUTAMA.TargetNum.versus"
 }
+
+RYUUTAMA.levels = [-2, -1, 100, 600, 1200, 2000, 3000, 4200, 5800, 7500, 10000, 99999]
