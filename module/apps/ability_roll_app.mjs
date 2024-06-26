@@ -291,7 +291,7 @@ class AbilityRollApp extends FormApplication {
                     // Damage roll
                     let damage_roll_string = `d${this.actor.system.abilities[this.add_roll].value}`
                     // Bonuses to damage
-                    msg_content += `<h2>${game.i18n.localize("RYUUTAMA.Item.Weapon.DamageRoll")}</h2>`
+                    msg_content += `${game.i18n.format("RYUUTAMA.Dialog.damageTo", {target: token.document.name})}`
                     this.add_roll_bonuses.forEach((bonus) => {
                         if (formData[bonus.id]) {
                             damage_roll_string += bonus.value
@@ -300,9 +300,11 @@ class AbilityRollApp extends FormApplication {
                     })
                     const damage_roll = new Roll(damage_roll_string, this.actor.getRollData());
                     await damage_roll.evaluate()
-                    msg_content += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: damage_roll_string })
+                    let total_damage = damage_roll.total - token.document.actor.system.defense
+                    msg_content += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${damage_roll.terms[0].faces} (${damage_roll.terms[0].results[0].result})` })
+                    if(token.document.actor.system.defense > 0) msg_content += game.i18n.format('RYUUTAMA.Dialog.defense', { amount: token.document.actor.system.defense })
                     rolls_to_show.push(damage_roll) // add the damage roll to show it in the dice
-                    msg_content += `<div class="damage-result">${damage_roll.total}</span></div>`
+                    msg_content += `<div class="damage-result">${total_damage}</span></div>`
                 }
                 else {
                     if (dodge_value > token.combatant.initiative) msg_content += game.i18n.localize("RYUUTAMA.Dialog.blocked")
@@ -312,8 +314,9 @@ class AbilityRollApp extends FormApplication {
                 return;
             });
         }
-        this._emitRollMessage(rolls_to_show, msg_content)
-
+        else {
+            this._emitRollMessage(rolls_to_show, msg_content)
+        }
         return;
     }
 

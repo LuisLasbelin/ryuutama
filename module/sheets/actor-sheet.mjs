@@ -183,7 +183,8 @@ export class RyuutamaActorSheet extends ActorSheet {
       system: {
         load: {
           value: total_load
-        }
+        },
+        defense: total_defense
       }
     });
   }
