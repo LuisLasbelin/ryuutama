@@ -419,7 +419,7 @@ export class RyuutamaActorSheet extends ActorSheet {
     const item = this.actor.items.get(li.data('itemId'));
     if (isLiquid) {
       let new_quantity = item.system.liquid.value + quantity
-      if (new_quantity < 0) return; // The number cannot be negative
+      if (new_quantity < 0 || new_quantity > item.system.liquid.max) return; // The number cannot be negative or higher than the max
       item.update({
         system: {
           liquid: {

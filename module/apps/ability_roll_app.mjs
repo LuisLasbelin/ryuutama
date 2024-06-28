@@ -295,6 +295,7 @@ class AbilityRollApp extends FormApplication {
                         }
                     }
                 }
+                if (!game.combat || game.combat.round < 1) return ui.notifications.warn(game.i18n.localize("RYUUTAMA.CombatNotStarted")); // The combat is not started, exit
                 let target_evasion = Math.max(token.combatant.initiative, dodge_value)
                 if (attack_roll.total >= target_evasion) {
                     msg_content += game.i18n.format('RYUUTAMA.Dialog.hit', { target: token.document.name })

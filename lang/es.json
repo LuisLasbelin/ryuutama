@@ -26,7 +26,8 @@
       "robust": "<p class='roll-focus'><span class='fa fa-plus'></span> (+1) Robustez</p>",
       "defense": "<p class='roll-shield'><span class='fa fa-shield'></span> Defiende -{amount} daño</p>",
       "eloquence": "<p class='roll-focus'><span class='fa fa-plus'></span> (+1) Elocuencia</p>",
-      "damageTo": "<h3>Daña a {target}</h3>"
+      "damageTo": "<h3>Daña a {target}</h3>",
+      "trained": "<p class='roll-focus'><span class='fa fa-plus'></span> ({mod}) Entrenamiento militar</p>"
     },
     "TravelTrained": "Entrenado en viajes",
     "SpecializedIn": "Especializado en {target}",
@@ -37,6 +38,7 @@
       "topography": "Topografía",
       "versus": "Enfrentada"
     },
+    "CombatNotStarted": "Debes iniciar el combate para poder hacer ataques.",
     "Initiative": "Iniciativa",
     "Robust": "Robustez",
     "Eloquence": "Elocuencia",
@@ -132,6 +134,7 @@
         "AttacksWith": "ataca con",
         "DamageDealt": "daño"
       },
+      "Trained": "Entrenamiento militar",
       "Equiped": "Equipado",
       "Defense": "Defensa",
       "Quantity": "Cantidad",
