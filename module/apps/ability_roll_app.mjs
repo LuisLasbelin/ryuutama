@@ -62,12 +62,14 @@ class AbilityRollApp extends FormApplication {
             });
         }
         if (this.type == "marching") {
-            this.roll_bonuses.push(new RollBonus(
-                "armorhandicap",
-                game.i18n.localize('RYUUTAMA.Item.Armor.Handicap'),
-                -this.actor.system.armorHandicap,
-                false
-            ))
+            if (this.actor.system.armorHandicap > 0) {
+                this.roll_bonuses.push(new RollBonus(
+                    "armorhandicap",
+                    game.i18n.localize('RYUUTAMA.Item.Armor.Handicap'),
+                    -this.actor.system.armorHandicap,
+                    false
+                ))
+            }
         }
         if (["ability", "marching", "orientating", "camping"].includes(this.type)) {
             this.actor.items.forEach(element => {
@@ -313,7 +315,10 @@ class AbilityRollApp extends FormApplication {
                     label += game.i18n.format('RYUUTAMA.Dialog.hit', { target: token.document.name })
 
                     // Damage roll
-                    let damage_roll_string = `d${this.actor.system.abilities[this.add_roll].value}`
+                    let damage_roll_string = ''
+                    // In case of critical add 2 damage dice
+                    if (crit_result > 0) damage_roll_string += "2"
+                    damage_roll_string += `d${this.actor.system.abilities[this.add_roll].value}`
                     // Bonuses to damage
                     label += `${game.i18n.format("RYUUTAMA.Dialog.damageTo", { target: token.document.name })}`
                     this.add_roll_bonuses.forEach((bonus) => {
