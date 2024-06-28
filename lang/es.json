@@ -27,7 +27,25 @@
       "defense": "<p class='roll-shield'><span class='fa fa-shield'></span> Defiende -{amount} daño</p>",
       "eloquence": "<p class='roll-focus'><span class='fa fa-plus'></span> (+1) Elocuencia</p>",
       "damageTo": "<h3>Daña a {target}</h3>",
-      "trained": "<p class='roll-focus'><span class='fa fa-plus'></span> ({mod}) Entrenamiento militar</p>"
+      "trained": "<p class='roll-focus'><span class='fa fa-plus'></span> ({mod}) Entrenamiento militar</p>",
+      "orientating": {
+        "critical": "<p class='critical-label'>El grupo se orienta, incluso aunque la tirada sea inferior a la Topografía.</p>",
+        "hit": "<p class='hit-label'>El grupo se orienta correctamente y sigue el camino correcto.</p>",
+        "miss": "<p class='miss-label'>La velocidad se reduce a la mitad. Si el grupo viaja por el mismo Terreno al día siguiente, el Guía recibe un +1 a su próxima tirada de Orientación.</p>",
+        "bludner": "<p class='blunder-label'>El grupo viaje en círculos, volviendo al punto en el que estaban al comenzar el día.</p>"
+      },
+      "marching": {
+        "critical": "<p class='critical-label'>+1 a la Salud del personaje hasta el día siguiente.</p>",
+        "hit": "<p class='hit-label'>El personaje viaja todo el día sin sufrir daño.</p>",
+        "miss": "<p class='miss-label'>Los PG del personaje se reducen a la mitad, redondeando hacia abajo.</p>",
+        "bludner": "<p class='blunder-label'>Los PG del personaje se reducen a un cuarto, redondeando hacia abajo.</p>"
+      },
+      "camping": {
+        "critical": "<p class='critical-label'>El grupo amanece con: Sus PG y PM máximos. Además, tendrán un +1 a su tirada de Salud.</p>",
+        "hit": "<p class='hit-label'>El grupo amanece con: El doble de sus PG actuales (sin superar su máximo) y sus PM máximos.</p>",
+        "miss": "<p class='miss-label'>El grupo amanece con: Sus PG y PM actuales +2 (sin superar sus máximos).</p>",
+        "bludner": "<p class='blunder-label'>El grupo amanece con: Sus PG y PM actuales. Además, tendrán un -1 a su tirada de Salud.</p>"
+      }
     },
     "TravelTrained": "Entrenado en viajes",
     "SpecializedIn": "Especializado en {target}",

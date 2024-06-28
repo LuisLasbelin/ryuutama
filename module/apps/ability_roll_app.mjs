@@ -232,7 +232,9 @@ class AbilityRollApp extends FormApplication {
         // Result
         label += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${roll.terms[0].faces} (${roll.terms[0].results[0].result}) + d${roll.terms[2].faces} (${roll.terms[2].results[0].result})` })
         // Check for crits or fails
-        label += this._checkForCrit(roll, this.actor.system.abilities[formData.roll1].value, this.actor.system.abilities[formData.roll2].value);
+        let crit_result = this._checkForCrit(roll, this.actor.system.abilities[formData.roll1].value, this.actor.system.abilities[formData.roll2].value);
+        if (crit_result > 0) label += game.i18n.localize('RYUUTAMA.Dialog.critical');
+        if (crit_result < 0) label += game.i18n.localize('RYUUTAMA.Dialog.blunder');
 
         label += `<div class="roll-total">${roll.total}</div>`
 
@@ -243,8 +245,16 @@ class AbilityRollApp extends FormApplication {
             let region_data = game.ryuutama.getCurrentTerrainAndClimate();
             if (region_data) difficulty += CONFIG.RYUUTAMA.terrains[region_data.terrain] + CONFIG.RYUUTAMA.climates[region_data.climate]
             if (difficulty > 0) {
-                if (roll.total >= difficulty) label += game.i18n.format("RYUUTAMA.Dialog.travelhit", { difficulty: difficulty })
-                else label += game.i18n.format("RYUUTAMA.Dialog.travelmiss", { difficulty: difficulty })
+                if (roll.total >= difficulty) {
+                    label += game.i18n.format("RYUUTAMA.Dialog.travelhit", { difficulty: difficulty })
+                    if (crit_result > 0) label += game.i18n.localize('RYUUTAMA.Dialog.' + this.type + ".critical");
+                    label += game.i18n.localize('RYUUTAMA.Dialog.' + this.type + ".hit");
+                }
+                else {
+                    label += game.i18n.format("RYUUTAMA.Dialog.travelmiss", { difficulty: difficulty })
+                    if (crit_result < 0) label += game.i18n.localize('RYUUTAMA.Dialog.' + this.type + ".blunder");
+                    label += game.i18n.localize('RYUUTAMA.Dialog.' + this.type + ".miss");
+                }
             }
             else {
                 ui.notifications.error(game.i18n.localize("RYUUTAMA.UI.NoRegionEntry"));
@@ -257,30 +267,32 @@ class AbilityRollApp extends FormApplication {
 
     async weaponRoll(event, formData) {
         // Attack roll
-        let msg_content = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
+        let label = `<h2>${this.actor.name} ${game.i18n.localize('RYUUTAMA.Item.Weapon.AttacksWith')} ${this.object.name}</h2>` + this.object.system.description;
 
-        msg_content += this._useFocus(formData)
+        label += this._useFocus(formData)
         if (!this.trainedWeapon) {
             this.actor.damage(1)
-            msg_content += game.i18n.format("RYUUTAMA.Dialog.untrained", { weapon: game.i18n.localize("RYUUTAMA.Item.WeaponType." + this.object.type) })
+            label += game.i18n.format("RYUUTAMA.Dialog.untrained", { weapon: game.i18n.localize("RYUUTAMA.Item.WeaponType." + this.object.type) })
         }
 
         let attack_roll_string = `d${this.actor.system.abilities[this.ability1].value}+d${this.actor.system.abilities[this.ability2].value}`
         // Bonuses to attack
         let mods = this._getActiveMods(formData)
-        msg_content += mods.label
+        label += mods.label
         attack_roll_string += mods.mods
 
         const attack_roll = new Roll(attack_roll_string, this.actor.getRollData());
         // Invoke the roll and evaluate it to check for crits or blunders
         await attack_roll.evaluate()
         // Result
-        msg_content += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${attack_roll.terms[0].faces} (${attack_roll.terms[0].results[0].result}) + d${attack_roll.terms[2].faces} (${attack_roll.terms[2].results[0].result})` })
+        label += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${attack_roll.terms[0].faces} (${attack_roll.terms[0].results[0].result}) + d${attack_roll.terms[2].faces} (${attack_roll.terms[2].results[0].result})` })
         // Critical or blunder?
-        msg_content += this._checkForCrit(attack_roll, this.actor.system.abilities[this.ability1].value, this.actor.system.abilities[this.ability2].value)
+        let crit_result = this._checkForCrit(attack_roll, this.actor.system.abilities[this.ability1].value, this.actor.system.abilities[this.ability2].value)
+        if (crit_result > 0) label += game.i18n.localize('RYUUTAMA.Dialog.critical');
+        if (crit_result < 0) label += game.i18n.localize('RYUUTAMA.Dialog.blunder');
 
         // Show the attack result on the chat
-        msg_content += `<div class="roll-total">${attack_roll.total}</div>`
+        label += `<div class="roll-total">${attack_roll.total}</div>`
         // Get the evasion value of the main target and compare it to the roll to check if the attack hits
         let rolls_to_show = [attack_roll]
         if (game.user.targets.size > 0) { // the targets property is a Set
@@ -298,36 +310,36 @@ class AbilityRollApp extends FormApplication {
                 if (!game.combat || game.combat.round < 1) return ui.notifications.warn(game.i18n.localize("RYUUTAMA.CombatNotStarted")); // The combat is not started, exit
                 let target_evasion = Math.max(token.combatant.initiative, dodge_value)
                 if (attack_roll.total >= target_evasion) {
-                    msg_content += game.i18n.format('RYUUTAMA.Dialog.hit', { target: token.document.name })
+                    label += game.i18n.format('RYUUTAMA.Dialog.hit', { target: token.document.name })
 
                     // Damage roll
                     let damage_roll_string = `d${this.actor.system.abilities[this.add_roll].value}`
                     // Bonuses to damage
-                    msg_content += `${game.i18n.format("RYUUTAMA.Dialog.damageTo", {target: token.document.name})}`
+                    label += `${game.i18n.format("RYUUTAMA.Dialog.damageTo", { target: token.document.name })}`
                     this.add_roll_bonuses.forEach((bonus) => {
                         if (formData[bonus.id]) {
                             damage_roll_string += bonus.value
-                            msg_content += bonus.name
+                            label += bonus.name
                         }
                     })
                     const damage_roll = new Roll(damage_roll_string, this.actor.getRollData());
                     await damage_roll.evaluate()
                     let total_damage = damage_roll.total - token.document.actor.system.defense
-                    msg_content += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${damage_roll.terms[0].faces} (${damage_roll.terms[0].results[0].result})` })
-                    if(token.document.actor.system.defense > 0) msg_content += game.i18n.format('RYUUTAMA.Dialog.defense', { amount: token.document.actor.system.defense })
+                    label += game.i18n.format('RYUUTAMA.Dialog.rollResult', { formula: `d${damage_roll.terms[0].faces} (${damage_roll.terms[0].results[0].result})` })
+                    if (token.document.actor.system.defense > 0) label += game.i18n.format('RYUUTAMA.Dialog.defense', { amount: token.document.actor.system.defense })
                     rolls_to_show.push(damage_roll) // add the damage roll to show it in the dice
-                    msg_content += `<div class="damage-result">${total_damage}</span></div>`
+                    label += `<div class="damage-result">${total_damage}</span></div>`
                 }
                 else {
-                    if (dodge_value > token.combatant.initiative) msg_content += game.i18n.localize("RYUUTAMA.Dialog.blocked")
-                    msg_content += game.i18n.format('RYUUTAMA.Dialog.miss', { target: token.document.name })
+                    if (dodge_value > token.combatant.initiative) label += game.i18n.localize("RYUUTAMA.Dialog.blocked")
+                    label += game.i18n.format('RYUUTAMA.Dialog.miss', { target: token.document.name })
                 }
-                this._emitRollMessage(rolls_to_show, msg_content)
+                this._emitRollMessage(rolls_to_show, label)
                 return;
             });
-        }
+        } // if has targets
         else {
-            this._emitRollMessage(rolls_to_show, msg_content)
+            this._emitRollMessage(rolls_to_show, label)
         }
         return;
     }
@@ -335,13 +347,13 @@ class AbilityRollApp extends FormApplication {
     /**
      * Sends a message with the following elements
      * @param {*} rolls_to_show array of rolls
-     * @param {*} msg_content html element in string for body
+     * @param {*} label html element in string for body
      */
-    _emitRollMessage(rolls_to_show, msg_content) {
+    _emitRollMessage(rolls_to_show, label) {
         let chatData = {
             type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             rolls: rolls_to_show,
-            content: msg_content
+            content: label
         };
         ChatMessage.applyRollMode(chatData, "roll");
         ChatMessage.create(chatData);
@@ -352,13 +364,13 @@ class AbilityRollApp extends FormApplication {
      * @param {*} roll an evaluated roll
      * @param {*} roll1_max
      * @param {*} roll2_max
-     * @returns 
+     * @returns number 1 for critical, -1 for blunder and 0 for none
      */
     _checkForCrit(roll, roll1_max, roll2_max) {
-        if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return game.i18n.localize('RYUUTAMA.Dialog.critical');
-        if (roll.result[0] == 6 && roll.result[4] == 6) return game.i18n.localize('RYUUTAMA.Dialog.critical');
-        if (roll.result[0] == 1 && roll.result[4] == 1) return game.i18n.localize('RYUUTAMA.Dialog.blunder');
-        return ""
+        if (roll.result[0] == roll1_max && roll.result[4] == roll2_max) return 1; // critical
+        if (roll.result[0] == 6 && roll.result[4] == 6) 1; // critical
+        if (roll.result[0] == 1 && roll.result[4] == 1) -1; // blunder
+        return 0
     }
 }
 
