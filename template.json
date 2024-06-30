@@ -8,24 +8,16 @@
       "base": {
         "abilities": {
           "Str": {
-            "value": 4,
-            "base": 4,
-            "mod": 0
+            "value": 4
           },
           "Dex": {
-            "value": 4,
-            "base": 4,
-            "mod": 0
+            "value": 4
           },
           "Int": {
-            "value": 4,
-            "base": 4,
-            "mod": 0
+            "value": 4
           },
           "Spi": {
-            "value": 4,
-            "base": 4,
-            "mod": 0
+            "value": 4
           }
         },
         "health": {
@@ -33,37 +25,24 @@
           "base": 2,
           "min": 2,
           "max": 20,
-          "ability": "Str",
-          "mod": 0
+          "ability": "Str"
         },
         "hitpoints": {
           "value": 8,
           "min": 0,
-          "max": 8,
-          "mod": 0
+          "max": 8
         },
         "mindpoints": {
           "value": 8,
           "min": 0,
-          "max": 8,
-          "mod": 0
+          "max": 8
         },
         "load": {
           "value": 0,
           "min": 0,
-          "max": 0,
-          "mod": 0
+          "max": 0
         },
         "biography": "",
-        "defense": 0,
-        "status": {
-          "wounded": 0,
-          "poisoned": 0,
-          "ill": 0,
-          "fatigued": 0,
-          "dizzy": 0,
-          "shocked": 0
-        },
         "initiative": ""
       }
     },
@@ -78,12 +57,10 @@
         }
       },
       "class": "",
+      "role": "",
       "archetype": "",
       "coins": 0,
-      "speciality": "",
-      "blunderPoints": 0,
-      "techInitiative": 0,
-      "armorHandicap": 0
+      "blunderPoints": 0
     },
     "npc": {
       "templates": [
@@ -102,7 +79,8 @@
       "shield",
       "armor",
       "feature",
-      "class"
+      "class",
+      "effect"
     ],
     "templates": {
       "base": {
@@ -220,6 +198,11 @@
         "base"
       ],
       "features": []
+    },
+    "effect": {
+      "templates": [
+        "base"
+      ]
     }
   },
   "JournalEntryPage": {

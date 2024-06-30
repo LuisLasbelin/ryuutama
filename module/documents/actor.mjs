@@ -16,25 +16,6 @@ export class RyuutamaActor extends Actor {
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
-    // Set the ability values
-    this.update({
-      system: {
-        abilities: {
-          Str: {
-            value: this.system.abilities.Str.base + this.system.abilities.Str.mod
-          },
-          Dex: {
-            value: this.system.abilities.Dex.base + this.system.abilities.Dex.mod
-          },
-          Int: {
-            value: this.system.abilities.Int.base + this.system.abilities.Int.mod
-          },
-          Spi: {
-            value: this.system.abilities.Spi.base + this.system.abilities.Spi.mod
-          }
-        }
-      }
-    })
   }
 
   /**
@@ -55,6 +36,7 @@ export class RyuutamaActor extends Actor {
     // things organized.
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
+    this._prepareLoad(actorData);
   }
 
   /**
@@ -66,19 +48,11 @@ export class RyuutamaActor extends Actor {
     const systemData = actorData.system;
 
     // Values for max hp and max mp
-    this.update({
-      system: {
-        hitpoints: {
-          max: this.system.abilities.Str.value * 2 + this.system.hitpoints.mod
-        },
-        mindpoints: {
-          max: this.system.abilities.Spi.value * 2 + this.system.mindpoints.mod
-        },
-        load: {
-          max: this.system.abilities.Str.value + 3 + this.system.load.mod
-        }
-      }
-    })
+    systemData.hitpoints.max = this.system.abilities.Str.value * 2
+    systemData.hitpoints.value = Math.min(systemData.hitpoints.value, systemData.hitpoints.max) // avoid over max
+    systemData.mindpoints.max = this.system.abilities.Spi.value * 2
+    systemData.mindpoints.value = Math.min(systemData.mindpoints.value, systemData.mindpoints.max) // avoid over max
+    systemData.load.max = this.system.abilities.Str.value + 3
 
     if (systemData.archetype == "offensive") {
       systemData.hitpoints.mod += 4
@@ -120,45 +94,8 @@ export class RyuutamaActor extends Actor {
       }
     }
 
-    // Apply new modifiers
-    systemData.load.max += systemData.load.mod
-    systemData.hitpoints.max += systemData.hitpoints.mod
-    systemData.mindpoints.max += systemData.mindpoints.mod
-    systemData.health.value = systemData.health.base + systemData.health.mod
-
-    // When positive health add to one ability mod, this modifier must not affect other calculations
-    if (systemData.health.value > 9) {
-      systemData.abilities[systemData.health.ability].mod += 2
-    }
-
-    // Add modifiers for each status effect
-    if (systemData.health.value < systemData.status.wounded) {
-      systemData.abilities.Str.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.poisoned) {
-      systemData.abilities.Dex.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.dizzy) {
-      systemData.abilities.Int.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.fatigued) {
-      systemData.abilities.Spi.mod -= 2;
-    }
-    if (systemData.health.value < systemData.status.ill || systemData.health.value < systemData.status.shocked) {
-      systemData.abilities.Spi.mod -= 2;
-      systemData.abilities.Dex.mod -= 2;
-      systemData.abilities.Str.mod -= 2;
-      systemData.abilities.Int.mod -= 2;
-    }
-
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    for (let [key, ability] of Object.entries(systemData.abilities)) {
-      // Set the total clamped between 4 and 12
-      ability.value = Math.min(Math.max(ability.base + ability.mod, 4), 12);
-    }
-
     // Default initiative roll
-    systemData.initiative = `d${systemData.abilities.Dex.value}+d${systemData.abilities.Spi.value}+${systemData.techInitiative}-${systemData.armorHandicap}`
+    systemData.initiative = `d${systemData.abilities.Dex}+d${systemData.abilities.Spi}+${systemData.techInitiative}-${systemData.armorHandicap}`
 
     // Prepare defense value
     // Iterate through items, calculate total defense for characters
@@ -184,6 +121,30 @@ export class RyuutamaActor extends Actor {
     systemData.xp = systemData.cr * systemData.cr * 100;
   }
 
+  /**
+   * Calculate the current load value from items
+   * @param {*} actorData 
+   */
+  _prepareLoad(actorData) {
+    const systemData = actorData.system;
+
+    let total_load = 0;
+    actorData.items.forEach(i => {
+      console.log(i)
+      if (i.system.size > 0) {
+        // Only if the items has a size
+        let item_size = i.system.size
+        // if is stackable then multiply by the quantity
+        if (i.system.quantity > 0) item_size *= i.system.quantity
+        if (!i.system.equiped) {
+          // if the item is NOT equiped (or can't equip it), add its size
+          total_load += i.system.size;
+        }
+      }
+    });
+    console.log(systemData)
+    systemData.load.value = total_load;
+  }
 
   /**
    * Override getRollData() that's supplied to rolls.

@@ -132,8 +132,8 @@ export class RyuutamaActorSheet extends ActorSheet {
     const shields = [];
     const armor = [];
     const containers = [];
+    const effects = [];
     let wealth = 0;
-    let total_load = 0;
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || Item.DEFAULT_ICON;
@@ -157,14 +157,11 @@ export class RyuutamaActorSheet extends ActorSheet {
       else if (i.type === "shield") {
         shields.push(i)
       }
+      else if (i.type === "effect") {
+        effects.push(i)
+      }
 
       wealth += i.system.price ?? 0;
-
-      // Optional size to add up, if it equiped it doesn't count on the load
-      if (i.system.size) {
-        let quantity = i.system.quantity ?? 1
-        if (i.system.equiped != true) total_load += i.system.size * quantity
-      }
     }
 
     // Assign and return
@@ -175,18 +172,10 @@ export class RyuutamaActorSheet extends ActorSheet {
     context.features = features;
     context.weapons = weapons;
     context.containers = containers;
-    context.total_load = total_load;
+    context.effects = effects;
     context.max_load = context.system.load.max
-    context.percentile_load = total_load * 100 / (context.max_load + context.system.load.mod);
+    context.percentile_load = context.system.load.value * 100 / context.system.load.max;
     context.positiveHealth = context.system.health.value > 9;
-
-    this.actor.update({
-      system: {
-        load: {
-          value: total_load
-        }
-      }
-    });
   }
 
   /**

@@ -278,7 +278,8 @@
       "class": "Clase",
       "shield": "Escudo",
       "armor": "Armadura",
-      "container": "Recipiente"
+      "container": "Recipiente",
+      "effect": "Efecto"
     },
     "JournalPage": {
       "region": "Región"

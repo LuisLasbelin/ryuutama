@@ -4,7 +4,7 @@
     <div>
       <div class="flexrow" style="width: 50%;">
         <span class="flexshrink">{{localize "RYUUTAMA.Load"}}</span>
-        <div style="align-items: center; justify-content:center;" class="flexrow">({{total_load}} /
+        <div style="align-items: center; justify-content:center;" class="flexrow">({{system.load.value}} /
           {{#if isNpc}}
           <input class="flexshrink input-small" type="number" name="system.load.max" value={{system.load.max}}>
           {{else}}
