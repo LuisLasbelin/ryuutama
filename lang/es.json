@@ -189,9 +189,9 @@
     },
     "Status": {
       "Wounded": "Herido",
-      "WoundedEffect": "Reduce FUE 1 grado",
+      "WoundedEffect": "Reduce DES 1 grado",
       "Poisoned": "Envenenado",
-      "PoisonedEffect": "Reduce DES 1 grado",
+      "PoisonedEffect": "Reduce FUE 1 grado",
       "Ill": "Enfermo",
       "IllEffect": "Reduce TODO 1 grado",
       "Fatigued": "Fatigado",

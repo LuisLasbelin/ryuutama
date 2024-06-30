@@ -8,16 +8,20 @@
       "base": {
         "abilities": {
           "Str": {
-            "value": 4
+            "value": 4,
+            "base": 4
           },
           "Dex": {
-            "value": 4
+            "value": 4,
+            "base": 4
           },
           "Int": {
-            "value": 4
+            "value": 4,
+            "base": 4
           },
           "Spi": {
-            "value": 4
+            "value": 4,
+            "base": 4
           }
         },
         "health": {
@@ -44,11 +48,70 @@
         },
         "biography": "",
         "initiative": ""
+      },
+      "conditions": {
+        "conditions": {
+          "wounded": {
+            "value": 0,
+            "abilities": [
+              "Dex"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/wounded.png"
+          },
+          "fatigued": {
+            "value": 0,
+            "abilities": [
+              "Spi"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/fatigued.png"
+          },
+          "poisoned": {
+            "value": 0,
+            "abilities": [
+              "Str"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/poisoned.png"
+          },
+          "dizzy": {
+            "value": 0,
+            "abilities": [
+              "Int"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/dizzy.png"
+          },
+          "ill": {
+            "value": 0,
+            "abilities": [
+              "Str",
+              "Dex",
+              "Int",
+              "Spi"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/ill.png"
+          },
+          "shocked": {
+            "value": 0,
+            "abilities": [
+              "Str",
+              "Dex",
+              "Int",
+              "Spi"
+            ],
+            "change": -2,
+            "icon": "systems/ryuutama/assets/shocked.png"
+          }
+        }
       }
     },
     "character": {
       "templates": [
-        "base"
+        "base",
+        "conditions"
       ],
       "attributes": {
         "level": {
@@ -206,10 +269,12 @@
     }
   },
   "JournalEntryPage": {
-		"types": ["region"],
-		"region": {
+    "types": [
+      "region"
+    ],
+    "region": {
       "terrain": "forest",
       "climate": "sun"
-		}
-	}
+    }
+  }
 }

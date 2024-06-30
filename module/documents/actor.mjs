@@ -37,6 +37,7 @@ export class RyuutamaActor extends Actor {
     this._prepareCharacterData(actorData);
     this._prepareNpcData(actorData);
     this._prepareLoad(actorData);
+    this._prepareHealthConditions(actorData);
   }
 
   /**
@@ -46,6 +47,12 @@ export class RyuutamaActor extends Actor {
     if (actorData.type !== "character") return;
     // Make modifications to data here. For example:
     const systemData = actorData.system;
+
+
+    systemData.abilities.Str.value = systemData.abilities.Str.base
+    systemData.abilities.Dex.value = systemData.abilities.Dex.base
+    systemData.abilities.Int.value = systemData.abilities.Int.base
+    systemData.abilities.Spi.value = systemData.abilities.Spi.base
 
     // Values for max hp and max mp
     systemData.hitpoints.max = this.system.abilities.Str.value * 2
@@ -130,7 +137,6 @@ export class RyuutamaActor extends Actor {
 
     let total_load = 0;
     actorData.items.forEach(i => {
-      console.log(i)
       if (i.system.size > 0) {
         // Only if the items has a size
         let item_size = i.system.size
@@ -142,8 +148,37 @@ export class RyuutamaActor extends Actor {
         }
       }
     });
-    console.log(systemData)
     systemData.load.value = total_load;
+  }
+
+  /**
+   * Prepare the conditions affected by health
+   * @param {*} actorData 
+   */
+  _prepareHealthConditions(actorData) {
+    if (actorData.type != "character") return
+    const systemData = actorData.system;
+
+    for (const key in systemData.conditions) {
+      if (systemData.conditions[key].value > systemData.health.value) {
+        // Apply the condition for all abilities assigned to the condition
+        systemData.conditions[key].abilities.forEach(ability => {
+          let new_value = systemData.abilities[ability].value + systemData.conditions[key].change
+          systemData.abilities[ability].value = Math.max(4, Math.min(new_value, 20)) // avoid going off limits for PCs
+        });
+        // Token status icon
+        console.log("Applied " + key)
+        actorData.effects.set(key, new ActiveEffect({
+          name: key,
+          icon: systemData.conditions[key].icon,
+          statuses: (key)
+        }))
+      }
+      else {
+        console.log("Removed " + key)
+        actorData.effects.delete(key)
+      }
+    }
   }
 
   /**

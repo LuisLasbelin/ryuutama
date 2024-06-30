@@ -13,10 +13,10 @@ class EditAbilitiesApp extends FormApplication {
   getData() {
     // Send data to the template
     return {
-      Str: this.object.system.abilities.Str.value,
-      Dex: this.object.system.abilities.Dex.value,
-      Int: this.object.system.abilities.Int.value,
-      Spi: this.object.system.abilities.Spi.value,
+      Str: this.object.system.abilities.Str.base,
+      Dex: this.object.system.abilities.Dex.base,
+      Int: this.object.system.abilities.Int.base,
+      Spi: this.object.system.abilities.Spi.base,
       archetype: this.object.system.archetype
     };
   }
@@ -28,16 +28,16 @@ class EditAbilitiesApp extends FormApplication {
   async _updateObject(event, formData) {
     const values = {
       Str: {
-        value: parseInt(formData.Str),
+        base: parseInt(formData.Str),
       },
       Dex: {
-        value: parseInt(formData.Dex)
+        base: parseInt(formData.Dex)
       },
       Int: {
-        value: parseInt(formData.Int)
+        base: parseInt(formData.Int)
       },
       Spi: {
-        value: parseInt(formData.Spi)
+        base: parseInt(formData.Spi)
       }
     }
     const archetype = formData.archetype
